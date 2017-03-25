@@ -27,15 +27,18 @@ cd vulkan
 python setup.py install
 ```
 
+
 ## How to use
 
 To understand how to use this wrapper, you must look into `exemple/exemple.py` or
 refer to [Vulk](https://github.com/realitix/vulk) engine.
 
+
 ## How to contribute
 
 To contribute, you should first read the `How it works` section.
 Any contribution is welcome and I answer quickly.
+
 
 ## Architecture
 
