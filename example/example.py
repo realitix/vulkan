@@ -1,8 +1,11 @@
+# coding: utf-8
+
 # flake8: noqa
 import ctypes
 import os
 import sdl2
 import sdl2.ext
+import time
 from vulkan import *
 
 
@@ -651,15 +654,19 @@ def draw_frame():
 
 # Main loop
 running = True
+if sys.version_info >= (3, 0):
+    clock = time.perf_counter
+else:
+    clock = time.clock
+
 #running = False
 i = 0
-import time
-last_time = time.perf_counter() * 1000
+last_time = clock() * 1000
 fps = 0
 while running:
     fps += 1
-    if time.perf_counter() * 1000 - last_time >= 1000:
-        last_time = time.perf_counter() * 1000
+    if clock() * 1000 - last_time >= 1000:
+        last_time = clock() * 1000
         print("FPS: %s" % fps)
         fps = 0
 

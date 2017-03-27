@@ -7,6 +7,8 @@
 *vulkan* is a Python extension which supports the Vulkan API. It leverages power of Vulkan with simplicity of Python.
 It's a complete Vulkan wrapper, it keeps the original Vulkan API and try to limit differences induced by Python.
 
+*vulkan* is compatible with Python 2 and 3 but please use Python 3 !
+
 ## How to install
 
 ### Pip

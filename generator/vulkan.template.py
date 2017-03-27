@@ -189,7 +189,10 @@ def _new(ctype, **kwargs):
             ptrs[k] = _cast_ptr(v, ktype)
 
     # init object
-    init = dict(kwargs,  **{k: v for k, (v, _) in ptrs.items()}, **pfns, **pcs)
+    init = dict(kwargs,  **{k: v for k, (v, _) in ptrs.items()})
+    init.update(pfns)
+    init.update(pcs)
+
     ret = ffi.new(_type.cname + '*', init)[0]
 
     # reference created pointer in the object
