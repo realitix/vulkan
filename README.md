@@ -1,5 +1,5 @@
 <p align="center">
-![logo](https://cdn.rawgit.com/realitix/vulkan/182062bc/logo/cvulkan-180x180.png)
+<img src="https://cdn.rawgit.com/realitix/vulkan/182062bc/logo/cvulkan-180x180.png" />
 </p>
 
 # Vulkan
