@@ -24,11 +24,11 @@ appInfo = VkApplicationInfo(
     apiVersion=VK_API_VERSION_1_0)
 
 extensions = vkEnumerateInstanceExtensionProperties(None)
-extensions = [cstr(e.extensionName) for e in extensions]
+extensions = [e.extensionName for e in extensions]
 print("availables extensions: %s\n" % extensions)
 
 layers = vkEnumerateInstanceLayerProperties()
-layers = [cstr(l.layerName) for l in layers]
+layers = [l.layerName for l in layers]
 print("availables layers: %s\n" % layers)
 
 layers = ['VK_LAYER_LUNARG_standard_validation']
@@ -54,7 +54,7 @@ vkDestroyDebugReportCallbackEXT = vkGetInstanceProcAddr(
     "vkDestroyDebugReportCallbackEXT")
 
 def debugCallback(*args):
-    print('DEBUG: ' + cstr(args[5]) + ' ' + cstr(args[6]))
+    print('DEBUG: ' + args[5] + ' ' + args[6])
     return 0
 
 debug_create = VkDebugReportCallbackCreateInfoEXT(
@@ -142,9 +142,9 @@ physical_devices_features = {physical_device: vkGetPhysicalDeviceFeatures(physic
 physical_devices_properties = {physical_device: vkGetPhysicalDeviceProperties(physical_device)
                       for physical_device in physical_devices}
 physical_device = physical_devices[0]
-print("availables devices: %s" % [cstr(p.deviceName)
+print("availables devices: %s" % [p.deviceName
                                   for p in physical_devices_properties.values()])
-print("selected device: %s\n" % cstr(physical_devices_properties[physical_device].deviceName))
+print("selected device: %s\n" % physical_devices_properties[physical_device].deviceName)
 
 
 # ----------
@@ -175,7 +175,7 @@ print("indice of selected queue families, graphic: %s, presentation: %s\n" % (
 # ----------
 # Create logical device and queues
 extensions = vkEnumerateDeviceExtensionProperties(physicalDevice=physical_device, pLayerName=None)
-extensions = [cstr(e.extensionName) for e in extensions]
+extensions = [e.extensionName for e in extensions]
 print("availables device extensions: %s\n" % extensions)
 
 queues_create = [VkDeviceQueueCreateInfo(sType=VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,

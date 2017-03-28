@@ -5,10 +5,11 @@ import sys
 from vulkan._vulkan import ffi
 
 
-__version__ = '1.1.0'
+__version__ = '1.2.0'
 
 
 _weakkey_dict = _weakref.WeakKeyDictionary()
+PY3 = sys.version_info >= (3, 0)
 
 
 class PlatformNotSupportedError(Exception):
@@ -23,11 +24,46 @@ class ExtensionNotSupportedError(Exception):
     pass
 
 
-def cstr(c_char):
-    if sys.version_info < (3, 0):
-        return ffi.string(c_char)
+def _cstr(x):
+    if not isinstance(x, ffi.CData) or ffi.typeof(x).item.cname != 'char':
+        return x
+
+    if PY3:
+        return ffi.string(x).decode('ascii')
     else:
-        return ffi.string(c_char).decode('ascii')
+        return ffi.string(x)
+
+
+class _StrWrap():
+    """Wrap a FFI Cdata object
+
+    This class is a proxy class which auto-convert FFI string to Python
+    string. It must be used only on object containing string data.
+    Original CFFI string can always be accessed by prefixing the property with
+    an underscore.
+    """
+    def __init__(self, obj):
+        self.obj = obj
+
+    def __setattr__(self, key, value):
+        if key == 'obj':
+            return super().__setattr__(key, value)
+
+        setattr(self.obj, key, value)
+
+    def __getattr__(self, key):
+        try:
+            attr = getattr(self.obj, key)
+        except AttributeError as origin_exc:
+            # Remove the first underscore if exists
+            if key.startswith('_'):
+                try:
+                    return getattr(self.obj, key[1:])
+                except AttributeError:
+                    raise origin_exc
+            raise origin_exc
+
+        return _cstr(attr)
 
 
 def _cast_ptr2(x, _type):
@@ -151,8 +187,8 @@ _exception_codes = {
 _internal_{{fname}} = None
 
 @ffi.callback('{{name}}')
-def _external_{{fname}}(*args, **kwargs):
-    return _internal_{{fname}}(*args, **kwargs)
+def _external_{{fname}}(*args):
+    return _internal_{{fname}}(*[_cstr(x) for x in args])
 {% endfor %}
 
 
@@ -290,12 +326,14 @@ def {{f.name}}({{params_def(f)}}):
         raise _exception_codes[result]
     {% endif %}
 
-    {% set return_value = rmember.name %}
-    {% if not rmember.static_count %}
-        {% set return_value = return_value ~ '[0]' %}
+    {% if not rmember.static_count and not rmember.has_str %}
+    return {{rmember.name}}[0]
+    {% elif not rmember.static_count and rmember.has_str %}
+    return _StrWrap({{rmember.name}}[0])
+    {% else %}
+    return {{rmember.name}}
     {% endif %}
 
-    return {{return_value}}
 {% endmacro %}
 
 {% macro fun_count(f) %}
@@ -321,7 +359,13 @@ def {{f.name}}({{params_def(f)}}):
         raise _exception_codes[result]
     {% endif %}
 
+    {% if amember.has_str %}
+    result = (_StrWrap(x) for x in {{amember.name}})
+    _weakkey_dict[result] = {{amember.name}}
+    return result
+    {% else %}
     return {{amember.name}}
+    {% endif %}
 {% endmacro %}
 
 {% macro fun_noallocate(f) %}

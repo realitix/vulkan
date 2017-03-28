@@ -260,7 +260,8 @@ def model_constructors(vk, model):
     for struct in structs:
         model['constructors'].append({
             'name': struct['@name'],
-            'members': [{'name': x['name']} for x in struct['member']]
+            'members': [{'name': x['name'], 'type': x['type']}
+                        for x in struct['member']]
         })
 
 
@@ -282,6 +283,13 @@ def model_functions(vk, model):
                 return param
         return None
 
+    def member_has_str(name):
+        c = next(iter([x for x in model['constructors']
+                       if x['name'] == name]), None)
+        if c and any(['char' in x['type'] for x in c['members']]):
+            return True
+        return False
+
     def format_member(member):
         type_name = member['type']
         if '#text' in member:
@@ -292,7 +300,8 @@ def model_functions(vk, model):
                 'type': member['type'],
                 'none': member['name'] in NULL_MEMBERS,
                 'force_array': True if '@len' in member else False,
-                'to_create': False}
+                'to_create': False,
+                'has_str': member_has_str(member['type'])}
 
     def format_return_member(member):
         t = member['type']
@@ -310,7 +319,8 @@ def model_functions(vk, model):
                 'handle': is_handle,
                 'enum': is_enum,
                 'struct': is_struct,
-                'static_count': static_count}
+                'static_count': static_count,
+                'has_str': member_has_str(member['type'])}
 
     ALLOCATE_PREFIX = ('vkCreate', 'vkGet', 'vkEnumerate', 'vkAllocate',
                        'vkMap', 'vkAcquire')
