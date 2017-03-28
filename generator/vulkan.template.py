@@ -5,7 +5,7 @@ import sys
 from vulkan._vulkan import ffi
 
 
-__version__ = '1.2.0'
+__version__ = '1.3.0'
 
 
 _weakkey_dict = _weakref.WeakKeyDictionary()
@@ -25,7 +25,11 @@ class ExtensionNotSupportedError(Exception):
 
 
 def _cstr(x):
-    if not isinstance(x, ffi.CData) or ffi.typeof(x).item.cname != 'char':
+    if not isinstance(x, ffi.CData):
+        return x
+
+    t = ffi.typeof(x)
+    if 'item' not in dir(t) or t.item.cname != 'char':
         return x
 
     if PY3:
@@ -437,3 +441,13 @@ def vkGetDeviceProcAddr(device, pName):
         raise ExtensionNotSupportedError()
     fn = ffi.cast('PFN_'+pName, fn)
     return _device_ext_funcs[pName](fn)
+
+
+def vkMapMemory(device, memory, offset, size, flags):
+    ppData = ffi.new('void**')
+
+    result = _callApi(_lib.vkMapMemory, device,memory,offset,size,flags,ppData)
+    if result != VK_SUCCESS:
+        raise _exception_codes[result]
+
+    return ffi.buffer(ppData[0], size)
