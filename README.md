@@ -99,6 +99,12 @@ Here the basic steps:
 You can checkout my blog, I speak about *vulkan*:
 [Blog](https://realitix.github.io)
 
+## Stay in touch
+
+You can contact me by opening issue (bug or interesting discussion about
+the project). If you want a fast and pleasant talk, join the irc channel:
+`##vulkan` (I'm realitix). I'm connected from 9AM to 6PM (France).
+
 ## History
 
 This module comes from a long journey. I have first created [CVulkan](https://github.com/realitix/cvulkan).
