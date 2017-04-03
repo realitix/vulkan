@@ -5,7 +5,7 @@ import sys
 from vulkan._vulkan import ffi
 
 
-__version__ = '1.3.0'
+__version__ = '1.4.0'
 
 
 _weakkey_dict = _weakref.WeakKeyDictionary()
@@ -106,7 +106,7 @@ else:
 if sys.platform == 'win32':
     _lib = ffi.dlopen('vulkan-1.dll')
 elif sys.platform.startswith('linux'):
-    _lib = ffi.dlopen('libvulkan.so')
+    _lib = ffi.dlopen('libvulkan.so.1')
 else:
     raise PlatformNotSupportedError()
 
