@@ -12,10 +12,6 @@ _weakkey_dict = _weakref.WeakKeyDictionary()
 PY3 = sys.version_info >= (3, 0)
 
 
-class PlatformNotSupportedError(Exception):
-    pass
-
-
 class ProcedureNotFoundError(Exception):
     pass
 
@@ -103,12 +99,16 @@ else:
     _cast_ptr = _cast_ptr3
 
 
-if sys.platform == 'win32':
-    _lib = ffi.dlopen('vulkan-1.dll')
-elif sys.platform.startswith('linux'):
-    _lib = ffi.dlopen('libvulkan.so.1')
+# Load SDK
+_lib_names = ('libvulkan.so', 'libvulkan.so.1', 'vulkan-1.dll')
+for name in _lib_names:
+    try:
+        _lib = ffi.dlopen(name)
+        break
+    except OSError:
+        pass
 else:
-    raise PlatformNotSupportedError()
+    raise OSError('cannot load library ' + ' or '.join(_lib_names))
 
 
 {# Add enums #}

@@ -55,6 +55,76 @@ Known errors :
 `vulkan.VkErrorExtensionNotPresent` means your have installed the Vulkan SDK but your driver doesn't support it.
 
 
+### API
+
+*vulkan* gives access to all the Vulkan API, including extension functions.
+
+#### Structs
+
+All structs must be initialized with keyword parameters. Here's an exemple:
+
+```python
+import vulkan as vk
+
+createInfo = vk.VkInstanceCreateInfo(
+    sType=vk.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+    flags=0,
+    pApplicationInfo=appInfo,
+    enabledExtensionCount=len(extensions),
+    ppEnabledExtensionNames=extensions,
+    enabledLayerCount=len(layers),
+    ppEnabledLayerNames=layers
+)
+```
+
+It will be one of the first struct you will call. Like you can see, to
+create the struct, you must pass all parameters at creation time. You
+can see that I provide Python `list`, indeed, the wrapper converts everything
+for us into native Vulkan types.
+
+#### Functions
+
+*vulkan* will help you a lot when calling function. In Vulkan API, there are three
+kinds of function:
+
+  - functions that create nothing
+  - functions that create one object
+  - functions that create several objects
+
+*vulkan* takes care of you and knows when it has to return `None`, an object
+or a `list`. Here an exemple:
+
+```python
+# Create one object
+instance = vk.vkCreateInstance(pCreateInfo=createInfo)
+
+# Create a list of object
+extensions = vk.vkEnumerateDeviceExtensionProperties(
+    physicalDevice=physical_device,
+    pLayerName=None)
+
+# Return None
+vk.vkQueuePresentKHR(presentation_queue, present_create)
+```
+
+Vulkan functions usually return a `VkResult`. *vulkan* is pythonic and
+converts it to exception: if the result is not `VK_SUCCESS`, an exception is
+raised.
+
+#### Exceptions
+
+Exceptions extends `VkError` or `VkException`. When you look at Vulkan API
+documentation, functions can return either an error code or a success code.
+Success code is not always `VK_SUCCESS`, it can be `VK_NOT_READY` for example.
+Error codes extend `VkError`, success codes extend `VkException`.
+Exception names are *pythonized*: `VK_NOT_READY` -> `VkNotReady`.
+
+#### Constants
+
+All Vulkan constants are available in *vulkan* and it provides some fancy
+constants like `UINT64_MAX`.
+
+
 ### Ressources
 
 To understand how to use this wrapper, you must look into `example/example.py` or
