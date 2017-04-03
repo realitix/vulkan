@@ -36,6 +36,27 @@ python setup.py install
 
 ## How to use
 
+### Getting started
+
+To try this wrapper, execute the following commands (on linux):
+
+```bash
+git clone https://github.com/realitix/vulkan.git
+cd vulkan
+python setup.py install
+pip install pysdl2
+python example/example.py
+```
+
+Known errors :
+
+`OSError: cannot load library 'libvulkan.so'` means you didn't install the [Vulkan SDK](https://vulkan.lunarg.com/).
+
+`vulkan.VkErrorExtensionNotPresent` means your have installed the Vulkan SDK but your driver doesn't support it.
+
+
+### Ressources
+
 To understand how to use this wrapper, you must look into `example/example.py` or
 refer to [Vulk](https://github.com/realitix/vulk) engine.
 
