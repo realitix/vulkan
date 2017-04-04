@@ -57,30 +57,61 @@ Known errors :
 
 ### API
 
-*vulkan* gives access to all the Vulkan API, including extension functions.
+The *vulkan* wrapper gives you complete access to the Vulkan API, including extension functions.
+
+
+### Code convention
+
+Similar to Vulkan, structs are prefixed with Vk, enumeration values are prefixed with VK_
+and functions are prefixed with vk. However, struct creation is done through functions.
+If you want to create the struct `VkInstanceCreateInfo`, you must call the function
+`VkInstanceCreateInfo` with named parameters.
+
 
 #### Structs
 
-All structs must be initialized with keyword parameters. Here's an exemple:
+All structs must be initialized with keyword parameters. Here's an example.
+To create the Vulkan struct `VkInstanceCreateInfo`, in **C++** we write:
+
+```C
+VkInstanceCreateInfo instance_create_info = {
+    VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO, // sType
+    nullptr, // pNext
+    0, // flags
+    &application_info, // *pApplicationInfo
+    3, // enabledLayerCount
+    &layers, // *ppEnabledLayerNames
+    3, // enabledExtensionCount
+    &extensions // *ppEnabledExtensionNames
+};
+```
+
+Here, our *vulkan* wrapper equivalent of the above **C++** code is :
 
 ```python
 import vulkan as vk
 
-createInfo = vk.VkInstanceCreateInfo(
+instance_create_info = vk.VkInstanceCreateInfo(
     sType=vk.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+    pNext=None,
     flags=0,
-    pApplicationInfo=appInfo,
+    pApplicationInfo=application_info,
+    enabledLayerCount=len(layers),
+    ppEnabledLayerNames=layers,
     enabledExtensionCount=len(extensions),
     ppEnabledExtensionNames=extensions,
-    enabledLayerCount=len(layers),
-    ppEnabledLayerNames=layers
 )
 ```
 
-It will be one of the first struct you will call. Like you can see, to
-create the struct, you must pass all parameters at creation time. You
-can see that I provide Python `list`, indeed, the wrapper converts everything
-for us into native Vulkan types.
+Like you can see, to create the struct, you must pass all parameters at creation time.
+I provide Python `list` for `ppEnabledLayerNames` and `ppEnabledExtensionNames`,
+indeed, the wrapper converts everything for us into native C types.
+
+*Note:*
+
+- Default value is `None` for all parameters so you could have omitted `pNext` (because its value is `None`).
+- Order of parameters doesn't matter since they are keyword parameters.
+- The **C++** counterpart is more risky because you must pass all parameters in specific order.
 
 #### Functions
 
