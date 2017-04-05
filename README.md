@@ -2,11 +2,31 @@
 <img src="https://cdn.rawgit.com/realitix/vulkan/182062bc/logo/cvulkan-180x180.png" />
 </p>
 
-<p align="center">
-<em>vulkan</em>
-</p>
 
-> The ultimate Python binding for Vulkan API
+> *vulkan*, the ultimate Python binding for Vulkan API
+
+
+# Table of Contents
+
+      * [Presentation](#presentation)
+      * [How to install](#how-to-install)
+         * [Pip](#pip)
+         * [Manual install](#manual-install)
+      * [How to use](#how-to-use)
+         * [Getting started](#getting-started)
+         * [API](#api)
+         * [Code convention](#code-convention)
+            * [Structs](#structs)
+            * [Functions](#functions)
+            * [Exceptions](#exceptions)
+            * [Constants](#constants)
+         * [Ressources](#ressources)
+      * [How to contribute](#how-to-contribute)
+      * [Architecture](#architecture)
+      * [Community](#community)
+      * [Stay in touch](#stay-in-touch)
+      * [History](#history)
+      * [Supported By](#supported-by)
 
 ## Presentation
 
