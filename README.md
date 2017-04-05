@@ -2,7 +2,9 @@
 <img src="https://cdn.rawgit.com/realitix/vulkan/182062bc/logo/cvulkan-180x180.png" />
 </p>
 
-# Vulkan
+<p align="center">
+<em>vulkan</em>
+</p>
 
 > The ultimate Python binding for Vulkan API
 
