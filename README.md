@@ -63,15 +63,17 @@ The *vulkan* wrapper gives you complete access to the Vulkan API, including exte
 ### Code convention
 
 Similar to Vulkan, structs are prefixed with Vk, enumeration values are prefixed with VK_
-and functions are prefixed with vk. However, struct creation is done through functions.
-If you want to create the struct `VkInstanceCreateInfo`, you must call the function
-`VkInstanceCreateInfo` with named parameters.
+and functions are prefixed with vk.
 
 
 #### Structs
 
-All structs must be initialized with keyword parameters. Here's an example.
-To create the Vulkan struct `VkInstanceCreateInfo`, in **C++** we write:
+Vulkan struct creation is achieved in *vulkan* wrapper using python functions.
+For example, if you want to create the Vulkan struct `VkInstanceCreateInfo`,
+you must initialize it with its keyword parameters. In *vulkan* wrapper, you will call
+the Python function `VkInstanceCreateInfo` with named parameters as shown below.
+
+In **C++** (Vulkan) we write:
 
 ```C
 VkInstanceCreateInfo instance_create_info = {
@@ -86,7 +88,7 @@ VkInstanceCreateInfo instance_create_info = {
 };
 ```
 
-Here, our *vulkan* wrapper equivalent of the above **C++** code is :
+Our *vulkan* wrapper equivalent of the above **C++** code is :
 
 ```python
 import vulkan as vk
@@ -103,27 +105,31 @@ instance_create_info = vk.VkInstanceCreateInfo(
 )
 ```
 
-Like you can see, to create the struct, you must pass all parameters at creation time.
-I provide Python `list` for `ppEnabledLayerNames` and `ppEnabledExtensionNames`,
-indeed, the wrapper converts everything for us into native C types.
+To create the struct, you must remember to pass all parameters at creation time.
+This includes the Vulkan layers and extensions denoted by `ppEnabledLayerNames`
+and `ppEnabledExtensionNames`, which *vulkan* wrapper is able to facilitate too.
+
+This struct example demonstrates how *vulkan* wrapper conveniently converts your
+Python code into native C types.
 
 *Note:*
 
-- Default value is `None` for all parameters so you could have omitted `pNext` (because its value is `None`).
+- The default value for all parameters is `None` so you could have omitted `pNext` (because its value is `None`).
 - Order of parameters doesn't matter since they are keyword parameters.
-- The **C++** counterpart is more risky because you must pass all parameters in specific order.
+- The **C++** syntax is more risky because you must pass all parameters in specific order.
 
 #### Functions
 
-*vulkan* will help you a lot when calling function. In Vulkan API, there are three
-kinds of function:
+*vulkan* greatly simplifies the calling of functions. In Vulkan API, you have to explicitly
+write three kinds of function:
 
   - functions that create nothing
   - functions that create one object
   - functions that create several objects
 
-*vulkan* takes care of you and knows when it has to return `None`, an object
-or a `list`. Here an exemple:
+In *vulkan* wrapper, all these troubles goes away.
+*vulkan* will takes care of you and knows when to return `None`, an object or a `list`.
+Here are three examples:
 
 ```python
 # Create one object
@@ -138,21 +144,24 @@ extensions = vk.vkEnumerateDeviceExtensionProperties(
 vk.vkQueuePresentKHR(presentation_queue, present_create)
 ```
 
-Vulkan functions usually return a `VkResult`. *vulkan* is pythonic and
-converts it to exception: if the result is not `VK_SUCCESS`, an exception is
-raised.
+Vulkan functions usually return a `VkResult`, which returns the success and
+error codes/states of the function. *vulkan* is pythonic and converts `VkResult`
+to exception: if the result is not `VK_SUCCESS`, an exception is raised.
+More elaboration is given in the next section.
+
 
 #### Exceptions
 
-Exceptions extends `VkError` or `VkException`. When you look at Vulkan API
-documentation, functions can return either an error code or a success code.
-Success code is not always `VK_SUCCESS`, it can be `VK_NOT_READY` for example.
-Error codes extend `VkError`, success codes extend `VkException`.
-Exception names are *pythonized*: `VK_NOT_READY` -> `VkNotReady`.
+- *vulkan* has two types of Exceptions, namely `VkError` or `VkException`.
+The `VkError` exception handles all the error codes reported by Vulkan's `VkResult`.
+The `VkException` exception handles all the success code reported by Vulkan's `VkResult`,
+except the `VK_SUCCESS` success code.
+
+- Exception names are *pythonized*: `VK_NOT_READY` -> `VkNotReady`.
 
 #### Constants
 
-All Vulkan constants are available in *vulkan* and it provides some fancy
+All Vulkan constants are available in *vulkan* and it ieven provides some fancy
 constants like `UINT64_MAX`.
 
 
