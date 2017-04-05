@@ -20,7 +20,7 @@
         * [Functions](#functions)
         * [Exceptions](#exceptions)
         * [Constants](#constants)
-     * [Ressources](#ressources)
+     * [Resources](#resources)
   * [How to contribute](#how-to-contribute)
   * [Architecture](#architecture)
   * [Community](#community)
@@ -187,7 +187,7 @@ All Vulkan constants are available in *vulkan* and it ieven provides some fancy
 constants like `UINT64_MAX`.
 
 
-### Ressources
+### Resources
 
 To understand how to use this wrapper, you must look into `example/example.py` or
 refer to [Vulk](https://github.com/realitix/vulk) engine.
