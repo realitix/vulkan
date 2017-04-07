@@ -183,7 +183,7 @@ except the `VK_SUCCESS` success code.
 
 #### Constants
 
-All Vulkan constants are available in *vulkan* and it ieven provides some fancy
+All Vulkan constants are available in *vulkan* and it even provides some fancy
 constants like `UINT64_MAX`.
 
 
