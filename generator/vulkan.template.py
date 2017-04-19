@@ -93,14 +93,11 @@ def _cast_ptr3(x, _type):
     return _cast_ptr2(x, _type)
 
 
-if sys.version_info < (3, 0):
-    _cast_ptr = _cast_ptr2
-else:
-    _cast_ptr = _cast_ptr3
+_cast_ptr = _cast_ptr3 if PY3 else _cast_ptr2
 
 
 # Load SDK
-_lib_names = ('libvulkan.so', 'libvulkan.so.1', 'vulkan-1.dll')
+_lib_names = ('libvulkan.so.1', 'vulkan-1.dll', 'libvulkan.so')
 for name in _lib_names:
     try:
         _lib = ffi.dlopen(name)

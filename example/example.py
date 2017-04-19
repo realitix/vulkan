@@ -1,8 +1,11 @@
+#!/bin/env python
+
 # coding: utf-8
 
 # flake8: noqa
 import ctypes
 import os
+import platform
 import sdl2
 import sdl2.ext
 import time
@@ -32,7 +35,15 @@ layers = [l.layerName for l in layers]
 print("availables layers: %s\n" % layers)
 
 layers = ['VK_LAYER_LUNARG_standard_validation']
-extensions = ['VK_KHR_surface', 'VK_KHR_xlib_surface', 'VK_EXT_debug_report']
+extensions = ['VK_KHR_surface', 'VK_EXT_debug_report']
+
+if platform.system() == 'Windows':
+    extensions.append('VK_KHR_win32_surface')
+elif platform.system() == 'Linux':
+    extensions.append('VK_KHR_xlib_surface')
+else:
+    raise Exception("Platform not supported")
+
 createInfo = VkInstanceCreateInfo(
     sType=VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
     flags=0,
@@ -97,16 +108,6 @@ def surface_xlib():
         flags=0)
     return vkCreateXlibSurfaceKHR(instance=instance, pCreateInfo=surface_create)
 
-def surface_mir():
-    print("Create mir surface")
-    vkCreateMirSurfaceKHR = vkGetInstanceProcAddr(instance, "vkCreateMirSurfaceKHR")
-    surface_create = VkMirSurfaceCreateInfoKHR(
-        sType=VK_STRUCTURE_TYPE_MIR_SURFACE_CREATE_INFO_KHR,
-        connection=wm_info.info.mir.connection,
-        mirSurface=wm_info.info.mir.surface,
-        flags=0)
-    return vkCreateMirSurfaceKHR(instance=instance, pCreateInfo=surface_create)
-
 def surface_wayland():
     print("Create wayland surface")
     vkCreateWaylandSurfaceKHR = vkGetInstanceProcAddr(instance, "vkCreateWaylandSurfaceKHR")
@@ -118,17 +119,27 @@ def surface_wayland():
     return vkCreateWaylandSurfaceKHR(instance=instance, pCreateInfo=surface_create)
 
 def surface_win32():
+    def get_instance(hWnd):
+        """Hack needed before SDL 2.0.6"""
+        from cffi import FFI
+        _ffi = FFI()
+        _ffi.cdef('long __stdcall GetWindowLongA(void* hWnd, int nIndex);')
+        _lib = _ffi.dlopen('User32.dll')
+        return _lib.GetWindowLongA(_ffi.cast('void*', hWnd), -6)
+
     print("Create windows surface")
     vkCreateWin32SurfaceKHR = vkGetInstanceProcAddr(instance, "vkCreateWin32SurfaceKHR")
     surface_create = VkWin32SurfaceCreateInfoKHR(
         sType=VK_STRUCTURE_TYPE_WAYLAND_SURFACE_CREATE_INFO_KHR,
-        hinstance='TODO',
+        hinstance=get_instance(wm_info.info.win.window),
         hwdn=wm_info.info.win.window,
         flags=0)
     return vkCreateWin32SurfaceKHR(instance=instance, pCreateInfo=surface_create)
 
 surface_mapping = {
-    sdl2.SDL_SYSWM_X11: surface_xlib}
+    sdl2.SDL_SYSWM_X11: surface_xlib,
+    sdl2.SDL_SYSWM_WINDOWS: surface_win32
+}
 
 surface = surface_mapping[wm_info.subsystem]()
 
