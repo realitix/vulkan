@@ -290,9 +290,6 @@ def _callApi(fn, *args):
 
     {%- for m in members -%}
         {{m.name}}
-        {%- if m.none -%}
-            =None
-        {%- endif -%}
         ,
     {%- endfor -%}
 {%- endmacro -%}

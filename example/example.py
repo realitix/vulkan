@@ -53,7 +53,7 @@ createInfo = VkInstanceCreateInfo(
     enabledLayerCount=len(layers),
     ppEnabledLayerNames=layers)
 
-instance = vkCreateInstance(pCreateInfo=createInfo)
+instance = vkCreateInstance(createInfo, None)
 
 # ----------
 # Debug instance
@@ -72,8 +72,7 @@ debug_create = VkDebugReportCallbackCreateInfoEXT(
     sType=VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,
     flags=VK_DEBUG_REPORT_ERROR_BIT_EXT | VK_DEBUG_REPORT_WARNING_BIT_EXT,
     pfnCallback=debugCallback)
-callback = vkCreateDebugReportCallbackEXT(instance=instance,
-                                          pCreateInfo=debug_create)
+callback = vkCreateDebugReportCallbackEXT(instance, debug_create, None)
 
 
 # ----------
@@ -106,7 +105,7 @@ def surface_xlib():
         dpy=wm_info.info.x11.display,
         window=wm_info.info.x11.window,
         flags=0)
-    return vkCreateXlibSurfaceKHR(instance=instance, pCreateInfo=surface_create)
+    return vkCreateXlibSurfaceKHR(instance, surface_create, None)
 
 def surface_wayland():
     print("Create wayland surface")
@@ -116,7 +115,7 @@ def surface_wayland():
         display=wm_info.info.wl.display,
         surface=wm_info.info.surface,
         flags=0)
-    return vkCreateWaylandSurfaceKHR(instance=instance, pCreateInfo=surface_create)
+    return vkCreateWaylandSurfaceKHR(instance, surface_create, None)
 
 def surface_win32():
     def get_instance(hWnd):
@@ -134,7 +133,7 @@ def surface_win32():
         hinstance=get_instance(wm_info.info.win.window),
         hwdn=wm_info.info.win.window,
         flags=0)
-    return vkCreateWin32SurfaceKHR(instance=instance, pCreateInfo=surface_create)
+    return vkCreateWin32SurfaceKHR(instance, surface_create, None)
 
 surface_mapping = {
     sdl2.SDL_SYSWM_X11: surface_xlib,
@@ -208,8 +207,7 @@ device_create = VkDeviceCreateInfo(
     ppEnabledExtensionNames=extensions
 )
 
-logical_device = vkCreateDevice(physicalDevice=physical_device,
-                                pCreateInfo=device_create)
+logical_device = vkCreateDevice(physical_device, device_create, None)
 graphic_queue = vkGetDeviceQueue(
     device=logical_device,
     queueFamilyIndex=queue_family_graphic_index,
@@ -307,7 +305,7 @@ swapchain_create = VkSwapchainCreateInfoKHR(
     oldSwapchain=None,
     preTransform=surface_capabilities.currentTransform)
 
-swapchain = vkCreateSwapchainKHR(logical_device, swapchain_create)
+swapchain = vkCreateSwapchainKHR(logical_device, swapchain_create, None)
 swapchain_images = vkGetSwapchainImagesKHR(logical_device, swapchain)
 
 # Create image view for each image in swapchain
@@ -335,7 +333,7 @@ for image in swapchain_images:
         components=components,
         subresourceRange=subresourceRange)
 
-    image_views.append(vkCreateImageView(logical_device, imageview_create))
+    image_views.append(vkCreateImageView(logical_device, imageview_create, None))
 
 
 print("%s images view created" % len(image_views))
@@ -355,7 +353,7 @@ vert_shader_create = VkShaderModuleCreateInfo(
     pCode=vert_shader_spirv
 )
 
-vert_shader_module = vkCreateShaderModule(logical_device, vert_shader_create)
+vert_shader_module = vkCreateShaderModule(logical_device, vert_shader_create, None)
 
 frag_shader_create = VkShaderModuleCreateInfo(
     sType=VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO,
@@ -363,7 +361,7 @@ frag_shader_create = VkShaderModuleCreateInfo(
     codeSize=len(frag_shader_spirv),
     pCode=frag_shader_spirv)
 
-frag_shader_module = vkCreateShaderModule(logical_device, frag_shader_create)
+frag_shader_module = vkCreateShaderModule(logical_device, frag_shader_create, None)
 
 # Create shader stage
 vert_stage_create = VkPipelineShaderStageCreateInfo(
@@ -429,7 +427,7 @@ render_pass_create = VkRenderPassCreateInfo(
     dependencyCount=1,
     pDependencies=[dependency])
 
-render_pass = vkCreateRenderPass(logical_device, render_pass_create)
+render_pass = vkCreateRenderPass(logical_device, render_pass_create, None)
 
 # Create graphic pipeline
 vertex_input_create = VkPipelineVertexInputStateCreateInfo(
@@ -515,7 +513,7 @@ pipeline_layout_create = VkPipelineLayoutCreateInfo(
     pushConstantRangeCount=0,
     pPushConstantRanges=[push_constant_ranges])
 
-pipeline_layout = vkCreatePipelineLayout(logical_device, pipeline_layout_create)
+pipeline_layout = vkCreatePipelineLayout(logical_device, pipeline_layout_create, None)
 
 # Finally create graphic pipeline
 pipeline_create = VkGraphicsPipelineCreateInfo(
@@ -538,7 +536,7 @@ pipeline_create = VkGraphicsPipelineCreateInfo(
     basePipelineHandle=None,
     basePipelineIndex=-1)
 
-pipeline = vkCreateGraphicsPipelines(logical_device, None, 1, [pipeline_create])
+pipeline = vkCreateGraphicsPipelines(logical_device, None, 1, [pipeline_create], None)
 
 
 # Framebuffers creation
@@ -555,7 +553,7 @@ for image in image_views:
         height=extent.height,
         layers=1)
     framebuffers.append(
-        vkCreateFramebuffer(logical_device, framebuffer_create))
+        vkCreateFramebuffer(logical_device, framebuffer_create, None))
 
 # Create command pools
 command_pool_create = VkCommandPoolCreateInfo(
@@ -563,7 +561,7 @@ command_pool_create = VkCommandPoolCreateInfo(
     queueFamilyIndex=queue_family_graphic_index,
     flags=0)
 
-command_pool = vkCreateCommandPool(logical_device, command_pool_create)
+command_pool = vkCreateCommandPool(logical_device, command_pool_create, None)
 
 # Create command buffers
 command_buffers_create = VkCommandBufferAllocateInfo(
@@ -613,8 +611,8 @@ for i, command_buffer in enumerate(command_buffers):
 semaphore_create = VkSemaphoreCreateInfo(
     sType=VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO,
     flags=0)
-semaphore_image_available = vkCreateSemaphore(logical_device, semaphore_create)
-semaphore_render_finished = vkCreateSemaphore(logical_device, semaphore_create)
+semaphore_image_available = vkCreateSemaphore(logical_device, semaphore_create, None)
+semaphore_render_finished = vkCreateSemaphore(logical_device, semaphore_create, None)
 
 vkAcquireNextImageKHR = vkGetInstanceProcAddr(instance, "vkAcquireNextImageKHR")
 vkQueuePresentKHR = vkGetInstanceProcAddr(instance, "vkQueuePresentKHR")

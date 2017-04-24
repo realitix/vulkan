@@ -113,6 +113,10 @@ def model_enums(vk, model):
         name = enum['@name']
         t = enum.get('@type')
 
+        # enum may have no enums (because of extension)
+        if not enum.get('enum'):
+            continue
+
         if t in ('enum', 'bitmask'):
             # add attr to enum
             for attr in enum['enum']:
@@ -394,7 +398,7 @@ def init():
     with open(path.join(HERE, 'vk.xml')) as f:
         xml = f.read()
 
-    return xmltodict.parse(xml, force_list=('enum', 'command'))
+    return xmltodict.parse(xml, force_list=('enum', 'command', 'member'))
 
 
 def generate_py():

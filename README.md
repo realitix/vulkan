@@ -155,12 +155,10 @@ Here are three examples:
 
 ```python
 # Create one object
-instance = vk.vkCreateInstance(pCreateInfo=createInfo)
+instance = vk.vkCreateInstance(createInfo, None)
 
 # Create a list of object
-extensions = vk.vkEnumerateDeviceExtensionProperties(
-    physicalDevice=physical_device,
-    pLayerName=None)
+extensions = vk.vkEnumerateDeviceExtensionProperties(physical_device, None)
 
 # Return None
 vk.vkQueuePresentKHR(presentation_queue, present_create)
