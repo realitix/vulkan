@@ -278,9 +278,9 @@ queueFamilyIndexCount = 0
 pQueueFamilyIndices = None
 
 if queue_family_graphic_index != queue_family_present_index:
-    imageSharingMode = VK_SHARING_MODE_CONCURREN
+    imageSharingMode = VK_SHARING_MODE_CONCURRENT
     queueFamilyIndexCount = 2
-    pQueueFamilyIndices = queueFamilyIndices
+    pQueueFamilyIndices = [queue_family_graphic_index, queue_family_present_index]
 
 vkCreateSwapchainKHR = vkGetInstanceProcAddr(instance, 'vkCreateSwapchainKHR')
 vkDestroySwapchainKHR = vkGetInstanceProcAddr(instance, 'vkDestroySwapchainKHR')
