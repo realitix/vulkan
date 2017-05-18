@@ -34,7 +34,9 @@ layers = vkEnumerateInstanceLayerProperties()
 layers = [l.layerName for l in layers]
 print("availables layers: %s\n" % layers)
 
-layers = ['VK_LAYER_LUNARG_standard_validation']
+#GAM - Not defined for me on Windows 8.1 Nvidia drivers
+#layers = ['VK_LAYER_LUNARG_standard_validation']
+layers = []
 extensions = ['VK_KHR_surface', 'VK_EXT_debug_report']
 
 if platform.system() == 'Windows':
@@ -131,7 +133,7 @@ def surface_win32():
     surface_create = VkWin32SurfaceCreateInfoKHR(
         sType=VK_STRUCTURE_TYPE_WAYLAND_SURFACE_CREATE_INFO_KHR,
         hinstance=get_instance(wm_info.info.win.window),
-        hwdn=wm_info.info.win.window,
+        hwnd=wm_info.info.win.window,
         flags=0)
     return vkCreateWin32SurfaceKHR(instance, surface_create, None)
 
