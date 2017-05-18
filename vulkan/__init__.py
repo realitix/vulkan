@@ -5165,6 +5165,9 @@ _instance_ext_funcs = {
     'vkCmdProcessCommandsNVX':_wrap_vkCmdProcessCommandsNVX,
 }
 
+_instance_ext_func_prototypes = {
+    "vkCreateWin32SurfaceKHR": "VkResult (*)(VkInstance instance, const void* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkSurfaceKHR* pSurface)"
+}
 
 _device_ext_funcs = {
     'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
@@ -5231,7 +5234,10 @@ def vkGetInstanceProcAddr(instance, pName):
         raise ProcedureNotFoundError()
     if not pName in _instance_ext_funcs:
         raise ExtensionNotSupportedError()
-    fn = ffi.cast('PFN_' + pName, fn)
+    if pName in _instance_ext_func_prototypes:
+        fn = ffi.cast(_instance_ext_func_prototypes[pName], fn)
+    else:
+        fn = ffi.cast('PFN_' + pName, fn)
     return _instance_ext_funcs[pName](fn)
 
 
