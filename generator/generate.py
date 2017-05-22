@@ -193,7 +193,11 @@ def model_macros(vk, model):
         for enum in ext['require']['enum']:
             ename = enum['@name']
             evalue = parse_constant(enum, int(ext['@number']))
-            model['macros'][ename] = evalue
+
+            if enum.get('@extends') == 'VkResult':
+                model['enums']['VkResult'][ename] = evalue
+            else:
+                model['macros'][ename] = evalue
 
 
 def model_funcpointers(vk, model):
@@ -230,10 +234,6 @@ def model_exceptions(vk, model):
     success_names = set()
     error_names = set()
 
-    if error_names.intersection(success_names):
-        print("Error and success values can't intersect!")
-        exit(1)
-
     commands = [x for x in vk['registry']['commands']['command']]
 
     for command in commands:
@@ -252,7 +252,7 @@ def model_exceptions(vk, model):
         elif key in error_names:
             model['errors'][value] = name
         else:
-            print('Warning: return code %s unknow' % key)
+            print('Warning: return code %s unused' % key)
 
 
 def model_constructors(vk, model):
@@ -411,8 +411,8 @@ def generate_py():
     vk = init()
     model_typedefs(vk, model)
     model_enums(vk, model)
-    model_funcpointers(vk, model)
     model_macros(vk, model)
+    model_funcpointers(vk, model)
     model_exceptions(vk, model)
     model_constructors(vk, model)
     model_functions(vk, model)
