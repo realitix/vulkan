@@ -131,7 +131,7 @@ def surface_win32():
     surface_create = VkWin32SurfaceCreateInfoKHR(
         sType=VK_STRUCTURE_TYPE_WAYLAND_SURFACE_CREATE_INFO_KHR,
         hinstance=get_instance(wm_info.info.win.window),
-        hwdn=wm_info.info.win.window,
+        hwnd=wm_info.info.win.window,
         flags=0)
     return vkCreateWin32SurfaceKHR(instance, surface_create, None)
 
