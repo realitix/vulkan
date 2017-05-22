@@ -47,6 +47,9 @@ def parse_constant(constant, ext_number=0):
         ext_block_size = 1000
         value = ext_base + (ext_number - 1) * ext_block_size
         value += int(constant['@offset'])
+        if constant.get('@dir') == '-':
+            value = -value
+
         return value
 
 
