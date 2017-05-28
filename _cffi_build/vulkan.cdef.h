@@ -3217,6 +3217,56 @@ typedef VkBool32 ( *PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR)(VkPhysical
     uint32_t queueFamilyIndex,
     xcb_connection_t* connection,
     xcb_visualid_t visual_id);
+typedef VkFlags VkWaylandSurfaceCreateFlagsKHR;
+typedef struct VkWaylandSurfaceCreateInfoKHR {
+    VkStructureType sType;
+    const void* pNext;
+    VkWaylandSurfaceCreateFlagsKHR flags;
+    struct wl_display* display;
+    struct wl_surface* surface;
+} VkWaylandSurfaceCreateInfoKHR;
+typedef VkResult ( *PFN_vkCreateWaylandSurfaceKHR)(VkInstance instance, const VkWaylandSurfaceCreateInfoKHR* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkSurfaceKHR* pSurface);
+typedef VkBool32 ( *PFN_vkGetPhysicalDeviceWaylandPresentationSupportKHR)(VkPhysicalDevice physicalDevice, uint32_t queueFamilyIndex, struct wl_display* display);
+ VkResult vkCreateWaylandSurfaceKHR(
+    VkInstance instance,
+    const VkWaylandSurfaceCreateInfoKHR* pCreateInfo,
+    const VkAllocationCallbacks* pAllocator,
+    VkSurfaceKHR* pSurface);
+ VkBool32 vkGetPhysicalDeviceWaylandPresentationSupportKHR(
+    VkPhysicalDevice physicalDevice,
+    uint32_t queueFamilyIndex,
+    struct wl_display* display);
+typedef VkFlags VkAndroidSurfaceCreateFlagsKHR;
+typedef struct VkAndroidSurfaceCreateInfoKHR {
+    VkStructureType sType;
+    const void* pNext;
+    VkAndroidSurfaceCreateFlagsKHR flags;
+    ANativeWindow* window;
+} VkAndroidSurfaceCreateInfoKHR;
+typedef VkResult ( *PFN_vkCreateAndroidSurfaceKHR)(VkInstance instance, const VkAndroidSurfaceCreateInfoKHR* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkSurfaceKHR* pSurface);
+ VkResult vkCreateAndroidSurfaceKHR(
+    VkInstance instance,
+    const VkAndroidSurfaceCreateInfoKHR* pCreateInfo,
+    const VkAllocationCallbacks* pAllocator,
+    VkSurfaceKHR* pSurface);
+typedef VkFlags VkWin32SurfaceCreateFlagsKHR;
+typedef struct VkWin32SurfaceCreateInfoKHR {
+    VkStructureType sType;
+    const void* pNext;
+    VkWin32SurfaceCreateFlagsKHR flags;
+    HINSTANCE hinstance;
+    HWND hwnd;
+} VkWin32SurfaceCreateInfoKHR;
+typedef VkResult ( *PFN_vkCreateWin32SurfaceKHR)(VkInstance instance, const VkWin32SurfaceCreateInfoKHR* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkSurfaceKHR* pSurface);
+typedef VkBool32 ( *PFN_vkGetPhysicalDeviceWin32PresentationSupportKHR)(VkPhysicalDevice physicalDevice, uint32_t queueFamilyIndex);
+ VkResult vkCreateWin32SurfaceKHR(
+    VkInstance instance,
+    const VkWin32SurfaceCreateInfoKHR* pCreateInfo,
+    const VkAllocationCallbacks* pAllocator,
+    VkSurfaceKHR* pSurface);
+ VkBool32 vkGetPhysicalDeviceWin32PresentationSupportKHR(
+    VkPhysicalDevice physicalDevice,
+    uint32_t queueFamilyIndex);
 typedef struct VkPhysicalDeviceFeatures2KHR {
     VkStructureType sType;
     void* pNext;
@@ -3638,6 +3688,35 @@ typedef struct VkExportMemoryAllocateInfoNV {
     const void* pNext;
     VkExternalMemoryHandleTypeFlagsNV handleTypes;
 } VkExportMemoryAllocateInfoNV;
+typedef struct VkImportMemoryWin32HandleInfoNV {
+    VkStructureType sType;
+    const void* pNext;
+    VkExternalMemoryHandleTypeFlagsNV handleType;
+    HANDLE handle;
+} VkImportMemoryWin32HandleInfoNV;
+typedef struct VkExportMemoryWin32HandleInfoNV {
+    VkStructureType sType;
+    const void* pNext;
+    const SECURITY_ATTRIBUTES* pAttributes;
+    DWORD dwAccess;
+} VkExportMemoryWin32HandleInfoNV;
+typedef VkResult ( *PFN_vkGetMemoryWin32HandleNV)(VkDevice device, VkDeviceMemory memory, VkExternalMemoryHandleTypeFlagsNV handleType, HANDLE* pHandle);
+ VkResult vkGetMemoryWin32HandleNV(
+    VkDevice device,
+    VkDeviceMemory memory,
+    VkExternalMemoryHandleTypeFlagsNV handleType,
+    HANDLE* pHandle);
+typedef struct VkWin32KeyedMutexAcquireReleaseInfoNV {
+    VkStructureType sType;
+    const void* pNext;
+    uint32_t acquireCount;
+    const VkDeviceMemory* pAcquireSyncs;
+    const uint64_t* pAcquireKeys;
+    const uint32_t* pAcquireTimeoutMilliseconds;
+    uint32_t releaseCount;
+    const VkDeviceMemory* pReleaseSyncs;
+    const uint64_t* pReleaseKeys;
+} VkWin32KeyedMutexAcquireReleaseInfoNV;
 typedef enum VkPeerMemoryFeatureFlagBitsKHX {
     VK_PEER_MEMORY_FEATURE_COPY_SRC_BIT_KHX = 0x00000001,
     VK_PEER_MEMORY_FEATURE_COPY_DST_BIT_KHX = 0x00000002,
@@ -3928,6 +4007,17 @@ typedef VkResult ( *PFN_vkGetMemoryFdPropertiesKHX)(VkDevice device, VkExternalM
     VkExternalMemoryHandleTypeFlagBitsKHX handleType,
     int fd,
     VkMemoryFdPropertiesKHX* pMemoryFdProperties);
+typedef struct VkWin32KeyedMutexAcquireReleaseInfoKHX {
+    VkStructureType sType;
+    const void* pNext;
+    uint32_t acquireCount;
+    const VkDeviceMemory* pAcquireSyncs;
+    const uint64_t* pAcquireKeys;
+    const uint32_t* pAcquireTimeouts;
+    uint32_t releaseCount;
+    const VkDeviceMemory* pReleaseSyncs;
+    const uint64_t* pReleaseKeys;
+} VkWin32KeyedMutexAcquireReleaseInfoKHX;
 typedef enum VkExternalSemaphoreHandleTypeFlagBitsKHX {
     VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT_KHX = 0x00000001,
     VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_BIT_KHX = 0x00000002,

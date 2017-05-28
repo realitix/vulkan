@@ -436,9 +436,18 @@ def generate_cdef():
     out_file = path.join(HERE, path.pardir, '_cffi_build', 'vulkan.cdef.h')
     header = path.join(HERE, 'vulkan.h')
 
-    command = ['cpp', '-std=c99', '-P', '-nostdinc', '-I' + include_path,
-               '-o' + out_file, '-DVK_USE_PLATFORM_XCB_KHR',
-               '-DVK_USE_PLATFORM_XLIB_KHR', header]
+    command = ['cpp',
+               '-std=c99',
+               '-P',
+               '-nostdinc',
+               '-I' + include_path,
+               '-o' + out_file,
+               '-DVK_USE_PLATFORM_XCB_KHR',
+               '-DVK_USE_PLATFORM_WAYLAND_KHR',
+               '-DVK_USE_PLATFORM_ANDROID_KHR',
+               '-DVK_USE_PLATFORM_WIN32_KHR',
+               '-DVK_USE_PLATFORM_XLIB_KHR',
+               header]
     subprocess.run(command, check=True)
 
 
