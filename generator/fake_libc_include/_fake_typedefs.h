@@ -25,4 +25,21 @@ typedef struct xcb_connection_t xcb_connection_t;
 typedef uint32_t xcb_window_t;
 typedef uint32_t xcb_visualid_t;
 
+/* android */
+typedef struct ANativeWindow ANativeWindow;
+
+/* windows */
+typedef void *PVOID;
+typedef PVOID HANDLE;
+typedef HANDLE HINSTANCE;
+typedef HANDLE HWND;
+typedef unsigned long DWORD;
+typedef void *LPVOID;
+
+typedef struct _SECURITY_ATTRIBUTES {
+    DWORD  nLength;
+    LPVOID lpSecurityDescriptor;
+    int   bInheritHandle;
+} SECURITY_ATTRIBUTES, *PSECURITY_ATTRIBUTES, *LPSECURITY_ATTRIBUTES;
+
 #endif
