@@ -97,16 +97,7 @@ _cast_ptr = _cast_ptr3 if PY3 else _cast_ptr2
 
 
 # Load SDK
-def get_linux_lib():
-    return 'libvulkan.so.' + __version__
-
-
-def get_windows_lib():
-    return 'vulkan-1-' + __version__.replace('.', '-') + '-0.dll'
-
-
-# TODO: We shouldn't force a version, and we should allow upper versions too
-_lib_names = (get_linux_lib(), get_windows_lib())
+_lib_names = ('libvulkan.so.1', 'vulkan-1.dll')
 for name in _lib_names:
     try:
         _lib = ffi.dlopen(name)
