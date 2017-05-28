@@ -5,7 +5,7 @@ import sys
 from vulkan._vulkan import ffi
 
 
-__version__ = '1.0.48'
+__version__ = '1.0.49'
 
 
 _weakkey_dict = _weakref.WeakKeyDictionary()
@@ -97,7 +97,16 @@ _cast_ptr = _cast_ptr3 if PY3 else _cast_ptr2
 
 
 # Load SDK
-_lib_names = ('libvulkan.so.1', 'vulkan-1.dll', 'libvulkan.so')
+def get_linux_lib():
+    return 'libvulkan.so.' + __version__
+
+
+def get_windows_lib():
+    return 'vulkan-1-' + __version__.replace('.', '-') + '-0.dll'
+
+
+# TODO: We shouldn't force a version, and we should allow upper versions too
+_lib_names = (get_linux_lib(), get_windows_lib())
 for name in _lib_names:
     try:
         _lib = ffi.dlopen(name)
@@ -105,7 +114,8 @@ for name in _lib_names:
     except OSError:
         pass
 else:
-    raise OSError('cannot load library ' + ' or '.join(_lib_names))
+    raise OSError('Cannot find Vulkan SDK version ' + __version__ + '. '
+                  'Please install it')
 
 
 {# Add enums #}
