@@ -34,7 +34,9 @@ layers = vkEnumerateInstanceLayerProperties()
 layers = [l.layerName for l in layers]
 print("availables layers: %s\n" % layers)
 
-layers = ['VK_LAYER_LUNARG_standard_validation']
+#GAM - Not defined for me on Windows 8.1 Nvidia drivers
+#layers = ['VK_LAYER_LUNARG_standard_validation']
+layers = []
 extensions = ['VK_KHR_surface', 'VK_EXT_debug_report']
 
 if platform.system() == 'Windows':
