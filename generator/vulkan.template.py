@@ -105,8 +105,9 @@ for name in _lib_names:
     except OSError:
         pass
 else:
-    raise OSError('Cannot find Vulkan SDK version ' + __version__ + '. '
-                  'Please install it')
+    raise OSError('Cannot find Vulkan SDK version. Please ensure that it is '
+                  'installed and that the <sdk_root>/<version>/lib/ folder is '
+                  'in the library path')
 
 
 {# Add enums #}
