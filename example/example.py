@@ -168,6 +168,7 @@ queue_family_graphic_index = -1
 queue_family_present_index = -1
 
 for i, queue_family in enumerate(queue_families):
+    # Currently, we set present index like graphic index
     support_present = vkGetPhysicalDeviceSurfaceSupportKHR(
         physicalDevice=physical_device,
         queueFamilyIndex=i,
@@ -175,8 +176,9 @@ for i, queue_family in enumerate(queue_families):
     if (queue_family.queueCount > 0 and
        queue_family.queueFlags & VK_QUEUE_GRAPHICS_BIT):
         queue_family_graphic_index = i
-    if queue_family.queueCount > 0 and support_present:
         queue_family_present_index = i
+    # if queue_family.queueCount > 0 and support_present:
+    #     queue_family_present_index = i
 
 print("indice of selected queue families, graphic: %s, presentation: %s\n" % (
     queue_family_graphic_index, queue_family_present_index))
