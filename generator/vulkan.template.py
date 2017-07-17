@@ -34,7 +34,7 @@ def _cstr(x):
         return ffi.string(x)
 
 
-class _StrWrap():
+class _StrWrap(object):
     """Wrap a FFI Cdata object
 
     This class is a proxy class which auto-convert FFI string to Python
@@ -47,7 +47,7 @@ class _StrWrap():
 
     def __setattr__(self, key, value):
         if key == 'obj':
-            return super().__setattr__(key, value)
+            return super(_StrWrap, self).__setattr__(key, value)
 
         setattr(self.obj, key, value)
 
