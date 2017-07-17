@@ -600,7 +600,7 @@ for i, command_buffer in enumerate(command_buffers):
     # Bing pipeline
     vkCmdBindPipeline(command_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline)
 
-    # Draw
+    # Draw
     vkCmdDraw(command_buffer, 3, 1, 0, 0)
 
     # End
