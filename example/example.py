@@ -665,7 +665,7 @@ def draw_frame():
 
 # Main loop
 running = True
-if sys.version_info >= (3, 0):
+if sys.version_info >= (3, 3):
     clock = time.perf_counter
 else:
     clock = time.clock
