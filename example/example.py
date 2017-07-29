@@ -670,8 +670,6 @@ if sys.version_info >= (3, 3):
 else:
     clock = time.clock
 
-#running = False
-i = 0
 last_time = clock() * 1000
 fps = 0
 while running:
