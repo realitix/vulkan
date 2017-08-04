@@ -191,6 +191,7 @@ print("indice of selected queue families, graphic: %s, presentation: %s\n" % (
 extensions = vkEnumerateDeviceExtensionProperties(physicalDevice=physical_device, pLayerName=None)
 extensions = [e.extensionName for e in extensions]
 print("availables device extensions: %s\n" % extensions)
+extensions = ["VK_KHR_swapchain"]
 
 queues_create = [VkDeviceQueueCreateInfo(sType=VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
                                          queueFamilyIndex=i,
