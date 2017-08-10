@@ -5,7 +5,6 @@
 # flake8: noqa
 import ctypes
 import os
-import platform
 import sdl2
 import sdl2.ext
 import time
@@ -14,6 +13,24 @@ from vulkan import *
 
 WIDTH = 400
 HEIGHT = 400
+
+
+# ----------
+# Init sdl2
+if sdl2.SDL_Init(sdl2.SDL_INIT_VIDEO) != 0:
+    raise Exception(sdl2.SDL_GetError())
+
+window = sdl2.SDL_CreateWindow(
+    'test'.encode('ascii'),
+    sdl2.SDL_WINDOWPOS_UNDEFINED,
+    sdl2.SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, 0)
+
+if not window:
+    raise Exception(sdl2.SDL_GetError())
+
+wm_info = sdl2.SDL_SysWMinfo()
+sdl2.SDL_VERSION(wm_info.version)
+sdl2.SDL_GetWindowWMInfo(window, ctypes.byref(wm_info))
 
 
 # ----------
@@ -37,10 +54,12 @@ print("availables layers: %s\n" % layers)
 layers = ['VK_LAYER_LUNARG_standard_validation']
 extensions = ['VK_KHR_surface', 'VK_EXT_debug_report']
 
-if platform.system() == 'Windows':
+if wm_info.subsystem == sdl2.SDL_SYSWM_WINDOWS:
     extensions.append('VK_KHR_win32_surface')
-elif platform.system() == 'Linux':
+elif wm_info.subsystem == sdl2.SDL_SYSWM_X11:
     extensions.append('VK_KHR_xlib_surface')
+elif wm_info.subsystem == sdl2.SDL_SYSWM_WAYLAND:
+    extensions.append('VK_KHR_wayland_surface')
 else:
     raise Exception("Platform not supported")
 
@@ -76,24 +95,6 @@ callback = vkCreateDebugReportCallbackEXT(instance, debug_create, None)
 
 
 # ----------
-# Init sdl2
-if sdl2.SDL_Init(sdl2.SDL_INIT_VIDEO) != 0:
-    raise Exception(sdl2.SDL_GetError())
-
-window = sdl2.SDL_CreateWindow(
-    'test'.encode('ascii'),
-    sdl2.SDL_WINDOWPOS_UNDEFINED,
-    sdl2.SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, 0)
-
-if not window:
-    raise Exception(sdl2.SDL_GetError())
-
-wm_info = sdl2.SDL_SysWMinfo()
-sdl2.SDL_VERSION(wm_info.version)
-sdl2.SDL_GetWindowWMInfo(window, ctypes.byref(wm_info))
-
-
-# ----------
 # Create surface
 vkDestroySurfaceKHR = vkGetInstanceProcAddr(instance, "vkDestroySurfaceKHR")
 
@@ -113,7 +114,7 @@ def surface_wayland():
     surface_create = VkWaylandSurfaceCreateInfoKHR(
         sType=VK_STRUCTURE_TYPE_WAYLAND_SURFACE_CREATE_INFO_KHR,
         display=wm_info.info.wl.display,
-        surface=wm_info.info.surface,
+        surface=wm_info.info.wl.surface,
         flags=0)
     return vkCreateWaylandSurfaceKHR(instance, surface_create, None)
 
@@ -137,6 +138,7 @@ def surface_win32():
 
 surface_mapping = {
     sdl2.SDL_SYSWM_X11: surface_xlib,
+    sdl2.SDL_SYSWM_WAYLAND: surface_wayland,
     sdl2.SDL_SYSWM_WINDOWS: surface_win32
 }
 
@@ -665,13 +667,11 @@ def draw_frame():
 
 # Main loop
 running = True
-if sys.version_info >= (3, 0):
+if sys.version_info >= (3, 3):
     clock = time.perf_counter
 else:
     clock = time.clock
 
-#running = False
-i = 0
 last_time = clock() * 1000
 fps = 0
 while running:
