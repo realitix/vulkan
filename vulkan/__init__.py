@@ -2418,19 +2418,17 @@ def VkSurfaceFormat2KHR(sType=None,pNext=None,surfaceFormat=None,):
 def VkSharedPresentSurfaceCapabilitiesKHR(sType=None,pNext=None,sharedPresentSupportedUsageFlags=None,):
     return _new('VkSharedPresentSurfaceCapabilitiesKHR', sType=sType,pNext=pNext,sharedPresentSupportedUsageFlags=sharedPresentSupportedUsageFlags)
 
-
+def _(x, _type):
+    if x is None:
+        return ffi.NULL
+    if _type.kind == 'pointer':
+        ptr, _ = _cast_ptr(x, _type)
+        return ptr
+    return x
+    
 def _callApi(fn, *args):
-    def _(x, _type):
-        if x is None:
-            return ffi.NULL
-        if _type.kind == 'pointer':
-            ptr, _ = _cast_ptr(x, _type)
-            return ptr
-        return x
-
     fn_args = [_(i, j) for i, j in zip(args, ffi.typeof(fn).args)]
     return fn(*fn_args)
-
 
 
 
