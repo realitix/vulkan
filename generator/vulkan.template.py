@@ -266,16 +266,15 @@ def {{constructor.name}}({{constructor_params(constructor)}}):
     return _new('{{constructor.name}}', {{constructor_params_call(constructor)}})
 {% endfor %}
 
-
+def _(x, _type):
+    if x is None:
+        return ffi.NULL
+    if _type.kind == 'pointer':
+        ptr, _ = _cast_ptr(x, _type)
+        return ptr
+    return x
+    
 def _callApi(fn, *args):
-    def _(x, _type):
-        if x is None:
-            return ffi.NULL
-        if _type.kind == 'pointer':
-            ptr, _ = _cast_ptr(x, _type)
-            return ptr
-        return x
-
     fn_args = [_(i, j) for i, j in zip(args, ffi.typeof(fn).args)]
     return fn(*fn_args)
 
