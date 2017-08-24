@@ -1,9 +1,10 @@
 # port from https://vulkan-tutorial.com/Drawing_a_triangle/Drawing/Rendering_and_presentation
 # Python3 and PyQt5 example.
 
+import sys
+
 from vulkan import *
 from PyQt5 import QtGui
-
 
 
 WIDTH = 800
@@ -221,16 +222,31 @@ class HelloTriangleApplication(QtGui.QWindow):
             raise Exception("failed to set up debug callback!")
 
     def __createSurface(self):
-        vkCreateWin32SurfaceKHR = vkGetInstanceProcAddr(self.__instance, 'vkCreateWin32SurfaceKHR')
+        if sys.platform == 'win32':
+            vkCreateWin32SurfaceKHR = vkGetInstanceProcAddr(self.__instance, 'vkCreateWin32SurfaceKHR')
 
-        hwnd = self.winId()
-        hinstance = Win32misc.getInstance(hwnd)
-        createInfo = VkWin32SurfaceCreateInfoKHR(
-            sType=VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR,
-            hinstance=hinstance,
-            hwnd=hwnd
-        )
-        self.__surface = vkCreateWin32SurfaceKHR(self.__instance, createInfo, None)
+            hwnd = self.winId()
+            hinstance = Win32misc.getInstance(hwnd)
+            createInfo = VkWin32SurfaceCreateInfoKHR(
+                sType=VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR,
+                hinstance=hinstance,
+                hwnd=hwnd
+            )
+            self.__surface = vkCreateWin32SurfaceKHR(self.__instance, createInfo, None)
+        elif sys.platform == 'linux' or sys.platform == 'linux2':
+            from PyQt5 import QtX11Extras
+            import sip
+
+            vkCreateXcbSurfaceKHR = vkGetInstanceProcAddr(self.__instance, 'vkCreateXcbSurfaceKHR')
+
+            connection = sip.unwrapinstance(QtX11Extras.QX11Info.connection())
+            createInfo = VkXcbSurfaceCreateInfoKHR(
+                sType=VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR,
+                connection=connection,
+                window=self.winId()
+            )
+            self.__surface = vkCreateXcbSurfaceKHR(self.__instance, createInfo, None)
+
         if self.__surface is None:
             raise Exception("failed to create window surface!")
 
