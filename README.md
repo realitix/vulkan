@@ -67,7 +67,7 @@ git clone https://github.com/realitix/vulkan.git
 cd vulkan
 python setup.py install
 pip install pysdl2
-python example/example.py
+python example/example_sdl2.py
 ```
 
 Known errors :
