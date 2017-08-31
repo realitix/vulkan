@@ -5,6 +5,7 @@
 # tested with python 2 and 3 on Windows 10
 
 import ctypes
+import os
 
 from vulkan import *
 
@@ -144,7 +145,7 @@ class HelloTriangleApplication(object):
     def __initWindow(self):
         glfw.init()
 
-        glfw.window_hint(glfw.CLIENT_API, glfw.NO_API)
+        #glfw.window_hint(glfw.CLIENT_API, glfw.NO_API)
         glfw.window_hint(glfw.RESIZABLE, False)
 
         self.__window = glfw.create_window(WIDTH, HEIGHT, "Vulkan", None, None)
@@ -380,8 +381,9 @@ class HelloTriangleApplication(object):
         self.__renderPass = vkCreateRenderPass(self.__device, renderPassInfo, None)
 
     def __createGraphicsPipeline(self):
-        vertShaderModule = self.__createShaderModule('hello_triangle_vert.spv')
-        fragShaderModule = self.__createShaderModule('hello_triangle_frag.spv')
+        path = os.path.dirname(os.path.abspath(__file__))
+        vertShaderModule = self.__createShaderModule(os.path.join(path, 'hello_triangle_vert.spv'))
+        fragShaderModule = self.__createShaderModule(os.path.join(path, 'hello_triangle_frag.spv'))
 
         vertShaderStageInfo = VkPipelineShaderStageCreateInfo(
             sType=VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO,

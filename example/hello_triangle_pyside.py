@@ -2,6 +2,7 @@
 # Python2 and PySide example.
 
 from ctypes import (pythonapi, c_void_p, py_object)
+import os
 
 from vulkan import *
 from PySide import (QtGui, QtCore)
@@ -385,8 +386,10 @@ class HelloTriangleApplication(QtGui.QWidget):
         self.__renderPass = vkCreateRenderPass(self.__device, renderPassInfo, None)
 
     def __createGraphicsPipeline(self):
-        vertShaderModule = self.__createShaderModule('hello_triangle_vert.spv')
-        fragShaderModule = self.__createShaderModule('hello_triangle_frag.spv')
+        path = os.path.dirname(os.path.abspath(__file__))
+        vertShaderModule = self.__createShaderModule(os.path.join(path, 'hello_triangle_vert.spv'))
+        fragShaderModule = self.__createShaderModule(os.path.join(path, 'hello_triangle_frag.spv'))
+
 
         vertShaderStageInfo = VkPipelineShaderStageCreateInfo(
             sType=VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO,
