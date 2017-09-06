@@ -80,6 +80,8 @@ def _cast_ptr2(x, _type):
             ret = ffi.new(_type.item.cname+'[]', [i for i, _ in ptrs])
             _weakkey_dict[ret] = tuple(i for _, i in ptrs if i != ffi.NULL)
         else:
+            if len(x) > 0 and isinstance(x[0], ffi.CData):
+                x = [y[0] for y in x]
             ret = ffi.new(_type.item.cname+'[]', x)
 
         return ret, ret
@@ -226,13 +228,15 @@ def _new(ctype, **kwargs):
             pfns[k] = getattr(mod, '_external_' + pfn_name)
         elif ktype.kind == 'pointer':
             ptrs[k] = _cast_ptr(v, ktype)
+        elif isinstance(v, ffi.CData) and '*' in v.__str__():
+            pcs[k] = v[0]
 
     # init object
     init = dict(kwargs,  **{k: v for k, (v, _) in ptrs.items()})
     init.update(pfns)
     init.update(pcs)
 
-    ret = ffi.new(_type.cname + '*', init)[0]
+    ret = ffi.new(_type.cname + '*', init)
 
     # reference created pointer in the object
     _weakkey_dict[ret] = [v for _, v in ptrs.values() if v != ffi.NULL]
