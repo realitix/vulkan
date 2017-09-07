@@ -187,8 +187,8 @@ constants like `UINT64_MAX`.
 
 ### Resources
 
-To understand how to use this wrapper, you must look into `example/example.py` or
-refer to [Vulk](https://github.com/realitix/vulk) engine.
+To understand how to use this wrapper, you have to look for `example/exemple_*` files
+or refer to [Vulk](https://github.com/realitix/vulk) engine.
 
 
 ## How to contribute
