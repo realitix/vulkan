@@ -253,7 +253,8 @@ def get_surface_present_mode(present_modes):
 def get_swap_extent(capabilities):
     uint32_max = 4294967295
     if capabilities.currentExtent.width != uint32_max:
-        return capabilities.currentExtent
+        return VkExtent2D(width=capabilities.currentExtent.width,
+                          height=capabilities.currentExtent.height)
 
     width = max(
         capabilities.minImageExtent.width,
