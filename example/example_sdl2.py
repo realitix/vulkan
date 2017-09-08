@@ -47,6 +47,9 @@ extensions = vkEnumerateInstanceExtensionProperties(None)
 extensions = [e.extensionName for e in extensions]
 print("availables extensions: %s\n" % extensions)
 
+# we select only swapchain extension
+extensions = [VK_KHR_SWAPCHAIN_EXTENSION_NAME]
+
 layers = vkEnumerateInstanceLayerProperties()
 layers = [l.layerName for l in layers]
 print("availables layers: %s\n" % layers)
