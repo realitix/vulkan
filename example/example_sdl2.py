@@ -71,6 +71,7 @@ createInfo = VkInstanceCreateInfo(
     ppEnabledExtensionNames=extensions,
     enabledLayerCount=len(layers),
     ppEnabledLayerNames=layers)
+
 instance = vkCreateInstance(createInfo, None)
 
 # ----------
@@ -648,7 +649,7 @@ present_create = VkPresentInfoKHR(
 
 
 # optimization to avoid creating a new array each time
-submit_list = ffi.new('VkSubmitInfo[1]', [submit_create[0]])
+submit_list = ffi.new('VkSubmitInfo[1]', [submit_create])
 
 
 def draw_frame():
