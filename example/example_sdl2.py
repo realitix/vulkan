@@ -192,6 +192,9 @@ extensions = vkEnumerateDeviceExtensionProperties(physicalDevice=physical_device
 extensions = [e.extensionName for e in extensions]
 print("availables device extensions: %s\n" % extensions)
 
+#only use the extensions necessary
+extensions = [VK_KHR_SWAPCHAIN_EXTENSION_NAME]
+
 queues_create = [VkDeviceQueueCreateInfo(sType=VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
                                          queueFamilyIndex=i,
                                          queueCount=1,
