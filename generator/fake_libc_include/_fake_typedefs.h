@@ -35,6 +35,8 @@ typedef HANDLE HINSTANCE;
 typedef HANDLE HWND;
 typedef unsigned long DWORD;
 typedef void *LPVOID;
+typedef wchar_t WCHAR;
+typedef const WCHAR *LPCWSTR;
 
 typedef struct _SECURITY_ATTRIBUTES {
     DWORD  nLength;

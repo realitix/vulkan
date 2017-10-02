@@ -189,15 +189,15 @@ def model_macros(vk, model):
 
     for ext in extensions:
         model['macros'][ext['@name']] = 1
+        for req in ext['require']:
+            for enum in req['enum']:
+                ename = enum['@name']
+                evalue = parse_constant(enum, int(ext['@number']))
 
-        for enum in ext['require']['enum']:
-            ename = enum['@name']
-            evalue = parse_constant(enum, int(ext['@number']))
-
-            if enum.get('@extends') == 'VkResult':
-                model['enums']['VkResult'][ename] = evalue
-            else:
-                model['macros'][ename] = evalue
+                if enum.get('@extends') == 'VkResult':
+                    model['enums']['VkResult'][ename] = evalue
+                else:
+                    model['macros'][ename] = evalue
 
 
 def model_funcpointers(vk, model):
@@ -278,10 +278,11 @@ def model_functions(vk, model):
     def get_vk_extension_functions():
         names = set()
         for extension in vk['registry']['extensions']['extension']:
-            if 'command' not in extension['require']:
-                continue
-            for command in extension['require']['command']:
-                names.add(command['@name'])
+            for req in extension['require']:
+                if 'command' not in req:
+                    continue
+                for command in req['command']:
+                    names.add(command['@name'])
         return names
 
     def get_count_param(command):
@@ -389,12 +390,16 @@ def model_ext_functions(vk, model):
     """Fill the model with extensions functions"""
     model['ext_functions'] = {'instance': set(), 'device': set()}
 
-    extensions = [x for x in vk['registry']['extensions']['extension']
-                  if x['require'].get('command')]
+    extensions = [x for x in vk['registry']['extensions']['extension']]
+
     for extension in extensions:
-        command_names = [x['@name'] for x in extension['require']['command']]
-        ext_type = extension['@type']
-        model['ext_functions'][ext_type].update(command_names)
+        for req in extension['require']:
+            if not req.get('command'):
+                continue
+
+            command_names = [x['@name'] for x in req['command']]
+            ext_type = extension['@type']
+            model['ext_functions'][ext_type].update(command_names)
 
 
 def init():
@@ -404,11 +409,22 @@ def init():
     return xmltodict.parse(xml, force_list=('enum', 'command', 'member'))
 
 
+def format_vk(vk):
+    """Format vk before using it"""
+
+    # Force extension require to be a list
+    extensions = [x for x in vk['registry']['extensions']['extension']]
+    for ext in extensions:
+        if not isinstance(ext['require'], list):
+            ext['require'] = [ext['require']]
+
+
 def generate_py():
     """Generate the python output file"""
     model = {}
 
     vk = init()
+    format_vk(vk)
     model_typedefs(vk, model)
     model_enums(vk, model)
     model_macros(vk, model)
