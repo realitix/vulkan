@@ -246,7 +246,11 @@ def _new(ctype, **kwargs):
 {# Macro for function parameters #}
 {%- macro constructor_params(c) -%}
     {%- for m in c.members -%}
-        {{m.name}}=None,
+        {%- if m.default -%}
+            {{m.name}}={{m.default}}
+        {%- else -%}
+            {{m.name}}=None
+        {%- endif -%},
     {%- endfor -%}
 {%- endmacro -%}
 

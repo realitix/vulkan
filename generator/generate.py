@@ -267,8 +267,11 @@ def model_constructors(vk, model):
     for struct in structs:
         model['constructors'].append({
             'name': struct['@name'],
-            'members': [{'name': x['name'], 'type': x['type']}
-                        for x in struct['member']]
+            'members': [{
+                'name': x['name'],
+                'type': x['type'],
+                'default': x.get('@values')
+            } for x in struct['member']]
         })
 
 
