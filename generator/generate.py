@@ -264,13 +264,21 @@ def model_constructors(vk, model):
     structs = [x for x in vk['registry']['types']['type']
                if x.get('@category') in {'struct', 'union'}]
 
+    def parse_len(member):
+        mlen = member.get('@len')
+        if not mlen:
+            return None
+        if ',' in mlen:
+            return mlen.split(',')[0]
+
     for struct in structs:
         model['constructors'].append({
             'name': struct['@name'],
             'members': [{
                 'name': x['name'],
                 'type': x['type'],
-                'default': x.get('@values')
+                'default': x.get('@values'),
+                'len': parse_len(x)
             } for x in struct['member']]
         })
 

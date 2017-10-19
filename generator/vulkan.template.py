@@ -263,11 +263,21 @@ def _new(ctype, **kwargs):
     {%- endfor -%}
 {%- endmacro -%}
 
+{%- macro constructor_len(c) -%}
+{% for m in c.members %}
+{% if m.len %}
+    if {{m.len}} is None:
+        {{m.len}} = len({{m.name}})
+{% endif %}
+{% endfor %}
+{%- endmacro -%}
 
 
 {% for constructor in model.constructors %}
 def {{constructor.name}}({{constructor_params(constructor)}}):
+{{constructor_len(constructor)}}
     return _new('{{constructor.name}}', {{constructor_params_call(constructor)}})
+
 {% endfor %}
 
 
