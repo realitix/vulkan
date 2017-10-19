@@ -5,7 +5,7 @@ import sys
 from vulkan._vulkan import ffi
 
 
-__version__ = '1.0.61'
+__version__ = '1.0.61.2'
 
 
 _weakkey_dict = _weakref.WeakKeyDictionary()
