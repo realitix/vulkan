@@ -137,6 +137,7 @@ Python code into native C types.
 *Note:*
 
 - The default value for all parameters is `None` so you could have omitted `pNext` (because its value is `None`).
+- The default value for `sType` parameter is the good value so you could have omitted `sType`.
 - Order of parameters doesn't matter since they are keyword parameters.
 - The **C++** syntax is more risky because you must pass all parameters in specific order.
 
