@@ -266,10 +266,11 @@ def model_constructors(vk, model):
 
     def parse_len(member):
         mlen = member.get('@len')
-        if not mlen:
+        if not mlen or 'latex' in mlen or 'null-terminated' in mlen:
             return None
         if ',' in mlen:
-            return mlen.split(',')[0]
+            mlen = mlen.split(',')[0]
+        return mlen
 
     for struct in structs:
         model['constructors'].append({
