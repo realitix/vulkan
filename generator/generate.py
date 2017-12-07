@@ -458,7 +458,7 @@ def generate_py():
         loader=jinja2.FileSystemLoader(HERE)
     )
 
-    out_file = path.join(HERE, path.pardir, 'vulkan', '__init__.py')
+    out_file = path.join(HERE, path.pardir, 'vulkan', '_vulkan.py')
     with open(out_file, 'w') as out:
         out.write(env.get_template('vulkan.template.py').render(model=model))
 
@@ -466,7 +466,7 @@ def generate_py():
 def generate_cdef():
     """Generate the cdef output file"""
     include_path = path.join(HERE, 'fake_libc_include')
-    out_file = path.join(HERE, path.pardir, '_cffi_build', 'vulkan.cdef.h')
+    out_file = path.join(HERE, path.pardir, 'vulkan', 'vulkan.cdef.h')
     header = path.join(HERE, 'vulkan.h')
 
     command = ['cpp',

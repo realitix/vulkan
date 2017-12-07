@@ -2,10 +2,7 @@ import collections as _collections
 import weakref as _weakref
 import sys
 
-from vulkan._vulkan import ffi
-
-
-__version__ = '1.0.61.2'
+from vulkan._vulkancache import ffi
 
 
 _weakkey_dict = _weakref.WeakKeyDictionary()

@@ -7,7 +7,7 @@ setup(
     description='Ultimate Python binding for Vulkan API',
     author='realitix',
     author_email='realitix@gmail.com',
-    packages=['_cffi_build', 'vulkan'],
+    packages=['vulkan'],
     include_package_data=True,
     install_requires=['cffi>=1.10'],
     setup_requires=['cffi>=1.10'],
@@ -25,5 +25,5 @@ setup(
         "Topic :: Scientific/Engineering",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    cffi_modules=["_cffi_build/vulkan_build.py:ffi"]
+    cffi_modules=["vulkan/vulkan_build.py:ffi"]
 )

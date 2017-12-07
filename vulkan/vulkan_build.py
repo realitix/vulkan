@@ -11,4 +11,4 @@ with open(path.join(HERE, 'vulkan.cdef.h')) as f:
 
 # configure cffi
 ffi.cdef(cdef)
-ffi.set_source('vulkan._vulkan', None)
+ffi.set_source('vulkan._vulkancache', None)
