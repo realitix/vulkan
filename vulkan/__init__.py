@@ -1,3 +1,3 @@
 from vulkan._vulkan import * # noqa
 
-__version__ = '1.0.61.2'
+__version__ = '1.0.61.3'
