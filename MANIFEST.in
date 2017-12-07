@@ -1,2 +1,2 @@
 include *.md
-recursive-include _cffi_build *.h
+recursive-include vulkan *.h
