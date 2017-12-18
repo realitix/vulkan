@@ -172,7 +172,7 @@ class {{name}}(VkError):
     pass
 {% endfor %}
 
-_exception_codes = {
+exception_codes = {
 {% for value, name in model.exceptions.items() %}
     {{value}}:{{name}},
 {% endfor %}
@@ -335,7 +335,7 @@ def {{f.name}}({{params_def(f)}}):
     result = _callApi({{fn_call}}, {{params_call(f)}})
     {% if f.return_result %}
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
     {% endif %}
 
     {% if not rmember.static_count and not rmember.has_str %}
@@ -361,14 +361,14 @@ def {{f.name}}({{params_def(f)}}):
     result = _callApi({{fn_call}}, {{params_call(f)}})
     {% if f.return_result %}
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
     {% endif %}
 
     {{amember.name}} = ffi.new('{{amember.type}}[]', {{cmember.name}}[0])
     result = _callApi({{fn_call}}, {{params_call(f)}})
     {% if f.return_result %}
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
     {% endif %}
 
     {% if amember.has_str %}
@@ -387,7 +387,7 @@ def {{f.name}}({{params_def(f)}}):
     result = _callApi({{fn_call}}, {{params_call(f)}})
     {% if f.return_result %}
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
     {% endif %}
 {% endmacro %}
 
@@ -456,6 +456,6 @@ def vkMapMemory(device, memory, offset, size, flags):
 
     result = _callApi(lib.vkMapMemory, device,memory,offset,size,flags,ppData)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return ffi.buffer(ppData[0], size)
