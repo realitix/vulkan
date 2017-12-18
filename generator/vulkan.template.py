@@ -97,7 +97,7 @@ _cast_ptr = _cast_ptr3 if PY3 else _cast_ptr2
 _lib_names = ('libvulkan.so.1', 'vulkan-1.dll')
 for name in _lib_names:
     try:
-        _lib = ffi.dlopen(name)
+        lib = ffi.dlopen(name)
         break
     except OSError:
         pass
@@ -320,7 +320,7 @@ def _callApi(fn, *args):
 
 {# Macro that write a function #}
 {% macro fun_allocate(f) %}
-{% set fn_call = '_lib.' ~ f.name %}
+{% set fn_call = 'lib.' ~ f.name %}
 {% if f.is_extension %} {% set fn_call = 'fn' %} {% endif %}
 def {{f.name}}({{params_def(f)}}):
     {% set rmember = f.return_member %}
@@ -349,7 +349,7 @@ def {{f.name}}({{params_def(f)}}):
 {% endmacro %}
 
 {% macro fun_count(f) %}
-{% set fn_call = '_lib.' ~ f.name %}
+{% set fn_call = 'lib.' ~ f.name %}
 {% if f.is_extension %} {% set fn_call = 'fn' %} {% endif %}
 def {{f.name}}({{params_def(f)}}):
     {% set cmember = f.members[-2] %}
@@ -381,7 +381,7 @@ def {{f.name}}({{params_def(f)}}):
 {% endmacro %}
 
 {% macro fun_noallocate(f) %}
-{% set fn_call = '_lib.' ~ f.name %}
+{% set fn_call = 'lib.' ~ f.name %}
 {% if f.is_extension %} {% set fn_call = 'fn' %} {% endif %}
 def {{f.name}}({{params_def(f)}}):
     result = _callApi({{fn_call}}, {{params_call(f)}})
@@ -432,7 +432,7 @@ _device_ext_funcs = {
 
 
 def vkGetInstanceProcAddr(instance, pName):
-    fn = _callApi(_lib.vkGetInstanceProcAddr, instance, pName)
+    fn = _callApi(lib.vkGetInstanceProcAddr, instance, pName)
     if fn == ffi.NULL:
         raise ProcedureNotFoundError()
     if not pName in _instance_ext_funcs:
@@ -442,7 +442,7 @@ def vkGetInstanceProcAddr(instance, pName):
 
 
 def vkGetDeviceProcAddr(device, pName):
-    fn = _callApi(_lib.vkGetDeviceProcAddr, device, pName)
+    fn = _callApi(lib.vkGetDeviceProcAddr, device, pName)
     if fn == ffi.NULL:
         raise ProcedureNotFoundError()
     if not pName in _device_ext_funcs:
@@ -454,7 +454,7 @@ def vkGetDeviceProcAddr(device, pName):
 def vkMapMemory(device, memory, offset, size, flags):
     ppData = ffi.new('void**')
 
-    result = _callApi(_lib.vkMapMemory, device,memory,offset,size,flags,ppData)
+    result = _callApi(lib.vkMapMemory, device,memory,offset,size,flags,ppData)
     if result != VK_SUCCESS:
         raise _exception_codes[result]
 
