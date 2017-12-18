@@ -2086,7 +2086,7 @@ class VkErrorOutOfPoolMemoryKhr(VkError):
 class VkErrorInvalidExternalHandleKhr(VkError):
     pass
 
-_exception_codes = {
+exception_codes = {
     1:VkNotReady,
     2:VkTimeout,
     3:VkEventSet,
@@ -3586,7 +3586,7 @@ def vkCreateInstance(pCreateInfo
 
     result = _callApi(lib.vkCreateInstance, pCreateInfo,pAllocator,pInstance)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pInstance[0]
 
@@ -3606,12 +3606,12 @@ def vkEnumeratePhysicalDevices(instance
 
     result = _callApi(lib.vkEnumeratePhysicalDevices, instance,pPhysicalDeviceCount,pPhysicalDevices)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     pPhysicalDevices = ffi.new('VkPhysicalDevice[]', pPhysicalDeviceCount[0])
     result = _callApi(lib.vkEnumeratePhysicalDevices, instance,pPhysicalDeviceCount,pPhysicalDevices)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pPhysicalDevices
 
@@ -3687,7 +3687,7 @@ def vkGetPhysicalDeviceImageFormatProperties(physicalDevice
 
     result = _callApi(lib.vkGetPhysicalDeviceImageFormatProperties, physicalDevice,format,type,tiling,usage,flags,pImageFormatProperties)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pImageFormatProperties[0]
 
@@ -3702,7 +3702,7 @@ def vkCreateDevice(physicalDevice
 
     result = _callApi(lib.vkCreateDevice, physicalDevice,pCreateInfo,pAllocator,pDevice)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pDevice[0]
 
@@ -3721,12 +3721,12 @@ def vkEnumerateInstanceLayerProperties():
 
     result = _callApi(lib.vkEnumerateInstanceLayerProperties, pPropertyCount,pProperties)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     pProperties = ffi.new('VkLayerProperties[]', pPropertyCount[0])
     result = _callApi(lib.vkEnumerateInstanceLayerProperties, pPropertyCount,pProperties)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     result = (_StrWrap(x) for x in pProperties)
     _weakkey_dict[result] = pProperties
@@ -3741,12 +3741,12 @@ def vkEnumerateInstanceExtensionProperties(pLayerName
 
     result = _callApi(lib.vkEnumerateInstanceExtensionProperties, pLayerName,pPropertyCount,pProperties)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     pProperties = ffi.new('VkExtensionProperties[]', pPropertyCount[0])
     result = _callApi(lib.vkEnumerateInstanceExtensionProperties, pLayerName,pPropertyCount,pProperties)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     result = (_StrWrap(x) for x in pProperties)
     _weakkey_dict[result] = pProperties
@@ -3761,12 +3761,12 @@ def vkEnumerateDeviceLayerProperties(physicalDevice
 
     result = _callApi(lib.vkEnumerateDeviceLayerProperties, physicalDevice,pPropertyCount,pProperties)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     pProperties = ffi.new('VkLayerProperties[]', pPropertyCount[0])
     result = _callApi(lib.vkEnumerateDeviceLayerProperties, physicalDevice,pPropertyCount,pProperties)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     result = (_StrWrap(x) for x in pProperties)
     _weakkey_dict[result] = pProperties
@@ -3782,12 +3782,12 @@ def vkEnumerateDeviceExtensionProperties(physicalDevice
 
     result = _callApi(lib.vkEnumerateDeviceExtensionProperties, physicalDevice,pLayerName,pPropertyCount,pProperties)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     pProperties = ffi.new('VkExtensionProperties[]', pPropertyCount[0])
     result = _callApi(lib.vkEnumerateDeviceExtensionProperties, physicalDevice,pLayerName,pPropertyCount,pProperties)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     result = (_StrWrap(x) for x in pProperties)
     _weakkey_dict[result] = pProperties
@@ -3814,21 +3814,21 @@ def vkQueueSubmit(queue
         ,):
     result = _callApi(lib.vkQueueSubmit, queue,submitCount,pSubmits,fence)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkQueueWaitIdle(queue
         ,):
     result = _callApi(lib.vkQueueWaitIdle, queue)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkDeviceWaitIdle(device
         ,):
     result = _callApi(lib.vkDeviceWaitIdle, device)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkAllocateMemory(device
@@ -3840,7 +3840,7 @@ def vkAllocateMemory(device
 
     result = _callApi(lib.vkAllocateMemory, device,pAllocateInfo,pAllocator,pMemory)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pMemory[0]
 
@@ -3865,7 +3865,7 @@ def vkFlushMappedMemoryRanges(device
         ,):
     result = _callApi(lib.vkFlushMappedMemoryRanges, device,memoryRangeCount,pMemoryRanges)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkInvalidateMappedMemoryRanges(device
@@ -3874,7 +3874,7 @@ def vkInvalidateMappedMemoryRanges(device
         ,):
     result = _callApi(lib.vkInvalidateMappedMemoryRanges, device,memoryRangeCount,pMemoryRanges)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkGetDeviceMemoryCommitment(device
@@ -3908,7 +3908,7 @@ def vkBindBufferMemory(device
         ,):
     result = _callApi(lib.vkBindBufferMemory, device,buffer,memory,memoryOffset)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkGetImageMemoryRequirements(device
@@ -3930,7 +3930,7 @@ def vkBindImageMemory(device
         ,):
     result = _callApi(lib.vkBindImageMemory, device,image,memory,memoryOffset)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkGetImageSparseMemoryRequirements(device
@@ -3974,7 +3974,7 @@ def vkQueueBindSparse(queue
         ,):
     result = _callApi(lib.vkQueueBindSparse, queue,bindInfoCount,pBindInfo,fence)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkCreateFence(device
@@ -3986,7 +3986,7 @@ def vkCreateFence(device
 
     result = _callApi(lib.vkCreateFence, device,pCreateInfo,pAllocator,pFence)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pFence[0]
 
@@ -4005,7 +4005,7 @@ def vkResetFences(device
         ,):
     result = _callApi(lib.vkResetFences, device,fenceCount,pFences)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkGetFenceStatus(device
@@ -4013,7 +4013,7 @@ def vkGetFenceStatus(device
         ,):
     result = _callApi(lib.vkGetFenceStatus, device,fence)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkWaitForFences(device
@@ -4024,7 +4024,7 @@ def vkWaitForFences(device
         ,):
     result = _callApi(lib.vkWaitForFences, device,fenceCount,pFences,waitAll,timeout)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkCreateSemaphore(device
@@ -4036,7 +4036,7 @@ def vkCreateSemaphore(device
 
     result = _callApi(lib.vkCreateSemaphore, device,pCreateInfo,pAllocator,pSemaphore)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pSemaphore[0]
 
@@ -4058,7 +4058,7 @@ def vkCreateEvent(device
 
     result = _callApi(lib.vkCreateEvent, device,pCreateInfo,pAllocator,pEvent)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pEvent[0]
 
@@ -4076,7 +4076,7 @@ def vkGetEventStatus(device
         ,):
     result = _callApi(lib.vkGetEventStatus, device,event)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkSetEvent(device
@@ -4084,7 +4084,7 @@ def vkSetEvent(device
         ,):
     result = _callApi(lib.vkSetEvent, device,event)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkResetEvent(device
@@ -4092,7 +4092,7 @@ def vkResetEvent(device
         ,):
     result = _callApi(lib.vkResetEvent, device,event)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkCreateQueryPool(device
@@ -4104,7 +4104,7 @@ def vkCreateQueryPool(device
 
     result = _callApi(lib.vkCreateQueryPool, device,pCreateInfo,pAllocator,pQueryPool)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pQueryPool[0]
 
@@ -4128,7 +4128,7 @@ def vkGetQueryPoolResults(device
         ,):
     result = _callApi(lib.vkGetQueryPoolResults, device,queryPool,firstQuery,queryCount,dataSize,pData,stride,flags)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkCreateBuffer(device
@@ -4140,7 +4140,7 @@ def vkCreateBuffer(device
 
     result = _callApi(lib.vkCreateBuffer, device,pCreateInfo,pAllocator,pBuffer)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pBuffer[0]
 
@@ -4162,7 +4162,7 @@ def vkCreateBufferView(device
 
     result = _callApi(lib.vkCreateBufferView, device,pCreateInfo,pAllocator,pView)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pView[0]
 
@@ -4184,7 +4184,7 @@ def vkCreateImage(device
 
     result = _callApi(lib.vkCreateImage, device,pCreateInfo,pAllocator,pImage)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pImage[0]
 
@@ -4219,7 +4219,7 @@ def vkCreateImageView(device
 
     result = _callApi(lib.vkCreateImageView, device,pCreateInfo,pAllocator,pView)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pView[0]
 
@@ -4241,7 +4241,7 @@ def vkCreateShaderModule(device
 
     result = _callApi(lib.vkCreateShaderModule, device,pCreateInfo,pAllocator,pShaderModule)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pShaderModule[0]
 
@@ -4263,7 +4263,7 @@ def vkCreatePipelineCache(device
 
     result = _callApi(lib.vkCreatePipelineCache, device,pCreateInfo,pAllocator,pPipelineCache)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pPipelineCache[0]
 
@@ -4283,7 +4283,7 @@ def vkMergePipelineCaches(device
         ,):
     result = _callApi(lib.vkMergePipelineCaches, device,dstCache,srcCacheCount,pSrcCaches)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkCreateGraphicsPipelines(device
@@ -4297,7 +4297,7 @@ def vkCreateGraphicsPipelines(device
 
     result = _callApi(lib.vkCreateGraphicsPipelines, device,pipelineCache,createInfoCount,pCreateInfos,pAllocator,pPipelines)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pPipelines[0]
 
@@ -4314,7 +4314,7 @@ def vkCreateComputePipelines(device
 
     result = _callApi(lib.vkCreateComputePipelines, device,pipelineCache,createInfoCount,pCreateInfos,pAllocator,pPipelines)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pPipelines[0]
 
@@ -4336,7 +4336,7 @@ def vkCreatePipelineLayout(device
 
     result = _callApi(lib.vkCreatePipelineLayout, device,pCreateInfo,pAllocator,pPipelineLayout)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pPipelineLayout[0]
 
@@ -4358,7 +4358,7 @@ def vkCreateSampler(device
 
     result = _callApi(lib.vkCreateSampler, device,pCreateInfo,pAllocator,pSampler)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pSampler[0]
 
@@ -4380,7 +4380,7 @@ def vkCreateDescriptorSetLayout(device
 
     result = _callApi(lib.vkCreateDescriptorSetLayout, device,pCreateInfo,pAllocator,pSetLayout)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pSetLayout[0]
 
@@ -4402,7 +4402,7 @@ def vkCreateDescriptorPool(device
 
     result = _callApi(lib.vkCreateDescriptorPool, device,pCreateInfo,pAllocator,pDescriptorPool)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pDescriptorPool[0]
 
@@ -4421,7 +4421,7 @@ def vkResetDescriptorPool(device
         ,):
     result = _callApi(lib.vkResetDescriptorPool, device,descriptorPool,flags)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkAllocateDescriptorSets(device
@@ -4432,7 +4432,7 @@ def vkAllocateDescriptorSets(device
 
     result = _callApi(lib.vkAllocateDescriptorSets, device,pAllocateInfo,pDescriptorSets)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pDescriptorSets
 
@@ -4445,7 +4445,7 @@ def vkFreeDescriptorSets(device
         ,):
     result = _callApi(lib.vkFreeDescriptorSets, device,descriptorPool,descriptorSetCount,pDescriptorSets)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkUpdateDescriptorSets(device
@@ -4466,7 +4466,7 @@ def vkCreateFramebuffer(device
 
     result = _callApi(lib.vkCreateFramebuffer, device,pCreateInfo,pAllocator,pFramebuffer)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pFramebuffer[0]
 
@@ -4488,7 +4488,7 @@ def vkCreateRenderPass(device
 
     result = _callApi(lib.vkCreateRenderPass, device,pCreateInfo,pAllocator,pRenderPass)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pRenderPass[0]
 
@@ -4522,7 +4522,7 @@ def vkCreateCommandPool(device
 
     result = _callApi(lib.vkCreateCommandPool, device,pCreateInfo,pAllocator,pCommandPool)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pCommandPool[0]
 
@@ -4541,7 +4541,7 @@ def vkResetCommandPool(device
         ,):
     result = _callApi(lib.vkResetCommandPool, device,commandPool,flags)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkAllocateCommandBuffers(device
@@ -4552,7 +4552,7 @@ def vkAllocateCommandBuffers(device
 
     result = _callApi(lib.vkAllocateCommandBuffers, device,pAllocateInfo,pCommandBuffers)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return pCommandBuffers
 
@@ -4571,14 +4571,14 @@ def vkBeginCommandBuffer(commandBuffer
         ,):
     result = _callApi(lib.vkBeginCommandBuffer, commandBuffer,pBeginInfo)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkEndCommandBuffer(commandBuffer
         ,):
     result = _callApi(lib.vkEndCommandBuffer, commandBuffer)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkResetCommandBuffer(commandBuffer
@@ -4586,7 +4586,7 @@ def vkResetCommandBuffer(commandBuffer
         ,):
     result = _callApi(lib.vkResetCommandBuffer, commandBuffer,flags)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
 
 def vkCmdBindPipeline(commandBuffer
@@ -4982,7 +4982,7 @@ def _wrap_vkCreateAndroidSurfaceKHR(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurface[0]
 
@@ -4998,12 +4998,12 @@ def _wrap_vkGetPhysicalDeviceDisplayPropertiesKHR(fn):
 
         result = _callApi(fn, physicalDevice,pPropertyCount,pProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pProperties = ffi.new('VkDisplayPropertiesKHR[]', pPropertyCount[0])
         result = _callApi(fn, physicalDevice,pPropertyCount,pProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         result = (_StrWrap(x) for x in pProperties)
         _weakkey_dict[result] = pProperties
@@ -5020,12 +5020,12 @@ def _wrap_vkGetPhysicalDeviceDisplayPlanePropertiesKHR(fn):
 
         result = _callApi(fn, physicalDevice,pPropertyCount,pProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pProperties = ffi.new('VkDisplayPlanePropertiesKHR[]', pPropertyCount[0])
         result = _callApi(fn, physicalDevice,pPropertyCount,pProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pProperties
 
@@ -5041,12 +5041,12 @@ def _wrap_vkGetDisplayPlaneSupportedDisplaysKHR(fn):
 
         result = _callApi(fn, physicalDevice,planeIndex,pDisplayCount,pDisplays)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pDisplays = ffi.new('VkDisplayKHR[]', pDisplayCount[0])
         result = _callApi(fn, physicalDevice,planeIndex,pDisplayCount,pDisplays)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pDisplays
 
@@ -5062,12 +5062,12 @@ def _wrap_vkGetDisplayModePropertiesKHR(fn):
 
         result = _callApi(fn, physicalDevice,display,pPropertyCount,pProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pProperties = ffi.new('VkDisplayModePropertiesKHR[]', pPropertyCount[0])
         result = _callApi(fn, physicalDevice,display,pPropertyCount,pProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pProperties
 
@@ -5084,7 +5084,7 @@ def _wrap_vkCreateDisplayModeKHR(fn):
 
         result = _callApi(fn, physicalDevice,display,pCreateInfo,pAllocator,pMode)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pMode[0]
 
@@ -5101,7 +5101,7 @@ def _wrap_vkGetDisplayPlaneCapabilitiesKHR(fn):
 
         result = _callApi(fn, physicalDevice,mode,planeIndex,pCapabilities)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pCapabilities[0]
 
@@ -5118,7 +5118,7 @@ def _wrap_vkCreateDisplayPlaneSurfaceKHR(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurface[0]
 
@@ -5136,7 +5136,7 @@ def _wrap_vkCreateSharedSwapchainsKHR(fn):
 
         result = _callApi(fn, device,swapchainCount,pCreateInfos,pAllocator,pSwapchains)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSwapchains[0]
 
@@ -5153,7 +5153,7 @@ def _wrap_vkCreateMirSurfaceKHR(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurface[0]
 
@@ -5188,7 +5188,7 @@ def _wrap_vkGetPhysicalDeviceSurfaceSupportKHR(fn):
 
         result = _callApi(fn, physicalDevice,queueFamilyIndex,surface,pSupported)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSupported[0]
 
@@ -5204,7 +5204,7 @@ def _wrap_vkGetPhysicalDeviceSurfaceCapabilitiesKHR(fn):
 
         result = _callApi(fn, physicalDevice,surface,pSurfaceCapabilities)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurfaceCapabilities[0]
 
@@ -5221,12 +5221,12 @@ def _wrap_vkGetPhysicalDeviceSurfaceFormatsKHR(fn):
 
         result = _callApi(fn, physicalDevice,surface,pSurfaceFormatCount,pSurfaceFormats)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pSurfaceFormats = ffi.new('VkSurfaceFormatKHR[]', pSurfaceFormatCount[0])
         result = _callApi(fn, physicalDevice,surface,pSurfaceFormatCount,pSurfaceFormats)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurfaceFormats
 
@@ -5242,12 +5242,12 @@ def _wrap_vkGetPhysicalDeviceSurfacePresentModesKHR(fn):
 
         result = _callApi(fn, physicalDevice,surface,pPresentModeCount,pPresentModes)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pPresentModes = ffi.new('VkPresentModeKHR[]', pPresentModeCount[0])
         result = _callApi(fn, physicalDevice,surface,pPresentModeCount,pPresentModes)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pPresentModes
 
@@ -5263,7 +5263,7 @@ def _wrap_vkCreateSwapchainKHR(fn):
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pSwapchain)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSwapchain[0]
 
@@ -5289,12 +5289,12 @@ def _wrap_vkGetSwapchainImagesKHR(fn):
 
         result = _callApi(fn, device,swapchain,pSwapchainImageCount,pSwapchainImages)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pSwapchainImages = ffi.new('VkImage[]', pSwapchainImageCount[0])
         result = _callApi(fn, device,swapchain,pSwapchainImageCount,pSwapchainImages)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSwapchainImages
 
@@ -5312,7 +5312,7 @@ def _wrap_vkAcquireNextImageKHR(fn):
 
         result = _callApi(fn, device,swapchain,timeout,semaphore,fence,pImageIndex)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pImageIndex[0]
 
@@ -5325,7 +5325,7 @@ def _wrap_vkQueuePresentKHR(fn):
             ,):
         result = _callApi(fn, queue,pPresentInfo)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkQueuePresentKHR
@@ -5339,7 +5339,7 @@ def _wrap_vkCreateViSurfaceNN(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurface[0]
 
@@ -5356,7 +5356,7 @@ def _wrap_vkCreateWaylandSurfaceKHR(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurface[0]
 
@@ -5382,7 +5382,7 @@ def _wrap_vkCreateWin32SurfaceKHR(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurface[0]
 
@@ -5407,7 +5407,7 @@ def _wrap_vkCreateXlibSurfaceKHR(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurface[0]
 
@@ -5434,7 +5434,7 @@ def _wrap_vkCreateXcbSurfaceKHR(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurface[0]
 
@@ -5461,7 +5461,7 @@ def _wrap_vkCreateDebugReportCallbackEXT(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pCallback)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pCallback[0]
 
@@ -5497,7 +5497,7 @@ def _wrap_vkDebugMarkerSetObjectNameEXT(fn):
             ,):
         result = _callApi(fn, device,pNameInfo)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkDebugMarkerSetObjectNameEXT
@@ -5507,7 +5507,7 @@ def _wrap_vkDebugMarkerSetObjectTagEXT(fn):
             ,):
         result = _callApi(fn, device,pTagInfo)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkDebugMarkerSetObjectTagEXT
@@ -5548,7 +5548,7 @@ def _wrap_vkGetPhysicalDeviceExternalImageFormatPropertiesNV(fn):
 
         result = _callApi(fn, physicalDevice,format,type,tiling,usage,flags,externalHandleType,pExternalImageFormatProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pExternalImageFormatProperties[0]
 
@@ -5565,7 +5565,7 @@ def _wrap_vkGetMemoryWin32HandleNV(fn):
 
         result = _callApi(fn, device,memory,handleType,pHandle)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pHandle[0]
 
@@ -5624,7 +5624,7 @@ def _wrap_vkCreateIndirectCommandsLayoutNVX(fn):
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pIndirectCommandsLayout)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pIndirectCommandsLayout[0]
 
@@ -5650,7 +5650,7 @@ def _wrap_vkCreateObjectTableNVX(fn):
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pObjectTable)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pObjectTable[0]
 
@@ -5675,7 +5675,7 @@ def _wrap_vkRegisterObjectsNVX(fn):
             ,):
         result = _callApi(fn, device,objectTable,objectCount,ppObjectTableEntries,pObjectIndices)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkRegisterObjectsNVX
@@ -5688,7 +5688,7 @@ def _wrap_vkUnregisterObjectsNVX(fn):
             ,):
         result = _callApi(fn, device,objectTable,objectCount,pObjectEntryTypes,pObjectIndices)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkUnregisterObjectsNVX
@@ -5755,7 +5755,7 @@ def _wrap_vkGetPhysicalDeviceImageFormatProperties2KHR(fn):
 
         result = _callApi(fn, physicalDevice,pImageFormatInfo,pImageFormatProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pImageFormatProperties[0]
 
@@ -5852,7 +5852,7 @@ def _wrap_vkGetMemoryWin32HandleKHR(fn):
 
         result = _callApi(fn, device,pGetWin32HandleInfo,pHandle)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pHandle[0]
 
@@ -5869,7 +5869,7 @@ def _wrap_vkGetMemoryWin32HandlePropertiesKHR(fn):
 
         result = _callApi(fn, device,handleType,handle,pMemoryWin32HandleProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pMemoryWin32HandleProperties[0]
 
@@ -5885,7 +5885,7 @@ def _wrap_vkGetMemoryFdKHR(fn):
 
         result = _callApi(fn, device,pGetFdInfo,pFd)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pFd[0]
 
@@ -5902,7 +5902,7 @@ def _wrap_vkGetMemoryFdPropertiesKHR(fn):
 
         result = _callApi(fn, device,handleType,fd,pMemoryFdProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pMemoryFdProperties[0]
 
@@ -5932,7 +5932,7 @@ def _wrap_vkGetSemaphoreWin32HandleKHR(fn):
 
         result = _callApi(fn, device,pGetWin32HandleInfo,pHandle)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pHandle[0]
 
@@ -5945,7 +5945,7 @@ def _wrap_vkImportSemaphoreWin32HandleKHR(fn):
             ,):
         result = _callApi(fn, device,pImportSemaphoreWin32HandleInfo)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkImportSemaphoreWin32HandleKHR
@@ -5958,7 +5958,7 @@ def _wrap_vkGetSemaphoreFdKHR(fn):
 
         result = _callApi(fn, device,pGetFdInfo,pFd)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pFd[0]
 
@@ -5971,7 +5971,7 @@ def _wrap_vkImportSemaphoreFdKHR(fn):
             ,):
         result = _callApi(fn, device,pImportSemaphoreFdInfo)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkImportSemaphoreFdKHR
@@ -5998,7 +5998,7 @@ def _wrap_vkGetFenceWin32HandleKHR(fn):
 
         result = _callApi(fn, device,pGetWin32HandleInfo,pHandle)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pHandle[0]
 
@@ -6011,7 +6011,7 @@ def _wrap_vkImportFenceWin32HandleKHR(fn):
             ,):
         result = _callApi(fn, device,pImportFenceWin32HandleInfo)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkImportFenceWin32HandleKHR
@@ -6024,7 +6024,7 @@ def _wrap_vkGetFenceFdKHR(fn):
 
         result = _callApi(fn, device,pGetFdInfo,pFd)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pFd[0]
 
@@ -6037,7 +6037,7 @@ def _wrap_vkImportFenceFdKHR(fn):
             ,):
         result = _callApi(fn, device,pImportFenceFdInfo)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkImportFenceFdKHR
@@ -6047,7 +6047,7 @@ def _wrap_vkReleaseDisplayEXT(fn):
             ,):
         result = _callApi(fn, physicalDevice,display)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkReleaseDisplayEXT
@@ -6060,7 +6060,7 @@ def _wrap_vkAcquireXlibDisplayEXT(fn):
 
         result = _callApi(fn, physicalDevice,dpy,display)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return display[0]
 
@@ -6077,7 +6077,7 @@ def _wrap_vkGetRandROutputDisplayEXT(fn):
 
         result = _callApi(fn, physicalDevice,dpy,rrOutput,pDisplay)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pDisplay[0]
 
@@ -6091,7 +6091,7 @@ def _wrap_vkDisplayPowerControlEXT(fn):
             ,):
         result = _callApi(fn, device,display,pDisplayPowerInfo)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkDisplayPowerControlEXT
@@ -6103,7 +6103,7 @@ def _wrap_vkRegisterDeviceEventEXT(fn):
             ,):
         result = _callApi(fn, device,pDeviceEventInfo,pAllocator,pFence)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkRegisterDeviceEventEXT
@@ -6116,7 +6116,7 @@ def _wrap_vkRegisterDisplayEventEXT(fn):
             ,):
         result = _callApi(fn, device,display,pDisplayEventInfo,pAllocator,pFence)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkRegisterDisplayEventEXT
@@ -6130,7 +6130,7 @@ def _wrap_vkGetSwapchainCounterEXT(fn):
 
         result = _callApi(fn, device,swapchain,counter,pCounterValue)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pCounterValue[0]
 
@@ -6146,7 +6146,7 @@ def _wrap_vkGetPhysicalDeviceSurfaceCapabilities2EXT(fn):
 
         result = _callApi(fn, physicalDevice,surface,pSurfaceCapabilities)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurfaceCapabilities[0]
 
@@ -6162,12 +6162,12 @@ def _wrap_vkEnumeratePhysicalDeviceGroupsKHX(fn):
 
         result = _callApi(fn, instance,pPhysicalDeviceGroupCount,pPhysicalDeviceGroupProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pPhysicalDeviceGroupProperties = ffi.new('VkPhysicalDeviceGroupPropertiesKHX[]', pPhysicalDeviceGroupCount[0])
         result = _callApi(fn, instance,pPhysicalDeviceGroupCount,pPhysicalDeviceGroupProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pPhysicalDeviceGroupProperties
 
@@ -6196,7 +6196,7 @@ def _wrap_vkBindBufferMemory2KHR(fn):
             ,):
         result = _callApi(fn, device,bindInfoCount,pBindInfos)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkBindBufferMemory2KHR
@@ -6207,7 +6207,7 @@ def _wrap_vkBindImageMemory2KHR(fn):
             ,):
         result = _callApi(fn, device,bindInfoCount,pBindInfos)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkBindImageMemory2KHR
@@ -6227,7 +6227,7 @@ def _wrap_vkGetDeviceGroupPresentCapabilitiesKHX(fn):
 
         result = _callApi(fn, device,pDeviceGroupPresentCapabilities)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pDeviceGroupPresentCapabilities[0]
 
@@ -6243,7 +6243,7 @@ def _wrap_vkGetDeviceGroupSurfacePresentModesKHX(fn):
 
         result = _callApi(fn, device,surface,pModes)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pModes[0]
 
@@ -6259,12 +6259,12 @@ def _wrap_vkAcquireNextImage2KHX(fn):
 
         result = _callApi(fn, device,pAcquireInfo,pImageIndex)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pImageIndex = ffi.new('uint32_t[]', pAcquireInfo[0])
         result = _callApi(fn, device,pAcquireInfo,pImageIndex)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pImageIndex
 
@@ -6293,12 +6293,12 @@ def _wrap_vkGetPhysicalDevicePresentRectanglesKHX(fn):
 
         result = _callApi(fn, physicalDevice,surface,pRectCount,pRects)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pRects = ffi.new('VkRect2D[]', pRectCount[0])
         result = _callApi(fn, physicalDevice,surface,pRectCount,pRects)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pRects
 
@@ -6314,7 +6314,7 @@ def _wrap_vkCreateDescriptorUpdateTemplateKHR(fn):
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pDescriptorUpdateTemplate)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pDescriptorUpdateTemplate[0]
 
@@ -6369,7 +6369,7 @@ def _wrap_vkGetSwapchainStatusKHR(fn):
 
         result = _callApi(fn, device,swapchain)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return swapchain[0]
 
@@ -6385,7 +6385,7 @@ def _wrap_vkGetRefreshCycleDurationGOOGLE(fn):
 
         result = _callApi(fn, device,swapchain,pDisplayTimingProperties)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pDisplayTimingProperties[0]
 
@@ -6402,12 +6402,12 @@ def _wrap_vkGetPastPresentationTimingGOOGLE(fn):
 
         result = _callApi(fn, device,swapchain,pPresentationTimingCount,pPresentationTimings)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pPresentationTimings = ffi.new('VkPastPresentationTimingGOOGLE[]', pPresentationTimingCount[0])
         result = _callApi(fn, device,swapchain,pPresentationTimingCount,pPresentationTimings)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pPresentationTimings
 
@@ -6423,7 +6423,7 @@ def _wrap_vkCreateIOSSurfaceMVK(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurface[0]
 
@@ -6440,7 +6440,7 @@ def _wrap_vkCreateMacOSSurfaceMVK(fn):
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurface[0]
 
@@ -6498,7 +6498,7 @@ def _wrap_vkGetPhysicalDeviceSurfaceCapabilities2KHR(fn):
 
         result = _callApi(fn, physicalDevice,pSurfaceInfo,pSurfaceCapabilities)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurfaceCapabilities[0]
 
@@ -6515,12 +6515,12 @@ def _wrap_vkGetPhysicalDeviceSurfaceFormats2KHR(fn):
 
         result = _callApi(fn, physicalDevice,pSurfaceInfo,pSurfaceFormatCount,pSurfaceFormats)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         pSurfaceFormats = ffi.new('VkSurfaceFormat2KHR[]', pSurfaceFormatCount[0])
         result = _callApi(fn, physicalDevice,pSurfaceInfo,pSurfaceFormatCount,pSurfaceFormats)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pSurfaceFormats
 
@@ -6581,7 +6581,7 @@ def _wrap_vkCreateSamplerYcbcrConversionKHR(fn):
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pYcbcrConversion)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pYcbcrConversion[0]
 
@@ -6607,7 +6607,7 @@ def _wrap_vkCreateValidationCacheEXT(fn):
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pValidationCache)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pValidationCache[0]
 
@@ -6633,7 +6633,7 @@ def _wrap_vkGetValidationCacheDataEXT(fn):
 
         result = _callApi(fn, device,validationCache,pDataSize,pData)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
         return pData[0]
 
@@ -6648,205 +6648,205 @@ def _wrap_vkMergeValidationCachesEXT(fn):
             ,):
         result = _callApi(fn, device,dstCache,srcCacheCount,pSrcCaches)
         if result != VK_SUCCESS:
-            raise _exception_codes[result]
+            raise exception_codes[result]
 
 
     return vkMergeValidationCachesEXT
 
 _instance_ext_funcs = {
-    'vkGetPhysicalDeviceQueueFamilyProperties2KHR':_wrap_vkGetPhysicalDeviceQueueFamilyProperties2KHR,
-    'vkGetPhysicalDeviceSurfaceFormats2KHR':_wrap_vkGetPhysicalDeviceSurfaceFormats2KHR,
-    'vkGetPhysicalDeviceXlibPresentationSupportKHR':_wrap_vkGetPhysicalDeviceXlibPresentationSupportKHR,
-    'vkDebugReportMessageEXT':_wrap_vkDebugReportMessageEXT,
-    'vkGetPhysicalDeviceSparseImageFormatProperties2KHR':_wrap_vkGetPhysicalDeviceSparseImageFormatProperties2KHR,
-    'vkCreateMacOSSurfaceMVK':_wrap_vkCreateMacOSSurfaceMVK,
-    'vkGetPhysicalDeviceWin32PresentationSupportKHR':_wrap_vkGetPhysicalDeviceWin32PresentationSupportKHR,
-    'vkGetPhysicalDeviceWaylandPresentationSupportKHR':_wrap_vkGetPhysicalDeviceWaylandPresentationSupportKHR,
-    'vkCreateViSurfaceNN':_wrap_vkCreateViSurfaceNN,
-    'vkDestroySurfaceKHR':_wrap_vkDestroySurfaceKHR,
-    'vkGetDisplayModePropertiesKHR':_wrap_vkGetDisplayModePropertiesKHR,
-    'vkCreateMirSurfaceKHR':_wrap_vkCreateMirSurfaceKHR,
-    'vkGetPhysicalDeviceXcbPresentationSupportKHR':_wrap_vkGetPhysicalDeviceXcbPresentationSupportKHR,
-    'vkAcquireXlibDisplayEXT':_wrap_vkAcquireXlibDisplayEXT,
-    'vkGetRandROutputDisplayEXT':_wrap_vkGetRandROutputDisplayEXT,
-    'vkGetPhysicalDeviceSurfaceCapabilities2KHR':_wrap_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
-    'vkCreateDisplayPlaneSurfaceKHR':_wrap_vkCreateDisplayPlaneSurfaceKHR,
     'vkCreateIOSSurfaceMVK':_wrap_vkCreateIOSSurfaceMVK,
-    'vkGetPhysicalDeviceSurfaceCapabilities2EXT':_wrap_vkGetPhysicalDeviceSurfaceCapabilities2EXT,
-    'vkGetPhysicalDeviceImageFormatProperties2KHR':_wrap_vkGetPhysicalDeviceImageFormatProperties2KHR,
-    'vkGetPhysicalDeviceSurfacePresentModesKHR':_wrap_vkGetPhysicalDeviceSurfacePresentModesKHR,
-    'vkGetPhysicalDeviceSurfaceCapabilitiesKHR':_wrap_vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
-    'vkCreateXlibSurfaceKHR':_wrap_vkCreateXlibSurfaceKHR,
-    'vkGetPhysicalDeviceSurfaceSupportKHR':_wrap_vkGetPhysicalDeviceSurfaceSupportKHR,
-    'vkGetPhysicalDeviceDisplayPropertiesKHR':_wrap_vkGetPhysicalDeviceDisplayPropertiesKHR,
-    'vkGetPhysicalDeviceMirPresentationSupportKHR':_wrap_vkGetPhysicalDeviceMirPresentationSupportKHR,
-    'vkGetPhysicalDeviceDisplayPlanePropertiesKHR':_wrap_vkGetPhysicalDeviceDisplayPlanePropertiesKHR,
-    'vkCreateDisplayModeKHR':_wrap_vkCreateDisplayModeKHR,
-    'vkCreateWin32SurfaceKHR':_wrap_vkCreateWin32SurfaceKHR,
-    'vkGetPhysicalDeviceExternalBufferPropertiesKHR':_wrap_vkGetPhysicalDeviceExternalBufferPropertiesKHR,
-    'vkCreateDebugReportCallbackEXT':_wrap_vkCreateDebugReportCallbackEXT,
-    'vkGetPhysicalDeviceSurfaceFormatsKHR':_wrap_vkGetPhysicalDeviceSurfaceFormatsKHR,
-    'vkGetPhysicalDeviceFeatures2KHR':_wrap_vkGetPhysicalDeviceFeatures2KHR,
-    'vkGetPhysicalDeviceExternalSemaphorePropertiesKHR':_wrap_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR,
-    'vkReleaseDisplayEXT':_wrap_vkReleaseDisplayEXT,
-    'vkGetDisplayPlaneCapabilitiesKHR':_wrap_vkGetDisplayPlaneCapabilitiesKHR,
     'vkCreateXcbSurfaceKHR':_wrap_vkCreateXcbSurfaceKHR,
-    'vkGetPhysicalDeviceFormatProperties2KHR':_wrap_vkGetPhysicalDeviceFormatProperties2KHR,
-    'vkCreateWaylandSurfaceKHR':_wrap_vkCreateWaylandSurfaceKHR,
-    'vkGetPhysicalDeviceProperties2KHR':_wrap_vkGetPhysicalDeviceProperties2KHR,
+    'vkCreateDisplayPlaneSurfaceKHR':_wrap_vkCreateDisplayPlaneSurfaceKHR,
+    'vkGetDisplayModePropertiesKHR':_wrap_vkGetDisplayModePropertiesKHR,
     'vkEnumeratePhysicalDeviceGroupsKHX':_wrap_vkEnumeratePhysicalDeviceGroupsKHX,
+    'vkGetPhysicalDeviceDisplayPlanePropertiesKHR':_wrap_vkGetPhysicalDeviceDisplayPlanePropertiesKHR,
+    'vkReleaseDisplayEXT':_wrap_vkReleaseDisplayEXT,
+    'vkGetPhysicalDeviceFormatProperties2KHR':_wrap_vkGetPhysicalDeviceFormatProperties2KHR,
+    'vkGetPhysicalDeviceSurfaceCapabilities2EXT':_wrap_vkGetPhysicalDeviceSurfaceCapabilities2EXT,
+    'vkGetPhysicalDeviceProperties2KHR':_wrap_vkGetPhysicalDeviceProperties2KHR,
+    'vkDestroySurfaceKHR':_wrap_vkDestroySurfaceKHR,
+    'vkGetPhysicalDeviceSurfaceCapabilities2KHR':_wrap_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
+    'vkGetPhysicalDeviceXcbPresentationSupportKHR':_wrap_vkGetPhysicalDeviceXcbPresentationSupportKHR,
+    'vkGetPhysicalDeviceWaylandPresentationSupportKHR':_wrap_vkGetPhysicalDeviceWaylandPresentationSupportKHR,
+    'vkGetPhysicalDeviceSparseImageFormatProperties2KHR':_wrap_vkGetPhysicalDeviceSparseImageFormatProperties2KHR,
+    'vkGetPhysicalDeviceSurfaceFormats2KHR':_wrap_vkGetPhysicalDeviceSurfaceFormats2KHR,
+    'vkGetPhysicalDeviceSurfacePresentModesKHR':_wrap_vkGetPhysicalDeviceSurfacePresentModesKHR,
+    'vkGetPhysicalDeviceFeatures2KHR':_wrap_vkGetPhysicalDeviceFeatures2KHR,
+    'vkCreateMirSurfaceKHR':_wrap_vkCreateMirSurfaceKHR,
+    'vkAcquireXlibDisplayEXT':_wrap_vkAcquireXlibDisplayEXT,
+    'vkCreateViSurfaceNN':_wrap_vkCreateViSurfaceNN,
+    'vkGetPhysicalDeviceQueueFamilyProperties2KHR':_wrap_vkGetPhysicalDeviceQueueFamilyProperties2KHR,
     'vkGetPhysicalDeviceExternalImageFormatPropertiesNV':_wrap_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
-    'vkGetPhysicalDeviceMemoryProperties2KHR':_wrap_vkGetPhysicalDeviceMemoryProperties2KHR,
-    'vkDestroyDebugReportCallbackEXT':_wrap_vkDestroyDebugReportCallbackEXT,
+    'vkGetPhysicalDeviceImageFormatProperties2KHR':_wrap_vkGetPhysicalDeviceImageFormatProperties2KHR,
+    'vkGetPhysicalDeviceSurfaceSupportKHR':_wrap_vkGetPhysicalDeviceSurfaceSupportKHR,
     'vkCreateAndroidSurfaceKHR':_wrap_vkCreateAndroidSurfaceKHR,
+    'vkGetRandROutputDisplayEXT':_wrap_vkGetRandROutputDisplayEXT,
+    'vkCreateDebugReportCallbackEXT':_wrap_vkCreateDebugReportCallbackEXT,
+    'vkDestroyDebugReportCallbackEXT':_wrap_vkDestroyDebugReportCallbackEXT,
+    'vkCreateXlibSurfaceKHR':_wrap_vkCreateXlibSurfaceKHR,
     'vkGetPhysicalDeviceExternalFencePropertiesKHR':_wrap_vkGetPhysicalDeviceExternalFencePropertiesKHR,
+    'vkGetPhysicalDeviceMirPresentationSupportKHR':_wrap_vkGetPhysicalDeviceMirPresentationSupportKHR,
+    'vkGetPhysicalDeviceSurfaceFormatsKHR':_wrap_vkGetPhysicalDeviceSurfaceFormatsKHR,
+    'vkGetPhysicalDeviceWin32PresentationSupportKHR':_wrap_vkGetPhysicalDeviceWin32PresentationSupportKHR,
+    'vkGetDisplayPlaneCapabilitiesKHR':_wrap_vkGetDisplayPlaneCapabilitiesKHR,
+    'vkGetPhysicalDeviceExternalBufferPropertiesKHR':_wrap_vkGetPhysicalDeviceExternalBufferPropertiesKHR,
+    'vkCreateWin32SurfaceKHR':_wrap_vkCreateWin32SurfaceKHR,
+    'vkGetPhysicalDeviceMemoryProperties2KHR':_wrap_vkGetPhysicalDeviceMemoryProperties2KHR,
+    'vkCreateMacOSSurfaceMVK':_wrap_vkCreateMacOSSurfaceMVK,
+    'vkDebugReportMessageEXT':_wrap_vkDebugReportMessageEXT,
+    'vkGetPhysicalDeviceXlibPresentationSupportKHR':_wrap_vkGetPhysicalDeviceXlibPresentationSupportKHR,
+    'vkGetPhysicalDeviceExternalSemaphorePropertiesKHR':_wrap_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR,
+    'vkCreateWaylandSurfaceKHR':_wrap_vkCreateWaylandSurfaceKHR,
+    'vkGetPhysicalDeviceSurfaceCapabilitiesKHR':_wrap_vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
+    'vkGetPhysicalDeviceDisplayPropertiesKHR':_wrap_vkGetPhysicalDeviceDisplayPropertiesKHR,
     'vkGetDisplayPlaneSupportedDisplaysKHR':_wrap_vkGetDisplayPlaneSupportedDisplaysKHR,
-    'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
-    'vkGetRefreshCycleDurationGOOGLE':_wrap_vkGetRefreshCycleDurationGOOGLE,
-    'vkGetSwapchainStatusKHR':_wrap_vkGetSwapchainStatusKHR,
-    'vkCmdProcessCommandsNVX':_wrap_vkCmdProcessCommandsNVX,
-    'vkGetImageSparseMemoryRequirements2KHR':_wrap_vkGetImageSparseMemoryRequirements2KHR,
-    'vkImportSemaphoreFdKHR':_wrap_vkImportSemaphoreFdKHR,
-    'vkDisplayPowerControlEXT':_wrap_vkDisplayPowerControlEXT,
-    'vkDestroySwapchainKHR':_wrap_vkDestroySwapchainKHR,
-    'vkCreateSharedSwapchainsKHR':_wrap_vkCreateSharedSwapchainsKHR,
-    'vkGetDeviceGroupSurfacePresentModesKHX':_wrap_vkGetDeviceGroupSurfacePresentModesKHX,
-    'vkGetMemoryWin32HandleKHR':_wrap_vkGetMemoryWin32HandleKHR,
-    'vkAcquireNextImage2KHX':_wrap_vkAcquireNextImage2KHX,
-    'vkCmdReserveSpaceForCommandsNVX':_wrap_vkCmdReserveSpaceForCommandsNVX,
-    'vkImportSemaphoreWin32HandleKHR':_wrap_vkImportSemaphoreWin32HandleKHR,
-    'vkGetSemaphoreFdKHR':_wrap_vkGetSemaphoreFdKHR,
-    'vkUnregisterObjectsNVX':_wrap_vkUnregisterObjectsNVX,
-    'vkAcquireNextImageKHR':_wrap_vkAcquireNextImageKHR,
-    'vkCmdSetDiscardRectangleEXT':_wrap_vkCmdSetDiscardRectangleEXT,
-    'vkGetPastPresentationTimingGOOGLE':_wrap_vkGetPastPresentationTimingGOOGLE,
-    'vkSetHdrMetadataEXT':_wrap_vkSetHdrMetadataEXT,
-    'vkCmdSetDeviceMaskKHX':_wrap_vkCmdSetDeviceMaskKHX,
-    'vkGetFenceFdKHR':_wrap_vkGetFenceFdKHR,
-    'vkDestroyIndirectCommandsLayoutNVX':_wrap_vkDestroyIndirectCommandsLayoutNVX,
-    'vkCmdDrawIndirectCountAMD':_wrap_vkCmdDrawIndirectCountAMD,
-    'vkRegisterDisplayEventEXT':_wrap_vkRegisterDisplayEventEXT,
-    'vkCmdDebugMarkerEndEXT':_wrap_vkCmdDebugMarkerEndEXT,
-    'vkDestroyObjectTableNVX':_wrap_vkDestroyObjectTableNVX,
-    'vkGetMemoryFdPropertiesKHR':_wrap_vkGetMemoryFdPropertiesKHR,
-    'vkMergeValidationCachesEXT':_wrap_vkMergeValidationCachesEXT,
-    'vkCreateSwapchainKHR':_wrap_vkCreateSwapchainKHR,
-    'vkGetFenceWin32HandleKHR':_wrap_vkGetFenceWin32HandleKHR,
-    'vkCmdDebugMarkerBeginEXT':_wrap_vkCmdDebugMarkerBeginEXT,
-    'vkGetSwapchainCounterEXT':_wrap_vkGetSwapchainCounterEXT,
-    'vkImportFenceFdKHR':_wrap_vkImportFenceFdKHR,
-    'vkCmdPushDescriptorSetWithTemplateKHR':_wrap_vkCmdPushDescriptorSetWithTemplateKHR,
-    'vkGetValidationCacheDataEXT':_wrap_vkGetValidationCacheDataEXT,
-    'vkGetImageMemoryRequirements2KHR':_wrap_vkGetImageMemoryRequirements2KHR,
-    'vkCmdDispatchBaseKHX':_wrap_vkCmdDispatchBaseKHX,
-    'vkImportFenceWin32HandleKHR':_wrap_vkImportFenceWin32HandleKHR,
-    'vkCmdSetSampleLocationsEXT':_wrap_vkCmdSetSampleLocationsEXT,
-    'vkBindBufferMemory2KHR':_wrap_vkBindBufferMemory2KHR,
-    'vkTrimCommandPoolKHR':_wrap_vkTrimCommandPoolKHR,
-    'vkDestroySamplerYcbcrConversionKHR':_wrap_vkDestroySamplerYcbcrConversionKHR,
-    'vkCreateSamplerYcbcrConversionKHR':_wrap_vkCreateSamplerYcbcrConversionKHR,
-    'vkCmdDebugMarkerInsertEXT':_wrap_vkCmdDebugMarkerInsertEXT,
-    'vkCmdDrawIndexedIndirectCountAMD':_wrap_vkCmdDrawIndexedIndirectCountAMD,
-    'vkCmdPushDescriptorSetKHR':_wrap_vkCmdPushDescriptorSetKHR,
-    'vkDestroyDescriptorUpdateTemplateKHR':_wrap_vkDestroyDescriptorUpdateTemplateKHR,
-    'vkGetMemoryWin32HandleNV':_wrap_vkGetMemoryWin32HandleNV,
-    'vkRegisterDeviceEventEXT':_wrap_vkRegisterDeviceEventEXT,
-    'vkGetDeviceGroupPeerMemoryFeaturesKHX':_wrap_vkGetDeviceGroupPeerMemoryFeaturesKHX,
-    'vkDebugMarkerSetObjectTagEXT':_wrap_vkDebugMarkerSetObjectTagEXT,
-    'vkQueuePresentKHR':_wrap_vkQueuePresentKHR,
-    'vkUpdateDescriptorSetWithTemplateKHR':_wrap_vkUpdateDescriptorSetWithTemplateKHR,
+    'vkCreateDisplayModeKHR':_wrap_vkCreateDisplayModeKHR,
     'vkDebugMarkerSetObjectNameEXT':_wrap_vkDebugMarkerSetObjectNameEXT,
-    'vkGetDeviceGroupPresentCapabilitiesKHX':_wrap_vkGetDeviceGroupPresentCapabilitiesKHX,
-    'vkGetSemaphoreWin32HandleKHR':_wrap_vkGetSemaphoreWin32HandleKHR,
-    'vkCreateIndirectCommandsLayoutNVX':_wrap_vkCreateIndirectCommandsLayoutNVX,
-    'vkCreateObjectTableNVX':_wrap_vkCreateObjectTableNVX,
-    'vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX':_wrap_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX,
     'vkGetBufferMemoryRequirements2KHR':_wrap_vkGetBufferMemoryRequirements2KHR,
-    'vkDestroyValidationCacheEXT':_wrap_vkDestroyValidationCacheEXT,
-    'vkGetMemoryFdKHR':_wrap_vkGetMemoryFdKHR,
-    'vkCreateValidationCacheEXT':_wrap_vkCreateValidationCacheEXT,
-    'vkCreateDescriptorUpdateTemplateKHR':_wrap_vkCreateDescriptorUpdateTemplateKHR,
-    'vkBindImageMemory2KHR':_wrap_vkBindImageMemory2KHR,
-    'vkGetSwapchainImagesKHR':_wrap_vkGetSwapchainImagesKHR,
-    'vkGetMemoryWin32HandlePropertiesKHR':_wrap_vkGetMemoryWin32HandlePropertiesKHR,
+    'vkGetMemoryWin32HandleNV':_wrap_vkGetMemoryWin32HandleNV,
+    'vkDestroyIndirectCommandsLayoutNVX':_wrap_vkDestroyIndirectCommandsLayoutNVX,
+    'vkTrimCommandPoolKHR':_wrap_vkTrimCommandPoolKHR,
+    'vkGetMemoryFdPropertiesKHR':_wrap_vkGetMemoryFdPropertiesKHR,
+    'vkDestroyDescriptorUpdateTemplateKHR':_wrap_vkDestroyDescriptorUpdateTemplateKHR,
+    'vkCmdDrawIndirectCountAMD':_wrap_vkCmdDrawIndirectCountAMD,
+    'vkGetSemaphoreFdKHR':_wrap_vkGetSemaphoreFdKHR,
+    'vkCmdPushDescriptorSetWithTemplateKHR':_wrap_vkCmdPushDescriptorSetWithTemplateKHR,
+    'vkUnregisterObjectsNVX':_wrap_vkUnregisterObjectsNVX,
+    'vkCmdSetDeviceMaskKHX':_wrap_vkCmdSetDeviceMaskKHX,
+    'vkCmdSetDiscardRectangleEXT':_wrap_vkCmdSetDiscardRectangleEXT,
+    'vkGetSwapchainStatusKHR':_wrap_vkGetSwapchainStatusKHR,
     'vkGetPhysicalDeviceMultisamplePropertiesEXT':_wrap_vkGetPhysicalDeviceMultisamplePropertiesEXT,
+    'vkImportSemaphoreWin32HandleKHR':_wrap_vkImportSemaphoreWin32HandleKHR,
+    'vkCreateSamplerYcbcrConversionKHR':_wrap_vkCreateSamplerYcbcrConversionKHR,
+    'vkGetSemaphoreWin32HandleKHR':_wrap_vkGetSemaphoreWin32HandleKHR,
+    'vkImportFenceFdKHR':_wrap_vkImportFenceFdKHR,
+    'vkUpdateDescriptorSetWithTemplateKHR':_wrap_vkUpdateDescriptorSetWithTemplateKHR,
+    'vkDisplayPowerControlEXT':_wrap_vkDisplayPowerControlEXT,
+    'vkGetImageMemoryRequirements2KHR':_wrap_vkGetImageMemoryRequirements2KHR,
+    'vkGetDeviceGroupSurfacePresentModesKHX':_wrap_vkGetDeviceGroupSurfacePresentModesKHX,
+    'vkImportSemaphoreFdKHR':_wrap_vkImportSemaphoreFdKHR,
+    'vkCmdDebugMarkerBeginEXT':_wrap_vkCmdDebugMarkerBeginEXT,
+    'vkCreateDescriptorUpdateTemplateKHR':_wrap_vkCreateDescriptorUpdateTemplateKHR,
+    'vkGetSwapchainCounterEXT':_wrap_vkGetSwapchainCounterEXT,
+    'vkDestroyValidationCacheEXT':_wrap_vkDestroyValidationCacheEXT,
+    'vkGetValidationCacheDataEXT':_wrap_vkGetValidationCacheDataEXT,
+    'vkGetImageSparseMemoryRequirements2KHR':_wrap_vkGetImageSparseMemoryRequirements2KHR,
+    'vkCreateSwapchainKHR':_wrap_vkCreateSwapchainKHR,
+    'vkGetDeviceGroupPeerMemoryFeaturesKHX':_wrap_vkGetDeviceGroupPeerMemoryFeaturesKHX,
+    'vkDestroyObjectTableNVX':_wrap_vkDestroyObjectTableNVX,
+    'vkGetRefreshCycleDurationGOOGLE':_wrap_vkGetRefreshCycleDurationGOOGLE,
+    'vkGetFenceWin32HandleKHR':_wrap_vkGetFenceWin32HandleKHR,
+    'vkBindBufferMemory2KHR':_wrap_vkBindBufferMemory2KHR,
+    'vkCreateIndirectCommandsLayoutNVX':_wrap_vkCreateIndirectCommandsLayoutNVX,
+    'vkMergeValidationCachesEXT':_wrap_vkMergeValidationCachesEXT,
+    'vkCmdDispatchBaseKHX':_wrap_vkCmdDispatchBaseKHX,
+    'vkAcquireNextImageKHR':_wrap_vkAcquireNextImageKHR,
     'vkGetPhysicalDevicePresentRectanglesKHX':_wrap_vkGetPhysicalDevicePresentRectanglesKHX,
+    'vkGetMemoryWin32HandleKHR':_wrap_vkGetMemoryWin32HandleKHR,
+    'vkCmdReserveSpaceForCommandsNVX':_wrap_vkCmdReserveSpaceForCommandsNVX,
+    'vkGetDeviceGroupPresentCapabilitiesKHX':_wrap_vkGetDeviceGroupPresentCapabilitiesKHX,
+    'vkBindImageMemory2KHR':_wrap_vkBindImageMemory2KHR,
+    'vkCmdDebugMarkerInsertEXT':_wrap_vkCmdDebugMarkerInsertEXT,
+    'vkCmdPushDescriptorSetKHR':_wrap_vkCmdPushDescriptorSetKHR,
+    'vkDestroySamplerYcbcrConversionKHR':_wrap_vkDestroySamplerYcbcrConversionKHR,
+    'vkAcquireNextImage2KHX':_wrap_vkAcquireNextImage2KHX,
+    'vkCmdDebugMarkerEndEXT':_wrap_vkCmdDebugMarkerEndEXT,
+    'vkCreateSharedSwapchainsKHR':_wrap_vkCreateSharedSwapchainsKHR,
+    'vkGetFenceFdKHR':_wrap_vkGetFenceFdKHR,
+    'vkQueuePresentKHR':_wrap_vkQueuePresentKHR,
+    'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
+    'vkGetPastPresentationTimingGOOGLE':_wrap_vkGetPastPresentationTimingGOOGLE,
+    'vkDestroySwapchainKHR':_wrap_vkDestroySwapchainKHR,
+    'vkCmdProcessCommandsNVX':_wrap_vkCmdProcessCommandsNVX,
+    'vkImportFenceWin32HandleKHR':_wrap_vkImportFenceWin32HandleKHR,
+    'vkCreateValidationCacheEXT':_wrap_vkCreateValidationCacheEXT,
+    'vkGetMemoryWin32HandlePropertiesKHR':_wrap_vkGetMemoryWin32HandlePropertiesKHR,
+    'vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX':_wrap_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX,
+    'vkCmdDrawIndexedIndirectCountAMD':_wrap_vkCmdDrawIndexedIndirectCountAMD,
+    'vkGetMemoryFdKHR':_wrap_vkGetMemoryFdKHR,
+    'vkGetSwapchainImagesKHR':_wrap_vkGetSwapchainImagesKHR,
+    'vkDebugMarkerSetObjectTagEXT':_wrap_vkDebugMarkerSetObjectTagEXT,
+    'vkSetHdrMetadataEXT':_wrap_vkSetHdrMetadataEXT,
     'vkRegisterObjectsNVX':_wrap_vkRegisterObjectsNVX,
+    'vkRegisterDeviceEventEXT':_wrap_vkRegisterDeviceEventEXT,
+    'vkCreateObjectTableNVX':_wrap_vkCreateObjectTableNVX,
+    'vkCmdSetSampleLocationsEXT':_wrap_vkCmdSetSampleLocationsEXT,
+    'vkRegisterDisplayEventEXT':_wrap_vkRegisterDisplayEventEXT,
 }
 
 
 _device_ext_funcs = {
-    'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
-    'vkGetRefreshCycleDurationGOOGLE':_wrap_vkGetRefreshCycleDurationGOOGLE,
-    'vkGetSwapchainStatusKHR':_wrap_vkGetSwapchainStatusKHR,
-    'vkCmdProcessCommandsNVX':_wrap_vkCmdProcessCommandsNVX,
-    'vkGetImageSparseMemoryRequirements2KHR':_wrap_vkGetImageSparseMemoryRequirements2KHR,
-    'vkImportSemaphoreFdKHR':_wrap_vkImportSemaphoreFdKHR,
-    'vkDisplayPowerControlEXT':_wrap_vkDisplayPowerControlEXT,
-    'vkDestroySwapchainKHR':_wrap_vkDestroySwapchainKHR,
-    'vkCreateSharedSwapchainsKHR':_wrap_vkCreateSharedSwapchainsKHR,
-    'vkGetDeviceGroupSurfacePresentModesKHX':_wrap_vkGetDeviceGroupSurfacePresentModesKHX,
-    'vkGetMemoryWin32HandleKHR':_wrap_vkGetMemoryWin32HandleKHR,
-    'vkAcquireNextImage2KHX':_wrap_vkAcquireNextImage2KHX,
-    'vkCmdReserveSpaceForCommandsNVX':_wrap_vkCmdReserveSpaceForCommandsNVX,
-    'vkImportSemaphoreWin32HandleKHR':_wrap_vkImportSemaphoreWin32HandleKHR,
-    'vkGetSemaphoreFdKHR':_wrap_vkGetSemaphoreFdKHR,
-    'vkUnregisterObjectsNVX':_wrap_vkUnregisterObjectsNVX,
-    'vkAcquireNextImageKHR':_wrap_vkAcquireNextImageKHR,
-    'vkCmdSetDiscardRectangleEXT':_wrap_vkCmdSetDiscardRectangleEXT,
-    'vkGetPastPresentationTimingGOOGLE':_wrap_vkGetPastPresentationTimingGOOGLE,
-    'vkSetHdrMetadataEXT':_wrap_vkSetHdrMetadataEXT,
-    'vkCmdSetDeviceMaskKHX':_wrap_vkCmdSetDeviceMaskKHX,
-    'vkGetFenceFdKHR':_wrap_vkGetFenceFdKHR,
-    'vkDestroyIndirectCommandsLayoutNVX':_wrap_vkDestroyIndirectCommandsLayoutNVX,
-    'vkCmdDrawIndirectCountAMD':_wrap_vkCmdDrawIndirectCountAMD,
-    'vkRegisterDisplayEventEXT':_wrap_vkRegisterDisplayEventEXT,
-    'vkCmdDebugMarkerEndEXT':_wrap_vkCmdDebugMarkerEndEXT,
-    'vkDestroyObjectTableNVX':_wrap_vkDestroyObjectTableNVX,
-    'vkGetMemoryFdPropertiesKHR':_wrap_vkGetMemoryFdPropertiesKHR,
-    'vkMergeValidationCachesEXT':_wrap_vkMergeValidationCachesEXT,
-    'vkCreateSwapchainKHR':_wrap_vkCreateSwapchainKHR,
-    'vkGetFenceWin32HandleKHR':_wrap_vkGetFenceWin32HandleKHR,
-    'vkCmdDebugMarkerBeginEXT':_wrap_vkCmdDebugMarkerBeginEXT,
-    'vkGetSwapchainCounterEXT':_wrap_vkGetSwapchainCounterEXT,
-    'vkImportFenceFdKHR':_wrap_vkImportFenceFdKHR,
-    'vkCmdPushDescriptorSetWithTemplateKHR':_wrap_vkCmdPushDescriptorSetWithTemplateKHR,
-    'vkGetValidationCacheDataEXT':_wrap_vkGetValidationCacheDataEXT,
-    'vkGetImageMemoryRequirements2KHR':_wrap_vkGetImageMemoryRequirements2KHR,
-    'vkCmdDispatchBaseKHX':_wrap_vkCmdDispatchBaseKHX,
-    'vkImportFenceWin32HandleKHR':_wrap_vkImportFenceWin32HandleKHR,
-    'vkCmdSetSampleLocationsEXT':_wrap_vkCmdSetSampleLocationsEXT,
-    'vkBindBufferMemory2KHR':_wrap_vkBindBufferMemory2KHR,
-    'vkTrimCommandPoolKHR':_wrap_vkTrimCommandPoolKHR,
-    'vkDestroySamplerYcbcrConversionKHR':_wrap_vkDestroySamplerYcbcrConversionKHR,
-    'vkCreateSamplerYcbcrConversionKHR':_wrap_vkCreateSamplerYcbcrConversionKHR,
-    'vkCmdDebugMarkerInsertEXT':_wrap_vkCmdDebugMarkerInsertEXT,
-    'vkCmdDrawIndexedIndirectCountAMD':_wrap_vkCmdDrawIndexedIndirectCountAMD,
-    'vkCmdPushDescriptorSetKHR':_wrap_vkCmdPushDescriptorSetKHR,
-    'vkDestroyDescriptorUpdateTemplateKHR':_wrap_vkDestroyDescriptorUpdateTemplateKHR,
-    'vkGetMemoryWin32HandleNV':_wrap_vkGetMemoryWin32HandleNV,
-    'vkRegisterDeviceEventEXT':_wrap_vkRegisterDeviceEventEXT,
-    'vkGetDeviceGroupPeerMemoryFeaturesKHX':_wrap_vkGetDeviceGroupPeerMemoryFeaturesKHX,
-    'vkDebugMarkerSetObjectTagEXT':_wrap_vkDebugMarkerSetObjectTagEXT,
-    'vkQueuePresentKHR':_wrap_vkQueuePresentKHR,
-    'vkUpdateDescriptorSetWithTemplateKHR':_wrap_vkUpdateDescriptorSetWithTemplateKHR,
     'vkDebugMarkerSetObjectNameEXT':_wrap_vkDebugMarkerSetObjectNameEXT,
-    'vkGetDeviceGroupPresentCapabilitiesKHX':_wrap_vkGetDeviceGroupPresentCapabilitiesKHX,
-    'vkGetSemaphoreWin32HandleKHR':_wrap_vkGetSemaphoreWin32HandleKHR,
-    'vkCreateIndirectCommandsLayoutNVX':_wrap_vkCreateIndirectCommandsLayoutNVX,
-    'vkCreateObjectTableNVX':_wrap_vkCreateObjectTableNVX,
-    'vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX':_wrap_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX,
     'vkGetBufferMemoryRequirements2KHR':_wrap_vkGetBufferMemoryRequirements2KHR,
-    'vkDestroyValidationCacheEXT':_wrap_vkDestroyValidationCacheEXT,
-    'vkGetMemoryFdKHR':_wrap_vkGetMemoryFdKHR,
-    'vkCreateValidationCacheEXT':_wrap_vkCreateValidationCacheEXT,
-    'vkCreateDescriptorUpdateTemplateKHR':_wrap_vkCreateDescriptorUpdateTemplateKHR,
-    'vkBindImageMemory2KHR':_wrap_vkBindImageMemory2KHR,
-    'vkGetSwapchainImagesKHR':_wrap_vkGetSwapchainImagesKHR,
-    'vkGetMemoryWin32HandlePropertiesKHR':_wrap_vkGetMemoryWin32HandlePropertiesKHR,
+    'vkGetMemoryWin32HandleNV':_wrap_vkGetMemoryWin32HandleNV,
+    'vkDestroyIndirectCommandsLayoutNVX':_wrap_vkDestroyIndirectCommandsLayoutNVX,
+    'vkTrimCommandPoolKHR':_wrap_vkTrimCommandPoolKHR,
+    'vkGetMemoryFdPropertiesKHR':_wrap_vkGetMemoryFdPropertiesKHR,
+    'vkDestroyDescriptorUpdateTemplateKHR':_wrap_vkDestroyDescriptorUpdateTemplateKHR,
+    'vkCmdDrawIndirectCountAMD':_wrap_vkCmdDrawIndirectCountAMD,
+    'vkGetSemaphoreFdKHR':_wrap_vkGetSemaphoreFdKHR,
+    'vkCmdPushDescriptorSetWithTemplateKHR':_wrap_vkCmdPushDescriptorSetWithTemplateKHR,
+    'vkUnregisterObjectsNVX':_wrap_vkUnregisterObjectsNVX,
+    'vkCmdSetDeviceMaskKHX':_wrap_vkCmdSetDeviceMaskKHX,
+    'vkCmdSetDiscardRectangleEXT':_wrap_vkCmdSetDiscardRectangleEXT,
+    'vkGetSwapchainStatusKHR':_wrap_vkGetSwapchainStatusKHR,
     'vkGetPhysicalDeviceMultisamplePropertiesEXT':_wrap_vkGetPhysicalDeviceMultisamplePropertiesEXT,
+    'vkImportSemaphoreWin32HandleKHR':_wrap_vkImportSemaphoreWin32HandleKHR,
+    'vkCreateSamplerYcbcrConversionKHR':_wrap_vkCreateSamplerYcbcrConversionKHR,
+    'vkGetSemaphoreWin32HandleKHR':_wrap_vkGetSemaphoreWin32HandleKHR,
+    'vkImportFenceFdKHR':_wrap_vkImportFenceFdKHR,
+    'vkUpdateDescriptorSetWithTemplateKHR':_wrap_vkUpdateDescriptorSetWithTemplateKHR,
+    'vkDisplayPowerControlEXT':_wrap_vkDisplayPowerControlEXT,
+    'vkGetImageMemoryRequirements2KHR':_wrap_vkGetImageMemoryRequirements2KHR,
+    'vkGetDeviceGroupSurfacePresentModesKHX':_wrap_vkGetDeviceGroupSurfacePresentModesKHX,
+    'vkImportSemaphoreFdKHR':_wrap_vkImportSemaphoreFdKHR,
+    'vkCmdDebugMarkerBeginEXT':_wrap_vkCmdDebugMarkerBeginEXT,
+    'vkCreateDescriptorUpdateTemplateKHR':_wrap_vkCreateDescriptorUpdateTemplateKHR,
+    'vkGetSwapchainCounterEXT':_wrap_vkGetSwapchainCounterEXT,
+    'vkDestroyValidationCacheEXT':_wrap_vkDestroyValidationCacheEXT,
+    'vkGetValidationCacheDataEXT':_wrap_vkGetValidationCacheDataEXT,
+    'vkGetImageSparseMemoryRequirements2KHR':_wrap_vkGetImageSparseMemoryRequirements2KHR,
+    'vkCreateSwapchainKHR':_wrap_vkCreateSwapchainKHR,
+    'vkGetDeviceGroupPeerMemoryFeaturesKHX':_wrap_vkGetDeviceGroupPeerMemoryFeaturesKHX,
+    'vkDestroyObjectTableNVX':_wrap_vkDestroyObjectTableNVX,
+    'vkGetRefreshCycleDurationGOOGLE':_wrap_vkGetRefreshCycleDurationGOOGLE,
+    'vkGetFenceWin32HandleKHR':_wrap_vkGetFenceWin32HandleKHR,
+    'vkBindBufferMemory2KHR':_wrap_vkBindBufferMemory2KHR,
+    'vkCreateIndirectCommandsLayoutNVX':_wrap_vkCreateIndirectCommandsLayoutNVX,
+    'vkMergeValidationCachesEXT':_wrap_vkMergeValidationCachesEXT,
+    'vkCmdDispatchBaseKHX':_wrap_vkCmdDispatchBaseKHX,
+    'vkAcquireNextImageKHR':_wrap_vkAcquireNextImageKHR,
     'vkGetPhysicalDevicePresentRectanglesKHX':_wrap_vkGetPhysicalDevicePresentRectanglesKHX,
+    'vkGetMemoryWin32HandleKHR':_wrap_vkGetMemoryWin32HandleKHR,
+    'vkCmdReserveSpaceForCommandsNVX':_wrap_vkCmdReserveSpaceForCommandsNVX,
+    'vkGetDeviceGroupPresentCapabilitiesKHX':_wrap_vkGetDeviceGroupPresentCapabilitiesKHX,
+    'vkBindImageMemory2KHR':_wrap_vkBindImageMemory2KHR,
+    'vkCmdDebugMarkerInsertEXT':_wrap_vkCmdDebugMarkerInsertEXT,
+    'vkCmdPushDescriptorSetKHR':_wrap_vkCmdPushDescriptorSetKHR,
+    'vkDestroySamplerYcbcrConversionKHR':_wrap_vkDestroySamplerYcbcrConversionKHR,
+    'vkAcquireNextImage2KHX':_wrap_vkAcquireNextImage2KHX,
+    'vkCmdDebugMarkerEndEXT':_wrap_vkCmdDebugMarkerEndEXT,
+    'vkCreateSharedSwapchainsKHR':_wrap_vkCreateSharedSwapchainsKHR,
+    'vkGetFenceFdKHR':_wrap_vkGetFenceFdKHR,
+    'vkQueuePresentKHR':_wrap_vkQueuePresentKHR,
+    'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
+    'vkGetPastPresentationTimingGOOGLE':_wrap_vkGetPastPresentationTimingGOOGLE,
+    'vkDestroySwapchainKHR':_wrap_vkDestroySwapchainKHR,
+    'vkCmdProcessCommandsNVX':_wrap_vkCmdProcessCommandsNVX,
+    'vkImportFenceWin32HandleKHR':_wrap_vkImportFenceWin32HandleKHR,
+    'vkCreateValidationCacheEXT':_wrap_vkCreateValidationCacheEXT,
+    'vkGetMemoryWin32HandlePropertiesKHR':_wrap_vkGetMemoryWin32HandlePropertiesKHR,
+    'vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX':_wrap_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX,
+    'vkCmdDrawIndexedIndirectCountAMD':_wrap_vkCmdDrawIndexedIndirectCountAMD,
+    'vkGetMemoryFdKHR':_wrap_vkGetMemoryFdKHR,
+    'vkGetSwapchainImagesKHR':_wrap_vkGetSwapchainImagesKHR,
+    'vkDebugMarkerSetObjectTagEXT':_wrap_vkDebugMarkerSetObjectTagEXT,
+    'vkSetHdrMetadataEXT':_wrap_vkSetHdrMetadataEXT,
     'vkRegisterObjectsNVX':_wrap_vkRegisterObjectsNVX,
+    'vkRegisterDeviceEventEXT':_wrap_vkRegisterDeviceEventEXT,
+    'vkCreateObjectTableNVX':_wrap_vkCreateObjectTableNVX,
+    'vkCmdSetSampleLocationsEXT':_wrap_vkCmdSetSampleLocationsEXT,
+    'vkRegisterDisplayEventEXT':_wrap_vkRegisterDisplayEventEXT,
 }
 
 
@@ -6875,6 +6875,6 @@ def vkMapMemory(device, memory, offset, size, flags):
 
     result = _callApi(lib.vkMapMemory, device,memory,offset,size,flags,ppData)
     if result != VK_SUCCESS:
-        raise _exception_codes[result]
+        raise exception_codes[result]
 
     return ffi.buffer(ppData[0], size)
