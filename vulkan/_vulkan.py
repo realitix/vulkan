@@ -2266,25 +2266,25 @@ def VkAllocationCallbacks(pUserData=None,pfnAllocation=None,pfnReallocation=None
     return _new('VkAllocationCallbacks', pUserData=pUserData,pfnAllocation=pfnAllocation,pfnReallocation=pfnReallocation,pfnFree=pfnFree,pfnInternalAllocation=pfnInternalAllocation,pfnInternalFree=pfnInternalFree)
 
 def VkDeviceQueueCreateInfo(sType=VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,pNext=None,flags=None,queueFamilyIndex=None,queueCount=None,pQueuePriorities=None,):
-    if queueCount is None:
+    if queueCount is None and pQueuePriorities is not None:
         queueCount = len(pQueuePriorities)
 
     return _new('VkDeviceQueueCreateInfo', sType=sType,pNext=pNext,flags=flags,queueFamilyIndex=queueFamilyIndex,queueCount=queueCount,pQueuePriorities=pQueuePriorities)
 
 def VkDeviceCreateInfo(sType=VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,pNext=None,flags=None,queueCreateInfoCount=None,pQueueCreateInfos=None,enabledLayerCount=None,ppEnabledLayerNames=None,enabledExtensionCount=None,ppEnabledExtensionNames=None,pEnabledFeatures=None,):
-    if queueCreateInfoCount is None:
+    if queueCreateInfoCount is None and pQueueCreateInfos is not None:
         queueCreateInfoCount = len(pQueueCreateInfos)
-    if enabledLayerCount is None:
+    if enabledLayerCount is None and ppEnabledLayerNames is not None:
         enabledLayerCount = len(ppEnabledLayerNames)
-    if enabledExtensionCount is None:
+    if enabledExtensionCount is None and ppEnabledExtensionNames is not None:
         enabledExtensionCount = len(ppEnabledExtensionNames)
 
     return _new('VkDeviceCreateInfo', sType=sType,pNext=pNext,flags=flags,queueCreateInfoCount=queueCreateInfoCount,pQueueCreateInfos=pQueueCreateInfos,enabledLayerCount=enabledLayerCount,ppEnabledLayerNames=ppEnabledLayerNames,enabledExtensionCount=enabledExtensionCount,ppEnabledExtensionNames=ppEnabledExtensionNames,pEnabledFeatures=pEnabledFeatures)
 
 def VkInstanceCreateInfo(sType=VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,pNext=None,flags=None,pApplicationInfo=None,enabledLayerCount=None,ppEnabledLayerNames=None,enabledExtensionCount=None,ppEnabledExtensionNames=None,):
-    if enabledLayerCount is None:
+    if enabledLayerCount is None and ppEnabledLayerNames is not None:
         enabledLayerCount = len(ppEnabledLayerNames)
-    if enabledExtensionCount is None:
+    if enabledExtensionCount is None and ppEnabledExtensionNames is not None:
         enabledExtensionCount = len(ppEnabledExtensionNames)
 
     return _new('VkInstanceCreateInfo', sType=sType,pNext=pNext,flags=flags,pApplicationInfo=pApplicationInfo,enabledLayerCount=enabledLayerCount,ppEnabledLayerNames=ppEnabledLayerNames,enabledExtensionCount=enabledExtensionCount,ppEnabledExtensionNames=ppEnabledExtensionNames)
@@ -2342,11 +2342,11 @@ def VkDescriptorImageInfo(sampler=None,imageView=None,imageLayout=None,):
     return _new('VkDescriptorImageInfo', sampler=sampler,imageView=imageView,imageLayout=imageLayout)
 
 def VkWriteDescriptorSet(sType=VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET,pNext=None,dstSet=None,dstBinding=None,dstArrayElement=None,descriptorCount=None,descriptorType=None,pImageInfo=None,pBufferInfo=None,pTexelBufferView=None,):
-    if descriptorCount is None:
+    if descriptorCount is None and pImageInfo is not None:
         descriptorCount = len(pImageInfo)
-    if descriptorCount is None:
+    if descriptorCount is None and pBufferInfo is not None:
         descriptorCount = len(pBufferInfo)
-    if descriptorCount is None:
+    if descriptorCount is None and pTexelBufferView is not None:
         descriptorCount = len(pTexelBufferView)
 
     return _new('VkWriteDescriptorSet', sType=sType,pNext=pNext,dstSet=dstSet,dstBinding=dstBinding,dstArrayElement=dstArrayElement,descriptorCount=descriptorCount,descriptorType=descriptorType,pImageInfo=pImageInfo,pBufferInfo=pBufferInfo,pTexelBufferView=pTexelBufferView)
@@ -2356,7 +2356,7 @@ def VkCopyDescriptorSet(sType=VK_STRUCTURE_TYPE_COPY_DESCRIPTOR_SET,pNext=None,s
     return _new('VkCopyDescriptorSet', sType=sType,pNext=pNext,srcSet=srcSet,srcBinding=srcBinding,srcArrayElement=srcArrayElement,dstSet=dstSet,dstBinding=dstBinding,dstArrayElement=dstArrayElement,descriptorCount=descriptorCount)
 
 def VkBufferCreateInfo(sType=VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,pNext=None,flags=None,size=None,usage=None,sharingMode=None,queueFamilyIndexCount=None,pQueueFamilyIndices=None,):
-    if queueFamilyIndexCount is None:
+    if queueFamilyIndexCount is None and pQueueFamilyIndices is not None:
         queueFamilyIndexCount = len(pQueueFamilyIndices)
 
     return _new('VkBufferCreateInfo', sType=sType,pNext=pNext,flags=flags,size=size,usage=usage,sharingMode=sharingMode,queueFamilyIndexCount=queueFamilyIndexCount,pQueueFamilyIndices=pQueueFamilyIndices)
@@ -2390,7 +2390,7 @@ def VkImageMemoryBarrier(sType=VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER,pNext=None
     return _new('VkImageMemoryBarrier', sType=sType,pNext=pNext,srcAccessMask=srcAccessMask,dstAccessMask=dstAccessMask,oldLayout=oldLayout,newLayout=newLayout,srcQueueFamilyIndex=srcQueueFamilyIndex,dstQueueFamilyIndex=dstQueueFamilyIndex,image=image,subresourceRange=subresourceRange)
 
 def VkImageCreateInfo(sType=VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO,pNext=None,flags=None,imageType=None,format=None,extent=None,mipLevels=None,arrayLayers=None,samples=None,tiling=None,usage=None,sharingMode=None,queueFamilyIndexCount=None,pQueueFamilyIndices=None,initialLayout=None,):
-    if queueFamilyIndexCount is None:
+    if queueFamilyIndexCount is None and pQueueFamilyIndices is not None:
         queueFamilyIndexCount = len(pQueueFamilyIndices)
 
     return _new('VkImageCreateInfo', sType=sType,pNext=pNext,flags=flags,imageType=imageType,format=format,extent=extent,mipLevels=mipLevels,arrayLayers=arrayLayers,samples=samples,tiling=tiling,usage=usage,sharingMode=sharingMode,queueFamilyIndexCount=queueFamilyIndexCount,pQueueFamilyIndices=pQueueFamilyIndices,initialLayout=initialLayout)
@@ -2416,33 +2416,33 @@ def VkSparseImageMemoryBind(subresource=None,offset=None,extent=None,memory=None
     return _new('VkSparseImageMemoryBind', subresource=subresource,offset=offset,extent=extent,memory=memory,memoryOffset=memoryOffset,flags=flags)
 
 def VkSparseBufferMemoryBindInfo(buffer=None,bindCount=None,pBinds=None,):
-    if bindCount is None:
+    if bindCount is None and pBinds is not None:
         bindCount = len(pBinds)
 
     return _new('VkSparseBufferMemoryBindInfo', buffer=buffer,bindCount=bindCount,pBinds=pBinds)
 
 def VkSparseImageOpaqueMemoryBindInfo(image=None,bindCount=None,pBinds=None,):
-    if bindCount is None:
+    if bindCount is None and pBinds is not None:
         bindCount = len(pBinds)
 
     return _new('VkSparseImageOpaqueMemoryBindInfo', image=image,bindCount=bindCount,pBinds=pBinds)
 
 def VkSparseImageMemoryBindInfo(image=None,bindCount=None,pBinds=None,):
-    if bindCount is None:
+    if bindCount is None and pBinds is not None:
         bindCount = len(pBinds)
 
     return _new('VkSparseImageMemoryBindInfo', image=image,bindCount=bindCount,pBinds=pBinds)
 
 def VkBindSparseInfo(sType=VK_STRUCTURE_TYPE_BIND_SPARSE_INFO,pNext=None,waitSemaphoreCount=None,pWaitSemaphores=None,bufferBindCount=None,pBufferBinds=None,imageOpaqueBindCount=None,pImageOpaqueBinds=None,imageBindCount=None,pImageBinds=None,signalSemaphoreCount=None,pSignalSemaphores=None,):
-    if waitSemaphoreCount is None:
+    if waitSemaphoreCount is None and pWaitSemaphores is not None:
         waitSemaphoreCount = len(pWaitSemaphores)
-    if bufferBindCount is None:
+    if bufferBindCount is None and pBufferBinds is not None:
         bufferBindCount = len(pBufferBinds)
-    if imageOpaqueBindCount is None:
+    if imageOpaqueBindCount is None and pImageOpaqueBinds is not None:
         imageOpaqueBindCount = len(pImageOpaqueBinds)
-    if imageBindCount is None:
+    if imageBindCount is None and pImageBinds is not None:
         imageBindCount = len(pImageBinds)
-    if signalSemaphoreCount is None:
+    if signalSemaphoreCount is None and pSignalSemaphores is not None:
         signalSemaphoreCount = len(pSignalSemaphores)
 
     return _new('VkBindSparseInfo', sType=sType,pNext=pNext,waitSemaphoreCount=waitSemaphoreCount,pWaitSemaphores=pWaitSemaphores,bufferBindCount=bufferBindCount,pBufferBinds=pBufferBinds,imageOpaqueBindCount=imageOpaqueBindCount,pImageOpaqueBinds=pImageOpaqueBinds,imageBindCount=imageBindCount,pImageBinds=pImageBinds,signalSemaphoreCount=signalSemaphoreCount,pSignalSemaphores=pSignalSemaphores)
@@ -2468,13 +2468,13 @@ def VkShaderModuleCreateInfo(sType=VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO,p
     return _new('VkShaderModuleCreateInfo', sType=sType,pNext=pNext,flags=flags,codeSize=codeSize,pCode=pCode)
 
 def VkDescriptorSetLayoutBinding(binding=None,descriptorType=None,descriptorCount=None,stageFlags=None,pImmutableSamplers=None,):
-    if descriptorCount is None:
+    if descriptorCount is None and pImmutableSamplers is not None:
         descriptorCount = len(pImmutableSamplers)
 
     return _new('VkDescriptorSetLayoutBinding', binding=binding,descriptorType=descriptorType,descriptorCount=descriptorCount,stageFlags=stageFlags,pImmutableSamplers=pImmutableSamplers)
 
 def VkDescriptorSetLayoutCreateInfo(sType=VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO,pNext=None,flags=None,bindingCount=None,pBindings=None,):
-    if bindingCount is None:
+    if bindingCount is None and pBindings is not None:
         bindingCount = len(pBindings)
 
     return _new('VkDescriptorSetLayoutCreateInfo', sType=sType,pNext=pNext,flags=flags,bindingCount=bindingCount,pBindings=pBindings)
@@ -2484,13 +2484,13 @@ def VkDescriptorPoolSize(type=None,descriptorCount=None,):
     return _new('VkDescriptorPoolSize', type=type,descriptorCount=descriptorCount)
 
 def VkDescriptorPoolCreateInfo(sType=VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO,pNext=None,flags=None,maxSets=None,poolSizeCount=None,pPoolSizes=None,):
-    if poolSizeCount is None:
+    if poolSizeCount is None and pPoolSizes is not None:
         poolSizeCount = len(pPoolSizes)
 
     return _new('VkDescriptorPoolCreateInfo', sType=sType,pNext=pNext,flags=flags,maxSets=maxSets,poolSizeCount=poolSizeCount,pPoolSizes=pPoolSizes)
 
 def VkDescriptorSetAllocateInfo(sType=VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO,pNext=None,descriptorPool=None,descriptorSetCount=None,pSetLayouts=None,):
-    if descriptorSetCount is None:
+    if descriptorSetCount is None and pSetLayouts is not None:
         descriptorSetCount = len(pSetLayouts)
 
     return _new('VkDescriptorSetAllocateInfo', sType=sType,pNext=pNext,descriptorPool=descriptorPool,descriptorSetCount=descriptorSetCount,pSetLayouts=pSetLayouts)
@@ -2500,9 +2500,9 @@ def VkSpecializationMapEntry(constantID=None,offset=None,size=None,):
     return _new('VkSpecializationMapEntry', constantID=constantID,offset=offset,size=size)
 
 def VkSpecializationInfo(mapEntryCount=None,pMapEntries=None,dataSize=None,pData=None,):
-    if mapEntryCount is None:
+    if mapEntryCount is None and pMapEntries is not None:
         mapEntryCount = len(pMapEntries)
-    if dataSize is None:
+    if dataSize is None and pData is not None:
         dataSize = len(pData)
 
     return _new('VkSpecializationInfo', mapEntryCount=mapEntryCount,pMapEntries=pMapEntries,dataSize=dataSize,pData=pData)
@@ -2524,9 +2524,9 @@ def VkVertexInputAttributeDescription(location=None,binding=None,format=None,off
     return _new('VkVertexInputAttributeDescription', location=location,binding=binding,format=format,offset=offset)
 
 def VkPipelineVertexInputStateCreateInfo(sType=VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO,pNext=None,flags=None,vertexBindingDescriptionCount=None,pVertexBindingDescriptions=None,vertexAttributeDescriptionCount=None,pVertexAttributeDescriptions=None,):
-    if vertexBindingDescriptionCount is None:
+    if vertexBindingDescriptionCount is None and pVertexBindingDescriptions is not None:
         vertexBindingDescriptionCount = len(pVertexBindingDescriptions)
-    if vertexAttributeDescriptionCount is None:
+    if vertexAttributeDescriptionCount is None and pVertexAttributeDescriptions is not None:
         vertexAttributeDescriptionCount = len(pVertexAttributeDescriptions)
 
     return _new('VkPipelineVertexInputStateCreateInfo', sType=sType,pNext=pNext,flags=flags,vertexBindingDescriptionCount=vertexBindingDescriptionCount,pVertexBindingDescriptions=pVertexBindingDescriptions,vertexAttributeDescriptionCount=vertexAttributeDescriptionCount,pVertexAttributeDescriptions=pVertexAttributeDescriptions)
@@ -2540,9 +2540,9 @@ def VkPipelineTessellationStateCreateInfo(sType=VK_STRUCTURE_TYPE_PIPELINE_TESSE
     return _new('VkPipelineTessellationStateCreateInfo', sType=sType,pNext=pNext,flags=flags,patchControlPoints=patchControlPoints)
 
 def VkPipelineViewportStateCreateInfo(sType=VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO,pNext=None,flags=None,viewportCount=None,pViewports=None,scissorCount=None,pScissors=None,):
-    if viewportCount is None:
+    if viewportCount is None and pViewports is not None:
         viewportCount = len(pViewports)
-    if scissorCount is None:
+    if scissorCount is None and pScissors is not None:
         scissorCount = len(pScissors)
 
     return _new('VkPipelineViewportStateCreateInfo', sType=sType,pNext=pNext,flags=flags,viewportCount=viewportCount,pViewports=pViewports,scissorCount=scissorCount,pScissors=pScissors)
@@ -2560,13 +2560,13 @@ def VkPipelineColorBlendAttachmentState(blendEnable=None,srcColorBlendFactor=Non
     return _new('VkPipelineColorBlendAttachmentState', blendEnable=blendEnable,srcColorBlendFactor=srcColorBlendFactor,dstColorBlendFactor=dstColorBlendFactor,colorBlendOp=colorBlendOp,srcAlphaBlendFactor=srcAlphaBlendFactor,dstAlphaBlendFactor=dstAlphaBlendFactor,alphaBlendOp=alphaBlendOp,colorWriteMask=colorWriteMask)
 
 def VkPipelineColorBlendStateCreateInfo(sType=VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO,pNext=None,flags=None,logicOpEnable=None,logicOp=None,attachmentCount=None,pAttachments=None,blendConstants=None,):
-    if attachmentCount is None:
+    if attachmentCount is None and pAttachments is not None:
         attachmentCount = len(pAttachments)
 
     return _new('VkPipelineColorBlendStateCreateInfo', sType=sType,pNext=pNext,flags=flags,logicOpEnable=logicOpEnable,logicOp=logicOp,attachmentCount=attachmentCount,pAttachments=pAttachments,blendConstants=blendConstants)
 
 def VkPipelineDynamicStateCreateInfo(sType=VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO,pNext=None,flags=None,dynamicStateCount=None,pDynamicStates=None,):
-    if dynamicStateCount is None:
+    if dynamicStateCount is None and pDynamicStates is not None:
         dynamicStateCount = len(pDynamicStates)
 
     return _new('VkPipelineDynamicStateCreateInfo', sType=sType,pNext=pNext,flags=flags,dynamicStateCount=dynamicStateCount,pDynamicStates=pDynamicStates)
@@ -2580,13 +2580,13 @@ def VkPipelineDepthStencilStateCreateInfo(sType=VK_STRUCTURE_TYPE_PIPELINE_DEPTH
     return _new('VkPipelineDepthStencilStateCreateInfo', sType=sType,pNext=pNext,flags=flags,depthTestEnable=depthTestEnable,depthWriteEnable=depthWriteEnable,depthCompareOp=depthCompareOp,depthBoundsTestEnable=depthBoundsTestEnable,stencilTestEnable=stencilTestEnable,front=front,back=back,minDepthBounds=minDepthBounds,maxDepthBounds=maxDepthBounds)
 
 def VkGraphicsPipelineCreateInfo(sType=VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO,pNext=None,flags=None,stageCount=None,pStages=None,pVertexInputState=None,pInputAssemblyState=None,pTessellationState=None,pViewportState=None,pRasterizationState=None,pMultisampleState=None,pDepthStencilState=None,pColorBlendState=None,pDynamicState=None,layout=None,renderPass=None,subpass=None,basePipelineHandle=None,basePipelineIndex=None,):
-    if stageCount is None:
+    if stageCount is None and pStages is not None:
         stageCount = len(pStages)
 
     return _new('VkGraphicsPipelineCreateInfo', sType=sType,pNext=pNext,flags=flags,stageCount=stageCount,pStages=pStages,pVertexInputState=pVertexInputState,pInputAssemblyState=pInputAssemblyState,pTessellationState=pTessellationState,pViewportState=pViewportState,pRasterizationState=pRasterizationState,pMultisampleState=pMultisampleState,pDepthStencilState=pDepthStencilState,pColorBlendState=pColorBlendState,pDynamicState=pDynamicState,layout=layout,renderPass=renderPass,subpass=subpass,basePipelineHandle=basePipelineHandle,basePipelineIndex=basePipelineIndex)
 
 def VkPipelineCacheCreateInfo(sType=VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO,pNext=None,flags=None,initialDataSize=None,pInitialData=None,):
-    if initialDataSize is None:
+    if initialDataSize is None and pInitialData is not None:
         initialDataSize = len(pInitialData)
 
     return _new('VkPipelineCacheCreateInfo', sType=sType,pNext=pNext,flags=flags,initialDataSize=initialDataSize,pInitialData=pInitialData)
@@ -2596,9 +2596,9 @@ def VkPushConstantRange(stageFlags=None,offset=None,size=None,):
     return _new('VkPushConstantRange', stageFlags=stageFlags,offset=offset,size=size)
 
 def VkPipelineLayoutCreateInfo(sType=VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO,pNext=None,flags=None,setLayoutCount=None,pSetLayouts=None,pushConstantRangeCount=None,pPushConstantRanges=None,):
-    if setLayoutCount is None:
+    if setLayoutCount is None and pSetLayouts is not None:
         setLayoutCount = len(pSetLayouts)
-    if pushConstantRangeCount is None:
+    if pushConstantRangeCount is None and pPushConstantRanges is not None:
         pushConstantRangeCount = len(pPushConstantRanges)
 
     return _new('VkPipelineLayoutCreateInfo', sType=sType,pNext=pNext,flags=flags,setLayoutCount=setLayoutCount,pSetLayouts=pSetLayouts,pushConstantRangeCount=pushConstantRangeCount,pPushConstantRanges=pPushConstantRanges)
@@ -2624,7 +2624,7 @@ def VkCommandBufferBeginInfo(sType=VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,p
     return _new('VkCommandBufferBeginInfo', sType=sType,pNext=pNext,flags=flags,pInheritanceInfo=pInheritanceInfo)
 
 def VkRenderPassBeginInfo(sType=VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,pNext=None,renderPass=None,framebuffer=None,renderArea=None,clearValueCount=None,pClearValues=None,):
-    if clearValueCount is None:
+    if clearValueCount is None and pClearValues is not None:
         clearValueCount = len(pClearValues)
 
     return _new('VkRenderPassBeginInfo', sType=sType,pNext=pNext,renderPass=renderPass,framebuffer=framebuffer,renderArea=renderArea,clearValueCount=clearValueCount,pClearValues=pClearValues)
@@ -2654,13 +2654,13 @@ def VkAttachmentReference(attachment=None,layout=None,):
     return _new('VkAttachmentReference', attachment=attachment,layout=layout)
 
 def VkSubpassDescription(flags=None,pipelineBindPoint=None,inputAttachmentCount=None,pInputAttachments=None,colorAttachmentCount=None,pColorAttachments=None,pResolveAttachments=None,pDepthStencilAttachment=None,preserveAttachmentCount=None,pPreserveAttachments=None,):
-    if inputAttachmentCount is None:
+    if inputAttachmentCount is None and pInputAttachments is not None:
         inputAttachmentCount = len(pInputAttachments)
-    if colorAttachmentCount is None:
+    if colorAttachmentCount is None and pColorAttachments is not None:
         colorAttachmentCount = len(pColorAttachments)
-    if colorAttachmentCount is None:
+    if colorAttachmentCount is None and pResolveAttachments is not None:
         colorAttachmentCount = len(pResolveAttachments)
-    if preserveAttachmentCount is None:
+    if preserveAttachmentCount is None and pPreserveAttachments is not None:
         preserveAttachmentCount = len(pPreserveAttachments)
 
     return _new('VkSubpassDescription', flags=flags,pipelineBindPoint=pipelineBindPoint,inputAttachmentCount=inputAttachmentCount,pInputAttachments=pInputAttachments,colorAttachmentCount=colorAttachmentCount,pColorAttachments=pColorAttachments,pResolveAttachments=pResolveAttachments,pDepthStencilAttachment=pDepthStencilAttachment,preserveAttachmentCount=preserveAttachmentCount,pPreserveAttachments=pPreserveAttachments)
@@ -2670,11 +2670,11 @@ def VkSubpassDependency(srcSubpass=None,dstSubpass=None,srcStageMask=None,dstSta
     return _new('VkSubpassDependency', srcSubpass=srcSubpass,dstSubpass=dstSubpass,srcStageMask=srcStageMask,dstStageMask=dstStageMask,srcAccessMask=srcAccessMask,dstAccessMask=dstAccessMask,dependencyFlags=dependencyFlags)
 
 def VkRenderPassCreateInfo(sType=VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO,pNext=None,flags=None,attachmentCount=None,pAttachments=None,subpassCount=None,pSubpasses=None,dependencyCount=None,pDependencies=None,):
-    if attachmentCount is None:
+    if attachmentCount is None and pAttachments is not None:
         attachmentCount = len(pAttachments)
-    if subpassCount is None:
+    if subpassCount is None and pSubpasses is not None:
         subpassCount = len(pSubpasses)
-    if dependencyCount is None:
+    if dependencyCount is None and pDependencies is not None:
         dependencyCount = len(pDependencies)
 
     return _new('VkRenderPassCreateInfo', sType=sType,pNext=pNext,flags=flags,attachmentCount=attachmentCount,pAttachments=pAttachments,subpassCount=subpassCount,pSubpasses=pSubpasses,dependencyCount=dependencyCount,pDependencies=pDependencies)
@@ -2708,7 +2708,7 @@ def VkQueryPoolCreateInfo(sType=VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO,pNext=N
     return _new('VkQueryPoolCreateInfo', sType=sType,pNext=pNext,flags=flags,queryType=queryType,queryCount=queryCount,pipelineStatistics=pipelineStatistics)
 
 def VkFramebufferCreateInfo(sType=VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO,pNext=None,flags=None,renderPass=None,attachmentCount=None,pAttachments=None,width=None,height=None,layers=None,):
-    if attachmentCount is None:
+    if attachmentCount is None and pAttachments is not None:
         attachmentCount = len(pAttachments)
 
     return _new('VkFramebufferCreateInfo', sType=sType,pNext=pNext,flags=flags,renderPass=renderPass,attachmentCount=attachmentCount,pAttachments=pAttachments,width=width,height=height,layers=layers)
@@ -2726,13 +2726,13 @@ def VkDispatchIndirectCommand(x=None,y=None,z=None,):
     return _new('VkDispatchIndirectCommand', x=x,y=y,z=z)
 
 def VkSubmitInfo(sType=VK_STRUCTURE_TYPE_SUBMIT_INFO,pNext=None,waitSemaphoreCount=None,pWaitSemaphores=None,pWaitDstStageMask=None,commandBufferCount=None,pCommandBuffers=None,signalSemaphoreCount=None,pSignalSemaphores=None,):
-    if waitSemaphoreCount is None:
+    if waitSemaphoreCount is None and pWaitSemaphores is not None:
         waitSemaphoreCount = len(pWaitSemaphores)
-    if waitSemaphoreCount is None:
+    if waitSemaphoreCount is None and pWaitDstStageMask is not None:
         waitSemaphoreCount = len(pWaitDstStageMask)
-    if commandBufferCount is None:
+    if commandBufferCount is None and pCommandBuffers is not None:
         commandBufferCount = len(pCommandBuffers)
-    if signalSemaphoreCount is None:
+    if signalSemaphoreCount is None and pSignalSemaphores is not None:
         signalSemaphoreCount = len(pSignalSemaphores)
 
     return _new('VkSubmitInfo', sType=sType,pNext=pNext,waitSemaphoreCount=waitSemaphoreCount,pWaitSemaphores=pWaitSemaphores,pWaitDstStageMask=pWaitDstStageMask,commandBufferCount=commandBufferCount,pCommandBuffers=pCommandBuffers,signalSemaphoreCount=signalSemaphoreCount,pSignalSemaphores=pSignalSemaphores)
@@ -2806,19 +2806,19 @@ def VkSurfaceFormatKHR(format=None,colorSpace=None,):
     return _new('VkSurfaceFormatKHR', format=format,colorSpace=colorSpace)
 
 def VkSwapchainCreateInfoKHR(sType=VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR,pNext=None,flags=None,surface=None,minImageCount=None,imageFormat=None,imageColorSpace=None,imageExtent=None,imageArrayLayers=None,imageUsage=None,imageSharingMode=None,queueFamilyIndexCount=None,pQueueFamilyIndices=None,preTransform=None,compositeAlpha=None,presentMode=None,clipped=None,oldSwapchain=None,):
-    if queueFamilyIndexCount is None:
+    if queueFamilyIndexCount is None and pQueueFamilyIndices is not None:
         queueFamilyIndexCount = len(pQueueFamilyIndices)
 
     return _new('VkSwapchainCreateInfoKHR', sType=sType,pNext=pNext,flags=flags,surface=surface,minImageCount=minImageCount,imageFormat=imageFormat,imageColorSpace=imageColorSpace,imageExtent=imageExtent,imageArrayLayers=imageArrayLayers,imageUsage=imageUsage,imageSharingMode=imageSharingMode,queueFamilyIndexCount=queueFamilyIndexCount,pQueueFamilyIndices=pQueueFamilyIndices,preTransform=preTransform,compositeAlpha=compositeAlpha,presentMode=presentMode,clipped=clipped,oldSwapchain=oldSwapchain)
 
 def VkPresentInfoKHR(sType=VK_STRUCTURE_TYPE_PRESENT_INFO_KHR,pNext=None,waitSemaphoreCount=None,pWaitSemaphores=None,swapchainCount=None,pSwapchains=None,pImageIndices=None,pResults=None,):
-    if waitSemaphoreCount is None:
+    if waitSemaphoreCount is None and pWaitSemaphores is not None:
         waitSemaphoreCount = len(pWaitSemaphores)
-    if swapchainCount is None:
+    if swapchainCount is None and pSwapchains is not None:
         swapchainCount = len(pSwapchains)
-    if swapchainCount is None:
+    if swapchainCount is None and pImageIndices is not None:
         swapchainCount = len(pImageIndices)
-    if swapchainCount is None:
+    if swapchainCount is None and pResults is not None:
         swapchainCount = len(pResults)
 
     return _new('VkPresentInfoKHR', sType=sType,pNext=pNext,waitSemaphoreCount=waitSemaphoreCount,pWaitSemaphores=pWaitSemaphores,swapchainCount=swapchainCount,pSwapchains=pSwapchains,pImageIndices=pImageIndices,pResults=pResults)
@@ -2828,7 +2828,7 @@ def VkDebugReportCallbackCreateInfoEXT(sType=VK_STRUCTURE_TYPE_DEBUG_REPORT_CALL
     return _new('VkDebugReportCallbackCreateInfoEXT', sType=sType,pNext=pNext,flags=flags,pfnCallback=pfnCallback,pUserData=pUserData)
 
 def VkValidationFlagsEXT(sType=VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT,pNext=None,disabledValidationCheckCount=None,pDisabledValidationChecks=None,):
-    if disabledValidationCheckCount is None:
+    if disabledValidationCheckCount is None and pDisabledValidationChecks is not None:
         disabledValidationCheckCount = len(pDisabledValidationChecks)
 
     return _new('VkValidationFlagsEXT', sType=sType,pNext=pNext,disabledValidationCheckCount=disabledValidationCheckCount,pDisabledValidationChecks=pDisabledValidationChecks)
@@ -2842,7 +2842,7 @@ def VkDebugMarkerObjectNameInfoEXT(sType=VK_STRUCTURE_TYPE_DEBUG_MARKER_OBJECT_N
     return _new('VkDebugMarkerObjectNameInfoEXT', sType=sType,pNext=pNext,objectType=objectType,object=object,pObjectName=pObjectName)
 
 def VkDebugMarkerObjectTagInfoEXT(sType=VK_STRUCTURE_TYPE_DEBUG_MARKER_OBJECT_TAG_INFO_EXT,pNext=None,objectType=None,object=None,tagName=None,tagSize=None,pTag=None,):
-    if tagSize is None:
+    if tagSize is None and pTag is not None:
         tagSize = len(pTag)
 
     return _new('VkDebugMarkerObjectTagInfoEXT', sType=sType,pNext=pNext,objectType=objectType,object=object,tagName=tagName,tagSize=tagSize,pTag=pTag)
@@ -2884,15 +2884,15 @@ def VkExportMemoryWin32HandleInfoNV(sType=VK_STRUCTURE_TYPE_EXPORT_MEMORY_WIN32_
     return _new('VkExportMemoryWin32HandleInfoNV', sType=sType,pNext=pNext,pAttributes=pAttributes,dwAccess=dwAccess)
 
 def VkWin32KeyedMutexAcquireReleaseInfoNV(sType=VK_STRUCTURE_TYPE_WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV,pNext=None,acquireCount=None,pAcquireSyncs=None,pAcquireKeys=None,pAcquireTimeoutMilliseconds=None,releaseCount=None,pReleaseSyncs=None,pReleaseKeys=None,):
-    if acquireCount is None:
+    if acquireCount is None and pAcquireSyncs is not None:
         acquireCount = len(pAcquireSyncs)
-    if acquireCount is None:
+    if acquireCount is None and pAcquireKeys is not None:
         acquireCount = len(pAcquireKeys)
-    if acquireCount is None:
+    if acquireCount is None and pAcquireTimeoutMilliseconds is not None:
         acquireCount = len(pAcquireTimeoutMilliseconds)
-    if releaseCount is None:
+    if releaseCount is None and pReleaseSyncs is not None:
         releaseCount = len(pReleaseSyncs)
-    if releaseCount is None:
+    if releaseCount is None and pReleaseKeys is not None:
         releaseCount = len(pReleaseKeys)
 
     return _new('VkWin32KeyedMutexAcquireReleaseInfoNV', sType=sType,pNext=pNext,acquireCount=acquireCount,pAcquireSyncs=pAcquireSyncs,pAcquireKeys=pAcquireKeys,pAcquireTimeoutMilliseconds=pAcquireTimeoutMilliseconds,releaseCount=releaseCount,pReleaseSyncs=pReleaseSyncs,pReleaseKeys=pReleaseKeys)
@@ -2914,13 +2914,13 @@ def VkIndirectCommandsLayoutTokenNVX(tokenType=None,bindingUnit=None,dynamicCoun
     return _new('VkIndirectCommandsLayoutTokenNVX', tokenType=tokenType,bindingUnit=bindingUnit,dynamicCount=dynamicCount,divisor=divisor)
 
 def VkIndirectCommandsLayoutCreateInfoNVX(sType=VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NVX,pNext=None,pipelineBindPoint=None,flags=None,tokenCount=None,pTokens=None,):
-    if tokenCount is None:
+    if tokenCount is None and pTokens is not None:
         tokenCount = len(pTokens)
 
     return _new('VkIndirectCommandsLayoutCreateInfoNVX', sType=sType,pNext=pNext,pipelineBindPoint=pipelineBindPoint,flags=flags,tokenCount=tokenCount,pTokens=pTokens)
 
 def VkCmdProcessCommandsInfoNVX(sType=VK_STRUCTURE_TYPE_CMD_PROCESS_COMMANDS_INFO_NVX,pNext=None,objectTable=None,indirectCommandsLayout=None,indirectCommandsTokenCount=None,pIndirectCommandsTokens=None,maxSequencesCount=None,targetCommandBuffer=None,sequencesCountBuffer=None,sequencesCountOffset=None,sequencesIndexBuffer=None,sequencesIndexOffset=None,):
-    if indirectCommandsTokenCount is None:
+    if indirectCommandsTokenCount is None and pIndirectCommandsTokens is not None:
         indirectCommandsTokenCount = len(pIndirectCommandsTokens)
 
     return _new('VkCmdProcessCommandsInfoNVX', sType=sType,pNext=pNext,objectTable=objectTable,indirectCommandsLayout=indirectCommandsLayout,indirectCommandsTokenCount=indirectCommandsTokenCount,pIndirectCommandsTokens=pIndirectCommandsTokens,maxSequencesCount=maxSequencesCount,targetCommandBuffer=targetCommandBuffer,sequencesCountBuffer=sequencesCountBuffer,sequencesCountOffset=sequencesCountOffset,sequencesIndexBuffer=sequencesIndexBuffer,sequencesIndexOffset=sequencesIndexOffset)
@@ -2930,11 +2930,11 @@ def VkCmdReserveSpaceForCommandsInfoNVX(sType=VK_STRUCTURE_TYPE_CMD_RESERVE_SPAC
     return _new('VkCmdReserveSpaceForCommandsInfoNVX', sType=sType,pNext=pNext,objectTable=objectTable,indirectCommandsLayout=indirectCommandsLayout,maxSequencesCount=maxSequencesCount)
 
 def VkObjectTableCreateInfoNVX(sType=VK_STRUCTURE_TYPE_OBJECT_TABLE_CREATE_INFO_NVX,pNext=None,objectCount=None,pObjectEntryTypes=None,pObjectEntryCounts=None,pObjectEntryUsageFlags=None,maxUniformBuffersPerDescriptor=None,maxStorageBuffersPerDescriptor=None,maxStorageImagesPerDescriptor=None,maxSampledImagesPerDescriptor=None,maxPipelineLayouts=None,):
-    if objectCount is None:
+    if objectCount is None and pObjectEntryTypes is not None:
         objectCount = len(pObjectEntryTypes)
-    if objectCount is None:
+    if objectCount is None and pObjectEntryCounts is not None:
         objectCount = len(pObjectEntryCounts)
-    if objectCount is None:
+    if objectCount is None and pObjectEntryUsageFlags is not None:
         objectCount = len(pObjectEntryUsageFlags)
 
     return _new('VkObjectTableCreateInfoNVX', sType=sType,pNext=pNext,objectCount=objectCount,pObjectEntryTypes=pObjectEntryTypes,pObjectEntryCounts=pObjectEntryCounts,pObjectEntryUsageFlags=pObjectEntryUsageFlags,maxUniformBuffersPerDescriptor=maxUniformBuffersPerDescriptor,maxStorageBuffersPerDescriptor=maxStorageBuffersPerDescriptor,maxStorageImagesPerDescriptor=maxStorageImagesPerDescriptor,maxSampledImagesPerDescriptor=maxSampledImagesPerDescriptor,maxPipelineLayouts=maxPipelineLayouts)
@@ -3004,13 +3004,13 @@ def VkPhysicalDevicePushDescriptorPropertiesKHR(sType=VK_STRUCTURE_TYPE_PHYSICAL
     return _new('VkPhysicalDevicePushDescriptorPropertiesKHR', sType=sType,pNext=pNext,maxPushDescriptors=maxPushDescriptors)
 
 def VkPresentRegionsKHR(sType=VK_STRUCTURE_TYPE_PRESENT_REGIONS_KHR,pNext=None,swapchainCount=None,pRegions=None,):
-    if swapchainCount is None:
+    if swapchainCount is None and pRegions is not None:
         swapchainCount = len(pRegions)
 
     return _new('VkPresentRegionsKHR', sType=sType,pNext=pNext,swapchainCount=swapchainCount,pRegions=pRegions)
 
 def VkPresentRegionKHR(rectangleCount=None,pRectangles=None,):
-    if rectangleCount is None:
+    if rectangleCount is None and pRectangles is not None:
         rectangleCount = len(pRectangles)
 
     return _new('VkPresentRegionKHR', rectangleCount=rectangleCount,pRectangles=pRectangles)
@@ -3088,15 +3088,15 @@ def VkMemoryGetFdInfoKHR(sType=VK_STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR,pNext=No
     return _new('VkMemoryGetFdInfoKHR', sType=sType,pNext=pNext,memory=memory,handleType=handleType)
 
 def VkWin32KeyedMutexAcquireReleaseInfoKHR(sType=VK_STRUCTURE_TYPE_WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR,pNext=None,acquireCount=None,pAcquireSyncs=None,pAcquireKeys=None,pAcquireTimeouts=None,releaseCount=None,pReleaseSyncs=None,pReleaseKeys=None,):
-    if acquireCount is None:
+    if acquireCount is None and pAcquireSyncs is not None:
         acquireCount = len(pAcquireSyncs)
-    if acquireCount is None:
+    if acquireCount is None and pAcquireKeys is not None:
         acquireCount = len(pAcquireKeys)
-    if acquireCount is None:
+    if acquireCount is None and pAcquireTimeouts is not None:
         acquireCount = len(pAcquireTimeouts)
-    if releaseCount is None:
+    if releaseCount is None and pReleaseSyncs is not None:
         releaseCount = len(pReleaseSyncs)
-    if releaseCount is None:
+    if releaseCount is None and pReleaseKeys is not None:
         releaseCount = len(pReleaseKeys)
 
     return _new('VkWin32KeyedMutexAcquireReleaseInfoKHR', sType=sType,pNext=pNext,acquireCount=acquireCount,pAcquireSyncs=pAcquireSyncs,pAcquireKeys=pAcquireKeys,pAcquireTimeouts=pAcquireTimeouts,releaseCount=releaseCount,pReleaseSyncs=pReleaseSyncs,pReleaseKeys=pReleaseKeys)
@@ -3122,9 +3122,9 @@ def VkExportSemaphoreWin32HandleInfoKHR(sType=VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE
     return _new('VkExportSemaphoreWin32HandleInfoKHR', sType=sType,pNext=pNext,pAttributes=pAttributes,dwAccess=dwAccess,name=name)
 
 def VkD3D12FenceSubmitInfoKHR(sType=VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR,pNext=None,waitSemaphoreValuesCount=None,pWaitSemaphoreValues=None,signalSemaphoreValuesCount=None,pSignalSemaphoreValues=None,):
-    if waitSemaphoreValuesCount is None:
+    if waitSemaphoreValuesCount is None and pWaitSemaphoreValues is not None:
         waitSemaphoreValuesCount = len(pWaitSemaphoreValues)
-    if signalSemaphoreValuesCount is None:
+    if signalSemaphoreValuesCount is None and pSignalSemaphoreValues is not None:
         signalSemaphoreValuesCount = len(pSignalSemaphoreValues)
 
     return _new('VkD3D12FenceSubmitInfoKHR', sType=sType,pNext=pNext,waitSemaphoreValuesCount=waitSemaphoreValuesCount,pWaitSemaphoreValues=pWaitSemaphoreValues,signalSemaphoreValuesCount=signalSemaphoreValuesCount,pSignalSemaphoreValues=pSignalSemaphoreValues)
@@ -3182,11 +3182,11 @@ def VkPhysicalDeviceMultiviewPropertiesKHX(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVI
     return _new('VkPhysicalDeviceMultiviewPropertiesKHX', sType=sType,pNext=pNext,maxMultiviewViewCount=maxMultiviewViewCount,maxMultiviewInstanceIndex=maxMultiviewInstanceIndex)
 
 def VkRenderPassMultiviewCreateInfoKHX(sType=VK_STRUCTURE_TYPE_RENDER_PASS_MULTIVIEW_CREATE_INFO_KHX,pNext=None,subpassCount=None,pViewMasks=None,dependencyCount=None,pViewOffsets=None,correlationMaskCount=None,pCorrelationMasks=None,):
-    if subpassCount is None:
+    if subpassCount is None and pViewMasks is not None:
         subpassCount = len(pViewMasks)
-    if dependencyCount is None:
+    if dependencyCount is None and pViewOffsets is not None:
         dependencyCount = len(pViewOffsets)
-    if correlationMaskCount is None:
+    if correlationMaskCount is None and pCorrelationMasks is not None:
         correlationMaskCount = len(pCorrelationMasks)
 
     return _new('VkRenderPassMultiviewCreateInfoKHX', sType=sType,pNext=pNext,subpassCount=subpassCount,pViewMasks=pViewMasks,dependencyCount=dependencyCount,pViewOffsets=pViewOffsets,correlationMaskCount=correlationMaskCount,pCorrelationMasks=pCorrelationMasks)
@@ -3224,7 +3224,7 @@ def VkBindBufferMemoryInfoKHR(sType=VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO_KH
     return _new('VkBindBufferMemoryInfoKHR', sType=sType,pNext=pNext,buffer=buffer,memory=memory,memoryOffset=memoryOffset)
 
 def VkBindBufferMemoryDeviceGroupInfoKHX(sType=VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO_KHX,pNext=None,deviceIndexCount=None,pDeviceIndices=None,):
-    if deviceIndexCount is None:
+    if deviceIndexCount is None and pDeviceIndices is not None:
         deviceIndexCount = len(pDeviceIndices)
 
     return _new('VkBindBufferMemoryDeviceGroupInfoKHX', sType=sType,pNext=pNext,deviceIndexCount=deviceIndexCount,pDeviceIndices=pDeviceIndices)
@@ -3234,15 +3234,15 @@ def VkBindImageMemoryInfoKHR(sType=VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_INFO_KHR,
     return _new('VkBindImageMemoryInfoKHR', sType=sType,pNext=pNext,image=image,memory=memory,memoryOffset=memoryOffset)
 
 def VkBindImageMemoryDeviceGroupInfoKHX(sType=VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO_KHX,pNext=None,deviceIndexCount=None,pDeviceIndices=None,SFRRectCount=None,pSFRRects=None,):
-    if deviceIndexCount is None:
+    if deviceIndexCount is None and pDeviceIndices is not None:
         deviceIndexCount = len(pDeviceIndices)
-    if SFRRectCount is None:
+    if SFRRectCount is None and pSFRRects is not None:
         SFRRectCount = len(pSFRRects)
 
     return _new('VkBindImageMemoryDeviceGroupInfoKHX', sType=sType,pNext=pNext,deviceIndexCount=deviceIndexCount,pDeviceIndices=pDeviceIndices,SFRRectCount=SFRRectCount,pSFRRects=pSFRRects)
 
 def VkDeviceGroupRenderPassBeginInfoKHX(sType=VK_STRUCTURE_TYPE_DEVICE_GROUP_RENDER_PASS_BEGIN_INFO_KHX,pNext=None,deviceMask=None,deviceRenderAreaCount=None,pDeviceRenderAreas=None,):
-    if deviceRenderAreaCount is None:
+    if deviceRenderAreaCount is None and pDeviceRenderAreas is not None:
         deviceRenderAreaCount = len(pDeviceRenderAreas)
 
     return _new('VkDeviceGroupRenderPassBeginInfoKHX', sType=sType,pNext=pNext,deviceMask=deviceMask,deviceRenderAreaCount=deviceRenderAreaCount,pDeviceRenderAreas=pDeviceRenderAreas)
@@ -3252,11 +3252,11 @@ def VkDeviceGroupCommandBufferBeginInfoKHX(sType=VK_STRUCTURE_TYPE_DEVICE_GROUP_
     return _new('VkDeviceGroupCommandBufferBeginInfoKHX', sType=sType,pNext=pNext,deviceMask=deviceMask)
 
 def VkDeviceGroupSubmitInfoKHX(sType=VK_STRUCTURE_TYPE_DEVICE_GROUP_SUBMIT_INFO_KHX,pNext=None,waitSemaphoreCount=None,pWaitSemaphoreDeviceIndices=None,commandBufferCount=None,pCommandBufferDeviceMasks=None,signalSemaphoreCount=None,pSignalSemaphoreDeviceIndices=None,):
-    if waitSemaphoreCount is None:
+    if waitSemaphoreCount is None and pWaitSemaphoreDeviceIndices is not None:
         waitSemaphoreCount = len(pWaitSemaphoreDeviceIndices)
-    if commandBufferCount is None:
+    if commandBufferCount is None and pCommandBufferDeviceMasks is not None:
         commandBufferCount = len(pCommandBufferDeviceMasks)
-    if signalSemaphoreCount is None:
+    if signalSemaphoreCount is None and pSignalSemaphoreDeviceIndices is not None:
         signalSemaphoreCount = len(pSignalSemaphoreDeviceIndices)
 
     return _new('VkDeviceGroupSubmitInfoKHX', sType=sType,pNext=pNext,waitSemaphoreCount=waitSemaphoreCount,pWaitSemaphoreDeviceIndices=pWaitSemaphoreDeviceIndices,commandBufferCount=commandBufferCount,pCommandBufferDeviceMasks=pCommandBufferDeviceMasks,signalSemaphoreCount=signalSemaphoreCount,pSignalSemaphoreDeviceIndices=pSignalSemaphoreDeviceIndices)
@@ -3282,13 +3282,13 @@ def VkAcquireNextImageInfoKHX(sType=VK_STRUCTURE_TYPE_ACQUIRE_NEXT_IMAGE_INFO_KH
     return _new('VkAcquireNextImageInfoKHX', sType=sType,pNext=pNext,swapchain=swapchain,timeout=timeout,semaphore=semaphore,fence=fence,deviceMask=deviceMask)
 
 def VkDeviceGroupPresentInfoKHX(sType=VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_INFO_KHX,pNext=None,swapchainCount=None,pDeviceMasks=None,mode=None,):
-    if swapchainCount is None:
+    if swapchainCount is None and pDeviceMasks is not None:
         swapchainCount = len(pDeviceMasks)
 
     return _new('VkDeviceGroupPresentInfoKHX', sType=sType,pNext=pNext,swapchainCount=swapchainCount,pDeviceMasks=pDeviceMasks,mode=mode)
 
 def VkDeviceGroupDeviceCreateInfoKHX(sType=VK_STRUCTURE_TYPE_DEVICE_GROUP_DEVICE_CREATE_INFO_KHX,pNext=None,physicalDeviceCount=None,pPhysicalDevices=None,):
-    if physicalDeviceCount is None:
+    if physicalDeviceCount is None and pPhysicalDevices is not None:
         physicalDeviceCount = len(pPhysicalDevices)
 
     return _new('VkDeviceGroupDeviceCreateInfoKHX', sType=sType,pNext=pNext,physicalDeviceCount=physicalDeviceCount,pPhysicalDevices=pPhysicalDevices)
@@ -3302,7 +3302,7 @@ def VkDescriptorUpdateTemplateEntryKHR(dstBinding=None,dstArrayElement=None,desc
     return _new('VkDescriptorUpdateTemplateEntryKHR', dstBinding=dstBinding,dstArrayElement=dstArrayElement,descriptorCount=descriptorCount,descriptorType=descriptorType,offset=offset,stride=stride)
 
 def VkDescriptorUpdateTemplateCreateInfoKHR(sType=VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO_KHR,pNext=None,flags=None,descriptorUpdateEntryCount=None,pDescriptorUpdateEntries=None,templateType=None,descriptorSetLayout=None,pipelineBindPoint=None,pipelineLayout=None,set=None,):
-    if descriptorUpdateEntryCount is None:
+    if descriptorUpdateEntryCount is None and pDescriptorUpdateEntries is not None:
         descriptorUpdateEntryCount = len(pDescriptorUpdateEntries)
 
     return _new('VkDescriptorUpdateTemplateCreateInfoKHR', sType=sType,pNext=pNext,flags=flags,descriptorUpdateEntryCount=descriptorUpdateEntryCount,pDescriptorUpdateEntries=pDescriptorUpdateEntries,templateType=templateType,descriptorSetLayout=descriptorSetLayout,pipelineBindPoint=pipelineBindPoint,pipelineLayout=pipelineLayout,set=set)
@@ -3324,7 +3324,7 @@ def VkPastPresentationTimingGOOGLE(presentID=None,desiredPresentTime=None,actual
     return _new('VkPastPresentationTimingGOOGLE', presentID=presentID,desiredPresentTime=desiredPresentTime,actualPresentTime=actualPresentTime,earliestPresentTime=earliestPresentTime,presentMargin=presentMargin)
 
 def VkPresentTimesInfoGOOGLE(sType=VK_STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE,pNext=None,swapchainCount=None,pTimes=None,):
-    if swapchainCount is None:
+    if swapchainCount is None and pTimes is not None:
         swapchainCount = len(pTimes)
 
     return _new('VkPresentTimesInfoGOOGLE', sType=sType,pNext=pNext,swapchainCount=swapchainCount,pTimes=pTimes)
@@ -3346,7 +3346,7 @@ def VkViewportWScalingNV(xcoeff=None,ycoeff=None,):
     return _new('VkViewportWScalingNV', xcoeff=xcoeff,ycoeff=ycoeff)
 
 def VkPipelineViewportWScalingStateCreateInfoNV(sType=VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV,pNext=None,viewportWScalingEnable=None,viewportCount=None,pViewportWScalings=None,):
-    if viewportCount is None:
+    if viewportCount is None and pViewportWScalings is not None:
         viewportCount = len(pViewportWScalings)
 
     return _new('VkPipelineViewportWScalingStateCreateInfoNV', sType=sType,pNext=pNext,viewportWScalingEnable=viewportWScalingEnable,viewportCount=viewportCount,pViewportWScalings=pViewportWScalings)
@@ -3356,7 +3356,7 @@ def VkViewportSwizzleNV(x=None,y=None,z=None,w=None,):
     return _new('VkViewportSwizzleNV', x=x,y=y,z=z,w=w)
 
 def VkPipelineViewportSwizzleStateCreateInfoNV(sType=VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV,pNext=None,flags=None,viewportCount=None,pViewportSwizzles=None,):
-    if viewportCount is None:
+    if viewportCount is None and pViewportSwizzles is not None:
         viewportCount = len(pViewportSwizzles)
 
     return _new('VkPipelineViewportSwizzleStateCreateInfoNV', sType=sType,pNext=pNext,flags=flags,viewportCount=viewportCount,pViewportSwizzles=pViewportSwizzles)
@@ -3366,7 +3366,7 @@ def VkPhysicalDeviceDiscardRectanglePropertiesEXT(sType=VK_STRUCTURE_TYPE_PHYSIC
     return _new('VkPhysicalDeviceDiscardRectanglePropertiesEXT', sType=sType,pNext=pNext,maxDiscardRectangles=maxDiscardRectangles)
 
 def VkPipelineDiscardRectangleStateCreateInfoEXT(sType=VK_STRUCTURE_TYPE_PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT,pNext=None,flags=None,discardRectangleMode=None,discardRectangleCount=None,pDiscardRectangles=None,):
-    if discardRectangleCount is None:
+    if discardRectangleCount is None and pDiscardRectangles is not None:
         discardRectangleCount = len(pDiscardRectangles)
 
     return _new('VkPipelineDiscardRectangleStateCreateInfoEXT', sType=sType,pNext=pNext,flags=flags,discardRectangleMode=discardRectangleMode,discardRectangleCount=discardRectangleCount,pDiscardRectangles=pDiscardRectangles)
@@ -3380,7 +3380,7 @@ def VkInputAttachmentAspectReferenceKHR(subpass=None,inputAttachmentIndex=None,a
     return _new('VkInputAttachmentAspectReferenceKHR', subpass=subpass,inputAttachmentIndex=inputAttachmentIndex,aspectMask=aspectMask)
 
 def VkRenderPassInputAttachmentAspectCreateInfoKHR(sType=VK_STRUCTURE_TYPE_RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO_KHR,pNext=None,aspectReferenceCount=None,pAspectReferences=None,):
-    if aspectReferenceCount is None:
+    if aspectReferenceCount is None and pAspectReferences is not None:
         aspectReferenceCount = len(pAspectReferences)
 
     return _new('VkRenderPassInputAttachmentAspectCreateInfoKHR', sType=sType,pNext=pNext,aspectReferenceCount=aspectReferenceCount,pAspectReferences=pAspectReferences)
@@ -3486,7 +3486,7 @@ def VkSampleLocationEXT(x=None,y=None,):
     return _new('VkSampleLocationEXT', x=x,y=y)
 
 def VkSampleLocationsInfoEXT(sType=VK_STRUCTURE_TYPE_SAMPLE_LOCATIONS_INFO_EXT,pNext=None,sampleLocationsPerPixel=None,sampleLocationGridSize=None,sampleLocationsCount=None,pSampleLocations=None,):
-    if sampleLocationsCount is None:
+    if sampleLocationsCount is None and pSampleLocations is not None:
         sampleLocationsCount = len(pSampleLocations)
 
     return _new('VkSampleLocationsInfoEXT', sType=sType,pNext=pNext,sampleLocationsPerPixel=sampleLocationsPerPixel,sampleLocationGridSize=sampleLocationGridSize,sampleLocationsCount=sampleLocationsCount,pSampleLocations=pSampleLocations)
@@ -3500,9 +3500,9 @@ def VkSubpassSampleLocationsEXT(subpassIndex=None,sampleLocationsInfo=None,):
     return _new('VkSubpassSampleLocationsEXT', subpassIndex=subpassIndex,sampleLocationsInfo=sampleLocationsInfo)
 
 def VkRenderPassSampleLocationsBeginInfoEXT(sType=VK_STRUCTURE_TYPE_RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT,pNext=None,attachmentInitialSampleLocationsCount=None,pAttachmentInitialSampleLocations=None,postSubpassSampleLocationsCount=None,pSubpassSampleLocations=None,):
-    if attachmentInitialSampleLocationsCount is None:
+    if attachmentInitialSampleLocationsCount is None and pAttachmentInitialSampleLocations is not None:
         attachmentInitialSampleLocationsCount = len(pAttachmentInitialSampleLocations)
-    if postSubpassSampleLocationsCount is None:
+    if postSubpassSampleLocationsCount is None and pSubpassSampleLocations is not None:
         postSubpassSampleLocationsCount = len(pSubpassSampleLocations)
 
     return _new('VkRenderPassSampleLocationsBeginInfoEXT', sType=sType,pNext=pNext,attachmentInitialSampleLocationsCount=attachmentInitialSampleLocationsCount,pAttachmentInitialSampleLocations=pAttachmentInitialSampleLocations,postSubpassSampleLocationsCount=postSubpassSampleLocationsCount,pSubpassSampleLocations=pSubpassSampleLocations)
@@ -3536,19 +3536,19 @@ def VkPipelineColorBlendAdvancedStateCreateInfoEXT(sType=VK_STRUCTURE_TYPE_PIPEL
     return _new('VkPipelineColorBlendAdvancedStateCreateInfoEXT', sType=sType,pNext=pNext,srcPremultiplied=srcPremultiplied,dstPremultiplied=dstPremultiplied,blendOverlap=blendOverlap)
 
 def VkPipelineCoverageModulationStateCreateInfoNV(sType=VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV,pNext=None,flags=None,coverageModulationMode=None,coverageModulationTableEnable=None,coverageModulationTableCount=None,pCoverageModulationTable=None,):
-    if coverageModulationTableCount is None:
+    if coverageModulationTableCount is None and pCoverageModulationTable is not None:
         coverageModulationTableCount = len(pCoverageModulationTable)
 
     return _new('VkPipelineCoverageModulationStateCreateInfoNV', sType=sType,pNext=pNext,flags=flags,coverageModulationMode=coverageModulationMode,coverageModulationTableEnable=coverageModulationTableEnable,coverageModulationTableCount=coverageModulationTableCount,pCoverageModulationTable=pCoverageModulationTable)
 
 def VkImageFormatListCreateInfoKHR(sType=VK_STRUCTURE_TYPE_IMAGE_FORMAT_LIST_CREATE_INFO_KHR,pNext=None,viewFormatCount=None,pViewFormats=None,):
-    if viewFormatCount is None:
+    if viewFormatCount is None and pViewFormats is not None:
         viewFormatCount = len(pViewFormats)
 
     return _new('VkImageFormatListCreateInfoKHR', sType=sType,pNext=pNext,viewFormatCount=viewFormatCount,pViewFormats=pViewFormats)
 
 def VkValidationCacheCreateInfoEXT(sType=VK_STRUCTURE_TYPE_VALIDATION_CACHE_CREATE_INFO_EXT,pNext=None,flags=None,initialDataSize=None,pInitialData=None,):
-    if initialDataSize is None:
+    if initialDataSize is None and pInitialData is not None:
         initialDataSize = len(pInitialData)
 
     return _new('VkValidationCacheCreateInfoEXT', sType=sType,pNext=pNext,flags=flags,initialDataSize=initialDataSize,pInitialData=pInitialData)
@@ -6654,199 +6654,199 @@ def _wrap_vkMergeValidationCachesEXT(fn):
     return vkMergeValidationCachesEXT
 
 _instance_ext_funcs = {
-    'vkGetPhysicalDeviceDisplayPropertiesKHR':_wrap_vkGetPhysicalDeviceDisplayPropertiesKHR,
-    'vkDestroySurfaceKHR':_wrap_vkDestroySurfaceKHR,
-    'vkCreateWaylandSurfaceKHR':_wrap_vkCreateWaylandSurfaceKHR,
-    'vkCreateXlibSurfaceKHR':_wrap_vkCreateXlibSurfaceKHR,
-    'vkGetPhysicalDeviceExternalFencePropertiesKHR':_wrap_vkGetPhysicalDeviceExternalFencePropertiesKHR,
-    'vkCreateDisplayModeKHR':_wrap_vkCreateDisplayModeKHR,
-    'vkGetDisplayPlaneSupportedDisplaysKHR':_wrap_vkGetDisplayPlaneSupportedDisplaysKHR,
-    'vkGetPhysicalDeviceSurfaceSupportKHR':_wrap_vkGetPhysicalDeviceSurfaceSupportKHR,
-    'vkGetPhysicalDeviceXcbPresentationSupportKHR':_wrap_vkGetPhysicalDeviceXcbPresentationSupportKHR,
-    'vkGetPhysicalDeviceSurfaceCapabilities2KHR':_wrap_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
-    'vkGetPhysicalDeviceXlibPresentationSupportKHR':_wrap_vkGetPhysicalDeviceXlibPresentationSupportKHR,
-    'vkGetPhysicalDeviceExternalImageFormatPropertiesNV':_wrap_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
-    'vkCreateXcbSurfaceKHR':_wrap_vkCreateXcbSurfaceKHR,
-    'vkGetDisplayModePropertiesKHR':_wrap_vkGetDisplayModePropertiesKHR,
-    'vkCreateAndroidSurfaceKHR':_wrap_vkCreateAndroidSurfaceKHR,
-    'vkGetPhysicalDeviceWin32PresentationSupportKHR':_wrap_vkGetPhysicalDeviceWin32PresentationSupportKHR,
-    'vkCreateDebugReportCallbackEXT':_wrap_vkCreateDebugReportCallbackEXT,
-    'vkGetPhysicalDeviceDisplayPlanePropertiesKHR':_wrap_vkGetPhysicalDeviceDisplayPlanePropertiesKHR,
-    'vkEnumeratePhysicalDeviceGroupsKHX':_wrap_vkEnumeratePhysicalDeviceGroupsKHX,
-    'vkGetPhysicalDeviceFormatProperties2KHR':_wrap_vkGetPhysicalDeviceFormatProperties2KHR,
-    'vkGetRandROutputDisplayEXT':_wrap_vkGetRandROutputDisplayEXT,
-    'vkGetPhysicalDeviceExternalSemaphorePropertiesKHR':_wrap_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR,
-    'vkGetPhysicalDeviceSurfaceCapabilitiesKHR':_wrap_vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
-    'vkCreateViSurfaceNN':_wrap_vkCreateViSurfaceNN,
-    'vkDebugReportMessageEXT':_wrap_vkDebugReportMessageEXT,
-    'vkGetPhysicalDeviceQueueFamilyProperties2KHR':_wrap_vkGetPhysicalDeviceQueueFamilyProperties2KHR,
-    'vkGetPhysicalDeviceSurfacePresentModesKHR':_wrap_vkGetPhysicalDeviceSurfacePresentModesKHR,
-    'vkGetPhysicalDeviceSurfaceCapabilities2EXT':_wrap_vkGetPhysicalDeviceSurfaceCapabilities2EXT,
-    'vkCreateMirSurfaceKHR':_wrap_vkCreateMirSurfaceKHR,
-    'vkGetPhysicalDeviceImageFormatProperties2KHR':_wrap_vkGetPhysicalDeviceImageFormatProperties2KHR,
-    'vkReleaseDisplayEXT':_wrap_vkReleaseDisplayEXT,
-    'vkGetDisplayPlaneCapabilitiesKHR':_wrap_vkGetDisplayPlaneCapabilitiesKHR,
-    'vkDestroyDebugReportCallbackEXT':_wrap_vkDestroyDebugReportCallbackEXT,
-    'vkGetPhysicalDeviceExternalBufferPropertiesKHR':_wrap_vkGetPhysicalDeviceExternalBufferPropertiesKHR,
-    'vkGetPhysicalDeviceFeatures2KHR':_wrap_vkGetPhysicalDeviceFeatures2KHR,
-    'vkGetPhysicalDeviceMemoryProperties2KHR':_wrap_vkGetPhysicalDeviceMemoryProperties2KHR,
-    'vkCreateMacOSSurfaceMVK':_wrap_vkCreateMacOSSurfaceMVK,
-    'vkCreateDisplayPlaneSurfaceKHR':_wrap_vkCreateDisplayPlaneSurfaceKHR,
-    'vkGetPhysicalDeviceWaylandPresentationSupportKHR':_wrap_vkGetPhysicalDeviceWaylandPresentationSupportKHR,
-    'vkCreateWin32SurfaceKHR':_wrap_vkCreateWin32SurfaceKHR,
-    'vkGetPhysicalDeviceProperties2KHR':_wrap_vkGetPhysicalDeviceProperties2KHR,
-    'vkGetPhysicalDeviceSurfaceFormatsKHR':_wrap_vkGetPhysicalDeviceSurfaceFormatsKHR,
-    'vkGetPhysicalDeviceMirPresentationSupportKHR':_wrap_vkGetPhysicalDeviceMirPresentationSupportKHR,
     'vkAcquireXlibDisplayEXT':_wrap_vkAcquireXlibDisplayEXT,
+    'vkCreateWin32SurfaceKHR':_wrap_vkCreateWin32SurfaceKHR,
+    'vkDestroySurfaceKHR':_wrap_vkDestroySurfaceKHR,
     'vkGetPhysicalDeviceSurfaceFormats2KHR':_wrap_vkGetPhysicalDeviceSurfaceFormats2KHR,
+    'vkReleaseDisplayEXT':_wrap_vkReleaseDisplayEXT,
+    'vkGetPhysicalDeviceExternalSemaphorePropertiesKHR':_wrap_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR,
+    'vkGetPhysicalDeviceSurfaceCapabilities2EXT':_wrap_vkGetPhysicalDeviceSurfaceCapabilities2EXT,
     'vkGetPhysicalDeviceSparseImageFormatProperties2KHR':_wrap_vkGetPhysicalDeviceSparseImageFormatProperties2KHR,
+    'vkGetPhysicalDeviceDisplayPlanePropertiesKHR':_wrap_vkGetPhysicalDeviceDisplayPlanePropertiesKHR,
+    'vkCreateViSurfaceNN':_wrap_vkCreateViSurfaceNN,
+    'vkCreateXlibSurfaceKHR':_wrap_vkCreateXlibSurfaceKHR,
+    'vkGetPhysicalDeviceWin32PresentationSupportKHR':_wrap_vkGetPhysicalDeviceWin32PresentationSupportKHR,
+    'vkGetPhysicalDeviceProperties2KHR':_wrap_vkGetPhysicalDeviceProperties2KHR,
+    'vkGetPhysicalDeviceWaylandPresentationSupportKHR':_wrap_vkGetPhysicalDeviceWaylandPresentationSupportKHR,
+    'vkCreateXcbSurfaceKHR':_wrap_vkCreateXcbSurfaceKHR,
+    'vkGetRandROutputDisplayEXT':_wrap_vkGetRandROutputDisplayEXT,
     'vkCreateIOSSurfaceMVK':_wrap_vkCreateIOSSurfaceMVK,
-    'vkGetMemoryWin32HandleKHR':_wrap_vkGetMemoryWin32HandleKHR,
-    'vkDisplayPowerControlEXT':_wrap_vkDisplayPowerControlEXT,
-    'vkRegisterObjectsNVX':_wrap_vkRegisterObjectsNVX,
-    'vkGetImageSparseMemoryRequirements2KHR':_wrap_vkGetImageSparseMemoryRequirements2KHR,
-    'vkCreateSamplerYcbcrConversionKHR':_wrap_vkCreateSamplerYcbcrConversionKHR,
-    'vkDestroySwapchainKHR':_wrap_vkDestroySwapchainKHR,
+    'vkGetPhysicalDeviceSurfaceSupportKHR':_wrap_vkGetPhysicalDeviceSurfaceSupportKHR,
+    'vkGetPhysicalDeviceExternalBufferPropertiesKHR':_wrap_vkGetPhysicalDeviceExternalBufferPropertiesKHR,
+    'vkGetDisplayPlaneSupportedDisplaysKHR':_wrap_vkGetDisplayPlaneSupportedDisplaysKHR,
+    'vkDebugReportMessageEXT':_wrap_vkDebugReportMessageEXT,
+    'vkCreateWaylandSurfaceKHR':_wrap_vkCreateWaylandSurfaceKHR,
+    'vkGetPhysicalDeviceExternalImageFormatPropertiesNV':_wrap_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
+    'vkCreateAndroidSurfaceKHR':_wrap_vkCreateAndroidSurfaceKHR,
+    'vkGetPhysicalDeviceSurfacePresentModesKHR':_wrap_vkGetPhysicalDeviceSurfacePresentModesKHR,
+    'vkGetPhysicalDeviceQueueFamilyProperties2KHR':_wrap_vkGetPhysicalDeviceQueueFamilyProperties2KHR,
+    'vkGetPhysicalDeviceSurfaceCapabilitiesKHR':_wrap_vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
+    'vkGetPhysicalDeviceFormatProperties2KHR':_wrap_vkGetPhysicalDeviceFormatProperties2KHR,
+    'vkGetDisplayPlaneCapabilitiesKHR':_wrap_vkGetDisplayPlaneCapabilitiesKHR,
+    'vkGetPhysicalDeviceXlibPresentationSupportKHR':_wrap_vkGetPhysicalDeviceXlibPresentationSupportKHR,
+    'vkEnumeratePhysicalDeviceGroupsKHX':_wrap_vkEnumeratePhysicalDeviceGroupsKHX,
+    'vkGetPhysicalDeviceExternalFencePropertiesKHR':_wrap_vkGetPhysicalDeviceExternalFencePropertiesKHR,
+    'vkDestroyDebugReportCallbackEXT':_wrap_vkDestroyDebugReportCallbackEXT,
+    'vkGetPhysicalDeviceSurfaceCapabilities2KHR':_wrap_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
+    'vkGetPhysicalDeviceFeatures2KHR':_wrap_vkGetPhysicalDeviceFeatures2KHR,
+    'vkCreateDisplayModeKHR':_wrap_vkCreateDisplayModeKHR,
+    'vkGetPhysicalDeviceMemoryProperties2KHR':_wrap_vkGetPhysicalDeviceMemoryProperties2KHR,
+    'vkGetDisplayModePropertiesKHR':_wrap_vkGetDisplayModePropertiesKHR,
+    'vkGetPhysicalDeviceImageFormatProperties2KHR':_wrap_vkGetPhysicalDeviceImageFormatProperties2KHR,
+    'vkGetPhysicalDeviceDisplayPropertiesKHR':_wrap_vkGetPhysicalDeviceDisplayPropertiesKHR,
+    'vkGetPhysicalDeviceSurfaceFormatsKHR':_wrap_vkGetPhysicalDeviceSurfaceFormatsKHR,
+    'vkCreateDisplayPlaneSurfaceKHR':_wrap_vkCreateDisplayPlaneSurfaceKHR,
+    'vkCreateMirSurfaceKHR':_wrap_vkCreateMirSurfaceKHR,
+    'vkGetPhysicalDeviceMirPresentationSupportKHR':_wrap_vkGetPhysicalDeviceMirPresentationSupportKHR,
+    'vkCreateDebugReportCallbackEXT':_wrap_vkCreateDebugReportCallbackEXT,
+    'vkCreateMacOSSurfaceMVK':_wrap_vkCreateMacOSSurfaceMVK,
+    'vkGetPhysicalDeviceXcbPresentationSupportKHR':_wrap_vkGetPhysicalDeviceXcbPresentationSupportKHR,
     'vkGetPhysicalDeviceMultisamplePropertiesEXT':_wrap_vkGetPhysicalDeviceMultisamplePropertiesEXT,
-    'vkCreateSharedSwapchainsKHR':_wrap_vkCreateSharedSwapchainsKHR,
-    'vkCmdDebugMarkerInsertEXT':_wrap_vkCmdDebugMarkerInsertEXT,
-    'vkCmdSetSampleLocationsEXT':_wrap_vkCmdSetSampleLocationsEXT,
-    'vkGetMemoryWin32HandleNV':_wrap_vkGetMemoryWin32HandleNV,
-    'vkQueuePresentKHR':_wrap_vkQueuePresentKHR,
-    'vkGetSwapchainCounterEXT':_wrap_vkGetSwapchainCounterEXT,
-    'vkGetSemaphoreWin32HandleKHR':_wrap_vkGetSemaphoreWin32HandleKHR,
+    'vkImportFenceFdKHR':_wrap_vkImportFenceFdKHR,
+    'vkGetMemoryWin32HandleKHR':_wrap_vkGetMemoryWin32HandleKHR,
     'vkGetFenceFdKHR':_wrap_vkGetFenceFdKHR,
-    'vkCmdDrawIndexedIndirectCountAMD':_wrap_vkCmdDrawIndexedIndirectCountAMD,
-    'vkGetSemaphoreFdKHR':_wrap_vkGetSemaphoreFdKHR,
-    'vkGetPastPresentationTimingGOOGLE':_wrap_vkGetPastPresentationTimingGOOGLE,
-    'vkMergeValidationCachesEXT':_wrap_vkMergeValidationCachesEXT,
-    'vkGetMemoryWin32HandlePropertiesKHR':_wrap_vkGetMemoryWin32HandlePropertiesKHR,
-    'vkGetPhysicalDevicePresentRectanglesKHX':_wrap_vkGetPhysicalDevicePresentRectanglesKHX,
-    'vkGetMemoryFdKHR':_wrap_vkGetMemoryFdKHR,
-    'vkCmdSetDeviceMaskKHX':_wrap_vkCmdSetDeviceMaskKHX,
-    'vkCmdSetDiscardRectangleEXT':_wrap_vkCmdSetDiscardRectangleEXT,
-    'vkImportFenceWin32HandleKHR':_wrap_vkImportFenceWin32HandleKHR,
-    'vkGetDeviceGroupPresentCapabilitiesKHX':_wrap_vkGetDeviceGroupPresentCapabilitiesKHX,
-    'vkUnregisterObjectsNVX':_wrap_vkUnregisterObjectsNVX,
-    'vkDebugMarkerSetObjectNameEXT':_wrap_vkDebugMarkerSetObjectNameEXT,
-    'vkGetDeviceGroupSurfacePresentModesKHX':_wrap_vkGetDeviceGroupSurfacePresentModesKHX,
-    'vkImportSemaphoreFdKHR':_wrap_vkImportSemaphoreFdKHR,
-    'vkCmdDrawIndirectCountAMD':_wrap_vkCmdDrawIndirectCountAMD,
-    'vkGetDeviceGroupPeerMemoryFeaturesKHX':_wrap_vkGetDeviceGroupPeerMemoryFeaturesKHX,
-    'vkGetMemoryFdPropertiesKHR':_wrap_vkGetMemoryFdPropertiesKHR,
-    'vkCreateValidationCacheEXT':_wrap_vkCreateValidationCacheEXT,
-    'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
-    'vkCreateDescriptorUpdateTemplateKHR':_wrap_vkCreateDescriptorUpdateTemplateKHR,
-    'vkAcquireNextImageKHR':_wrap_vkAcquireNextImageKHR,
-    'vkDestroyIndirectCommandsLayoutNVX':_wrap_vkDestroyIndirectCommandsLayoutNVX,
-    'vkCmdPushDescriptorSetWithTemplateKHR':_wrap_vkCmdPushDescriptorSetWithTemplateKHR,
-    'vkCmdDebugMarkerBeginEXT':_wrap_vkCmdDebugMarkerBeginEXT,
-    'vkTrimCommandPoolKHR':_wrap_vkTrimCommandPoolKHR,
-    'vkCreateObjectTableNVX':_wrap_vkCreateObjectTableNVX,
-    'vkGetRefreshCycleDurationGOOGLE':_wrap_vkGetRefreshCycleDurationGOOGLE,
-    'vkGetSwapchainStatusKHR':_wrap_vkGetSwapchainStatusKHR,
-    'vkDestroyValidationCacheEXT':_wrap_vkDestroyValidationCacheEXT,
-    'vkRegisterDeviceEventEXT':_wrap_vkRegisterDeviceEventEXT,
+    'vkBindImageMemory2KHR':_wrap_vkBindImageMemory2KHR,
     'vkAcquireNextImage2KHX':_wrap_vkAcquireNextImage2KHX,
-    'vkCmdDispatchBaseKHX':_wrap_vkCmdDispatchBaseKHX,
+    'vkGetMemoryWin32HandleNV':_wrap_vkGetMemoryWin32HandleNV,
+    'vkCmdSetDiscardRectangleEXT':_wrap_vkCmdSetDiscardRectangleEXT,
+    'vkGetDeviceGroupSurfacePresentModesKHX':_wrap_vkGetDeviceGroupSurfacePresentModesKHX,
+    'vkCmdDebugMarkerEndEXT':_wrap_vkCmdDebugMarkerEndEXT,
+    'vkRegisterObjectsNVX':_wrap_vkRegisterObjectsNVX,
+    'vkImportSemaphoreFdKHR':_wrap_vkImportSemaphoreFdKHR,
+    'vkCreateSharedSwapchainsKHR':_wrap_vkCreateSharedSwapchainsKHR,
+    'vkTrimCommandPoolKHR':_wrap_vkTrimCommandPoolKHR,
+    'vkRegisterDisplayEventEXT':_wrap_vkRegisterDisplayEventEXT,
+    'vkCreateSwapchainKHR':_wrap_vkCreateSwapchainKHR,
+    'vkGetSwapchainStatusKHR':_wrap_vkGetSwapchainStatusKHR,
+    'vkGetImageSparseMemoryRequirements2KHR':_wrap_vkGetImageSparseMemoryRequirements2KHR,
+    'vkCreateValidationCacheEXT':_wrap_vkCreateValidationCacheEXT,
+    'vkCmdDrawIndirectCountAMD':_wrap_vkCmdDrawIndirectCountAMD,
+    'vkGetDeviceGroupPresentCapabilitiesKHX':_wrap_vkGetDeviceGroupPresentCapabilitiesKHX,
+    'vkGetMemoryFdPropertiesKHR':_wrap_vkGetMemoryFdPropertiesKHR,
+    'vkDebugMarkerSetObjectNameEXT':_wrap_vkDebugMarkerSetObjectNameEXT,
+    'vkDestroyValidationCacheEXT':_wrap_vkDestroyValidationCacheEXT,
+    'vkAcquireNextImageKHR':_wrap_vkAcquireNextImageKHR,
+    'vkGetPhysicalDevicePresentRectanglesKHX':_wrap_vkGetPhysicalDevicePresentRectanglesKHX,
+    'vkDestroySwapchainKHR':_wrap_vkDestroySwapchainKHR,
+    'vkGetMemoryFdKHR':_wrap_vkGetMemoryFdKHR,
+    'vkUpdateDescriptorSetWithTemplateKHR':_wrap_vkUpdateDescriptorSetWithTemplateKHR,
+    'vkDestroyIndirectCommandsLayoutNVX':_wrap_vkDestroyIndirectCommandsLayoutNVX,
+    'vkGetDeviceGroupPeerMemoryFeaturesKHX':_wrap_vkGetDeviceGroupPeerMemoryFeaturesKHX,
+    'vkDisplayPowerControlEXT':_wrap_vkDisplayPowerControlEXT,
     'vkDestroySamplerYcbcrConversionKHR':_wrap_vkDestroySamplerYcbcrConversionKHR,
     'vkBindBufferMemory2KHR':_wrap_vkBindBufferMemory2KHR,
+    'vkUnregisterObjectsNVX':_wrap_vkUnregisterObjectsNVX,
     'vkImportSemaphoreWin32HandleKHR':_wrap_vkImportSemaphoreWin32HandleKHR,
-    'vkCmdPushDescriptorSetKHR':_wrap_vkCmdPushDescriptorSetKHR,
-    'vkDestroyDescriptorUpdateTemplateKHR':_wrap_vkDestroyDescriptorUpdateTemplateKHR,
-    'vkCreateIndirectCommandsLayoutNVX':_wrap_vkCreateIndirectCommandsLayoutNVX,
-    'vkDestroyObjectTableNVX':_wrap_vkDestroyObjectTableNVX,
-    'vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX':_wrap_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX,
-    'vkRegisterDisplayEventEXT':_wrap_vkRegisterDisplayEventEXT,
-    'vkImportFenceFdKHR':_wrap_vkImportFenceFdKHR,
-    'vkCmdReserveSpaceForCommandsNVX':_wrap_vkCmdReserveSpaceForCommandsNVX,
-    'vkCmdProcessCommandsNVX':_wrap_vkCmdProcessCommandsNVX,
-    'vkCreateSwapchainKHR':_wrap_vkCreateSwapchainKHR,
-    'vkGetSwapchainImagesKHR':_wrap_vkGetSwapchainImagesKHR,
+    'vkGetSwapchainCounterEXT':_wrap_vkGetSwapchainCounterEXT,
+    'vkQueuePresentKHR':_wrap_vkQueuePresentKHR,
     'vkGetImageMemoryRequirements2KHR':_wrap_vkGetImageMemoryRequirements2KHR,
-    'vkGetBufferMemoryRequirements2KHR':_wrap_vkGetBufferMemoryRequirements2KHR,
-    'vkUpdateDescriptorSetWithTemplateKHR':_wrap_vkUpdateDescriptorSetWithTemplateKHR,
-    'vkGetValidationCacheDataEXT':_wrap_vkGetValidationCacheDataEXT,
-    'vkCmdDebugMarkerEndEXT':_wrap_vkCmdDebugMarkerEndEXT,
+    'vkCmdPushDescriptorSetKHR':_wrap_vkCmdPushDescriptorSetKHR,
+    'vkGetRefreshCycleDurationGOOGLE':_wrap_vkGetRefreshCycleDurationGOOGLE,
+    'vkGetSemaphoreFdKHR':_wrap_vkGetSemaphoreFdKHR,
+    'vkCreateDescriptorUpdateTemplateKHR':_wrap_vkCreateDescriptorUpdateTemplateKHR,
+    'vkCmdProcessCommandsNVX':_wrap_vkCmdProcessCommandsNVX,
+    'vkCmdReserveSpaceForCommandsNVX':_wrap_vkCmdReserveSpaceForCommandsNVX,
+    'vkCmdPushDescriptorSetWithTemplateKHR':_wrap_vkCmdPushDescriptorSetWithTemplateKHR,
+    'vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX':_wrap_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX,
+    'vkGetPastPresentationTimingGOOGLE':_wrap_vkGetPastPresentationTimingGOOGLE,
     'vkSetHdrMetadataEXT':_wrap_vkSetHdrMetadataEXT,
+    'vkImportFenceWin32HandleKHR':_wrap_vkImportFenceWin32HandleKHR,
+    'vkCmdDispatchBaseKHX':_wrap_vkCmdDispatchBaseKHX,
+    'vkCmdSetSampleLocationsEXT':_wrap_vkCmdSetSampleLocationsEXT,
+    'vkRegisterDeviceEventEXT':_wrap_vkRegisterDeviceEventEXT,
+    'vkCreateObjectTableNVX':_wrap_vkCreateObjectTableNVX,
     'vkDebugMarkerSetObjectTagEXT':_wrap_vkDebugMarkerSetObjectTagEXT,
+    'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
+    'vkCmdDrawIndexedIndirectCountAMD':_wrap_vkCmdDrawIndexedIndirectCountAMD,
+    'vkGetSwapchainImagesKHR':_wrap_vkGetSwapchainImagesKHR,
+    'vkCreateSamplerYcbcrConversionKHR':_wrap_vkCreateSamplerYcbcrConversionKHR,
+    'vkCmdDebugMarkerBeginEXT':_wrap_vkCmdDebugMarkerBeginEXT,
     'vkGetFenceWin32HandleKHR':_wrap_vkGetFenceWin32HandleKHR,
-    'vkBindImageMemory2KHR':_wrap_vkBindImageMemory2KHR,
+    'vkMergeValidationCachesEXT':_wrap_vkMergeValidationCachesEXT,
+    'vkDestroyDescriptorUpdateTemplateKHR':_wrap_vkDestroyDescriptorUpdateTemplateKHR,
+    'vkCmdSetDeviceMaskKHX':_wrap_vkCmdSetDeviceMaskKHX,
+    'vkGetBufferMemoryRequirements2KHR':_wrap_vkGetBufferMemoryRequirements2KHR,
+    'vkGetSemaphoreWin32HandleKHR':_wrap_vkGetSemaphoreWin32HandleKHR,
+    'vkCmdDebugMarkerInsertEXT':_wrap_vkCmdDebugMarkerInsertEXT,
+    'vkGetMemoryWin32HandlePropertiesKHR':_wrap_vkGetMemoryWin32HandlePropertiesKHR,
+    'vkDestroyObjectTableNVX':_wrap_vkDestroyObjectTableNVX,
+    'vkGetValidationCacheDataEXT':_wrap_vkGetValidationCacheDataEXT,
+    'vkCreateIndirectCommandsLayoutNVX':_wrap_vkCreateIndirectCommandsLayoutNVX,
 }
 
 
 _device_ext_funcs = {
-    'vkGetMemoryWin32HandleKHR':_wrap_vkGetMemoryWin32HandleKHR,
-    'vkDisplayPowerControlEXT':_wrap_vkDisplayPowerControlEXT,
-    'vkRegisterObjectsNVX':_wrap_vkRegisterObjectsNVX,
-    'vkGetImageSparseMemoryRequirements2KHR':_wrap_vkGetImageSparseMemoryRequirements2KHR,
-    'vkCreateSamplerYcbcrConversionKHR':_wrap_vkCreateSamplerYcbcrConversionKHR,
-    'vkDestroySwapchainKHR':_wrap_vkDestroySwapchainKHR,
     'vkGetPhysicalDeviceMultisamplePropertiesEXT':_wrap_vkGetPhysicalDeviceMultisamplePropertiesEXT,
-    'vkCreateSharedSwapchainsKHR':_wrap_vkCreateSharedSwapchainsKHR,
-    'vkCmdDebugMarkerInsertEXT':_wrap_vkCmdDebugMarkerInsertEXT,
-    'vkCmdSetSampleLocationsEXT':_wrap_vkCmdSetSampleLocationsEXT,
-    'vkGetMemoryWin32HandleNV':_wrap_vkGetMemoryWin32HandleNV,
-    'vkQueuePresentKHR':_wrap_vkQueuePresentKHR,
-    'vkGetSwapchainCounterEXT':_wrap_vkGetSwapchainCounterEXT,
-    'vkGetSemaphoreWin32HandleKHR':_wrap_vkGetSemaphoreWin32HandleKHR,
+    'vkImportFenceFdKHR':_wrap_vkImportFenceFdKHR,
+    'vkGetMemoryWin32HandleKHR':_wrap_vkGetMemoryWin32HandleKHR,
     'vkGetFenceFdKHR':_wrap_vkGetFenceFdKHR,
-    'vkCmdDrawIndexedIndirectCountAMD':_wrap_vkCmdDrawIndexedIndirectCountAMD,
-    'vkGetSemaphoreFdKHR':_wrap_vkGetSemaphoreFdKHR,
-    'vkGetPastPresentationTimingGOOGLE':_wrap_vkGetPastPresentationTimingGOOGLE,
-    'vkMergeValidationCachesEXT':_wrap_vkMergeValidationCachesEXT,
-    'vkGetMemoryWin32HandlePropertiesKHR':_wrap_vkGetMemoryWin32HandlePropertiesKHR,
-    'vkGetPhysicalDevicePresentRectanglesKHX':_wrap_vkGetPhysicalDevicePresentRectanglesKHX,
-    'vkGetMemoryFdKHR':_wrap_vkGetMemoryFdKHR,
-    'vkCmdSetDeviceMaskKHX':_wrap_vkCmdSetDeviceMaskKHX,
-    'vkCmdSetDiscardRectangleEXT':_wrap_vkCmdSetDiscardRectangleEXT,
-    'vkImportFenceWin32HandleKHR':_wrap_vkImportFenceWin32HandleKHR,
-    'vkGetDeviceGroupPresentCapabilitiesKHX':_wrap_vkGetDeviceGroupPresentCapabilitiesKHX,
-    'vkUnregisterObjectsNVX':_wrap_vkUnregisterObjectsNVX,
-    'vkDebugMarkerSetObjectNameEXT':_wrap_vkDebugMarkerSetObjectNameEXT,
-    'vkGetDeviceGroupSurfacePresentModesKHX':_wrap_vkGetDeviceGroupSurfacePresentModesKHX,
-    'vkImportSemaphoreFdKHR':_wrap_vkImportSemaphoreFdKHR,
-    'vkCmdDrawIndirectCountAMD':_wrap_vkCmdDrawIndirectCountAMD,
-    'vkGetDeviceGroupPeerMemoryFeaturesKHX':_wrap_vkGetDeviceGroupPeerMemoryFeaturesKHX,
-    'vkGetMemoryFdPropertiesKHR':_wrap_vkGetMemoryFdPropertiesKHR,
-    'vkCreateValidationCacheEXT':_wrap_vkCreateValidationCacheEXT,
-    'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
-    'vkCreateDescriptorUpdateTemplateKHR':_wrap_vkCreateDescriptorUpdateTemplateKHR,
-    'vkAcquireNextImageKHR':_wrap_vkAcquireNextImageKHR,
-    'vkDestroyIndirectCommandsLayoutNVX':_wrap_vkDestroyIndirectCommandsLayoutNVX,
-    'vkCmdPushDescriptorSetWithTemplateKHR':_wrap_vkCmdPushDescriptorSetWithTemplateKHR,
-    'vkCmdDebugMarkerBeginEXT':_wrap_vkCmdDebugMarkerBeginEXT,
-    'vkTrimCommandPoolKHR':_wrap_vkTrimCommandPoolKHR,
-    'vkCreateObjectTableNVX':_wrap_vkCreateObjectTableNVX,
-    'vkGetRefreshCycleDurationGOOGLE':_wrap_vkGetRefreshCycleDurationGOOGLE,
-    'vkGetSwapchainStatusKHR':_wrap_vkGetSwapchainStatusKHR,
-    'vkDestroyValidationCacheEXT':_wrap_vkDestroyValidationCacheEXT,
-    'vkRegisterDeviceEventEXT':_wrap_vkRegisterDeviceEventEXT,
+    'vkBindImageMemory2KHR':_wrap_vkBindImageMemory2KHR,
     'vkAcquireNextImage2KHX':_wrap_vkAcquireNextImage2KHX,
-    'vkCmdDispatchBaseKHX':_wrap_vkCmdDispatchBaseKHX,
+    'vkGetMemoryWin32HandleNV':_wrap_vkGetMemoryWin32HandleNV,
+    'vkCmdSetDiscardRectangleEXT':_wrap_vkCmdSetDiscardRectangleEXT,
+    'vkGetDeviceGroupSurfacePresentModesKHX':_wrap_vkGetDeviceGroupSurfacePresentModesKHX,
+    'vkCmdDebugMarkerEndEXT':_wrap_vkCmdDebugMarkerEndEXT,
+    'vkRegisterObjectsNVX':_wrap_vkRegisterObjectsNVX,
+    'vkImportSemaphoreFdKHR':_wrap_vkImportSemaphoreFdKHR,
+    'vkCreateSharedSwapchainsKHR':_wrap_vkCreateSharedSwapchainsKHR,
+    'vkTrimCommandPoolKHR':_wrap_vkTrimCommandPoolKHR,
+    'vkRegisterDisplayEventEXT':_wrap_vkRegisterDisplayEventEXT,
+    'vkCreateSwapchainKHR':_wrap_vkCreateSwapchainKHR,
+    'vkGetSwapchainStatusKHR':_wrap_vkGetSwapchainStatusKHR,
+    'vkGetImageSparseMemoryRequirements2KHR':_wrap_vkGetImageSparseMemoryRequirements2KHR,
+    'vkCreateValidationCacheEXT':_wrap_vkCreateValidationCacheEXT,
+    'vkCmdDrawIndirectCountAMD':_wrap_vkCmdDrawIndirectCountAMD,
+    'vkGetDeviceGroupPresentCapabilitiesKHX':_wrap_vkGetDeviceGroupPresentCapabilitiesKHX,
+    'vkGetMemoryFdPropertiesKHR':_wrap_vkGetMemoryFdPropertiesKHR,
+    'vkDebugMarkerSetObjectNameEXT':_wrap_vkDebugMarkerSetObjectNameEXT,
+    'vkDestroyValidationCacheEXT':_wrap_vkDestroyValidationCacheEXT,
+    'vkAcquireNextImageKHR':_wrap_vkAcquireNextImageKHR,
+    'vkGetPhysicalDevicePresentRectanglesKHX':_wrap_vkGetPhysicalDevicePresentRectanglesKHX,
+    'vkDestroySwapchainKHR':_wrap_vkDestroySwapchainKHR,
+    'vkGetMemoryFdKHR':_wrap_vkGetMemoryFdKHR,
+    'vkUpdateDescriptorSetWithTemplateKHR':_wrap_vkUpdateDescriptorSetWithTemplateKHR,
+    'vkDestroyIndirectCommandsLayoutNVX':_wrap_vkDestroyIndirectCommandsLayoutNVX,
+    'vkGetDeviceGroupPeerMemoryFeaturesKHX':_wrap_vkGetDeviceGroupPeerMemoryFeaturesKHX,
+    'vkDisplayPowerControlEXT':_wrap_vkDisplayPowerControlEXT,
     'vkDestroySamplerYcbcrConversionKHR':_wrap_vkDestroySamplerYcbcrConversionKHR,
     'vkBindBufferMemory2KHR':_wrap_vkBindBufferMemory2KHR,
+    'vkUnregisterObjectsNVX':_wrap_vkUnregisterObjectsNVX,
     'vkImportSemaphoreWin32HandleKHR':_wrap_vkImportSemaphoreWin32HandleKHR,
-    'vkCmdPushDescriptorSetKHR':_wrap_vkCmdPushDescriptorSetKHR,
-    'vkDestroyDescriptorUpdateTemplateKHR':_wrap_vkDestroyDescriptorUpdateTemplateKHR,
-    'vkCreateIndirectCommandsLayoutNVX':_wrap_vkCreateIndirectCommandsLayoutNVX,
-    'vkDestroyObjectTableNVX':_wrap_vkDestroyObjectTableNVX,
-    'vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX':_wrap_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX,
-    'vkRegisterDisplayEventEXT':_wrap_vkRegisterDisplayEventEXT,
-    'vkImportFenceFdKHR':_wrap_vkImportFenceFdKHR,
-    'vkCmdReserveSpaceForCommandsNVX':_wrap_vkCmdReserveSpaceForCommandsNVX,
-    'vkCmdProcessCommandsNVX':_wrap_vkCmdProcessCommandsNVX,
-    'vkCreateSwapchainKHR':_wrap_vkCreateSwapchainKHR,
-    'vkGetSwapchainImagesKHR':_wrap_vkGetSwapchainImagesKHR,
+    'vkGetSwapchainCounterEXT':_wrap_vkGetSwapchainCounterEXT,
+    'vkQueuePresentKHR':_wrap_vkQueuePresentKHR,
     'vkGetImageMemoryRequirements2KHR':_wrap_vkGetImageMemoryRequirements2KHR,
-    'vkGetBufferMemoryRequirements2KHR':_wrap_vkGetBufferMemoryRequirements2KHR,
-    'vkUpdateDescriptorSetWithTemplateKHR':_wrap_vkUpdateDescriptorSetWithTemplateKHR,
-    'vkGetValidationCacheDataEXT':_wrap_vkGetValidationCacheDataEXT,
-    'vkCmdDebugMarkerEndEXT':_wrap_vkCmdDebugMarkerEndEXT,
+    'vkCmdPushDescriptorSetKHR':_wrap_vkCmdPushDescriptorSetKHR,
+    'vkGetRefreshCycleDurationGOOGLE':_wrap_vkGetRefreshCycleDurationGOOGLE,
+    'vkGetSemaphoreFdKHR':_wrap_vkGetSemaphoreFdKHR,
+    'vkCreateDescriptorUpdateTemplateKHR':_wrap_vkCreateDescriptorUpdateTemplateKHR,
+    'vkCmdProcessCommandsNVX':_wrap_vkCmdProcessCommandsNVX,
+    'vkCmdReserveSpaceForCommandsNVX':_wrap_vkCmdReserveSpaceForCommandsNVX,
+    'vkCmdPushDescriptorSetWithTemplateKHR':_wrap_vkCmdPushDescriptorSetWithTemplateKHR,
+    'vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX':_wrap_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX,
+    'vkGetPastPresentationTimingGOOGLE':_wrap_vkGetPastPresentationTimingGOOGLE,
     'vkSetHdrMetadataEXT':_wrap_vkSetHdrMetadataEXT,
+    'vkImportFenceWin32HandleKHR':_wrap_vkImportFenceWin32HandleKHR,
+    'vkCmdDispatchBaseKHX':_wrap_vkCmdDispatchBaseKHX,
+    'vkCmdSetSampleLocationsEXT':_wrap_vkCmdSetSampleLocationsEXT,
+    'vkRegisterDeviceEventEXT':_wrap_vkRegisterDeviceEventEXT,
+    'vkCreateObjectTableNVX':_wrap_vkCreateObjectTableNVX,
     'vkDebugMarkerSetObjectTagEXT':_wrap_vkDebugMarkerSetObjectTagEXT,
+    'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
+    'vkCmdDrawIndexedIndirectCountAMD':_wrap_vkCmdDrawIndexedIndirectCountAMD,
+    'vkGetSwapchainImagesKHR':_wrap_vkGetSwapchainImagesKHR,
+    'vkCreateSamplerYcbcrConversionKHR':_wrap_vkCreateSamplerYcbcrConversionKHR,
+    'vkCmdDebugMarkerBeginEXT':_wrap_vkCmdDebugMarkerBeginEXT,
     'vkGetFenceWin32HandleKHR':_wrap_vkGetFenceWin32HandleKHR,
-    'vkBindImageMemory2KHR':_wrap_vkBindImageMemory2KHR,
+    'vkMergeValidationCachesEXT':_wrap_vkMergeValidationCachesEXT,
+    'vkDestroyDescriptorUpdateTemplateKHR':_wrap_vkDestroyDescriptorUpdateTemplateKHR,
+    'vkCmdSetDeviceMaskKHX':_wrap_vkCmdSetDeviceMaskKHX,
+    'vkGetBufferMemoryRequirements2KHR':_wrap_vkGetBufferMemoryRequirements2KHR,
+    'vkGetSemaphoreWin32HandleKHR':_wrap_vkGetSemaphoreWin32HandleKHR,
+    'vkCmdDebugMarkerInsertEXT':_wrap_vkCmdDebugMarkerInsertEXT,
+    'vkGetMemoryWin32HandlePropertiesKHR':_wrap_vkGetMemoryWin32HandlePropertiesKHR,
+    'vkDestroyObjectTableNVX':_wrap_vkDestroyObjectTableNVX,
+    'vkGetValidationCacheDataEXT':_wrap_vkGetValidationCacheDataEXT,
+    'vkCreateIndirectCommandsLayoutNVX':_wrap_vkCreateIndirectCommandsLayoutNVX,
 }
 
 

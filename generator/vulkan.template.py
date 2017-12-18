@@ -263,7 +263,7 @@ def _new(ctype, **kwargs):
 {%- macro constructor_len(c) -%}
 {% for m in c.members %}
 {% if m.len %}
-    if {{m.len}} is None:
+    if {{m.len}} is None and {{m.name}} is not None:
         {{m.len}} = len({{m.name}})
 {% endif %}
 {% endfor %}
