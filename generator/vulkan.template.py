@@ -31,7 +31,7 @@ def _cstr(x):
         return ffi.string(x)
 
 
-class _StrWrap(object):
+class StrWrap(object):
     """Wrap a FFI Cdata object
 
     This class is a proxy class which auto-convert FFI string to Python
@@ -44,7 +44,7 @@ class _StrWrap(object):
 
     def __setattr__(self, key, value):
         if key == 'obj':
-            return super(_StrWrap, self).__setattr__(key, value)
+            return super(StrWrap, self).__setattr__(key, value)
 
         setattr(self.obj, key, value)
 
@@ -341,7 +341,7 @@ def {{f.name}}({{params_def(f)}}):
     {% if not rmember.static_count and not rmember.has_str %}
     return {{rmember.name}}[0]
     {% elif not rmember.static_count and rmember.has_str %}
-    return _StrWrap({{rmember.name}}[0])
+    return StrWrap({{rmember.name}}[0])
     {% else %}
     return {{rmember.name}}
     {% endif %}
@@ -372,7 +372,7 @@ def {{f.name}}({{params_def(f)}}):
     {% endif %}
 
     {% if amember.has_str %}
-    result = (_StrWrap(x) for x in {{amember.name}})
+    result = (StrWrap(x) for x in {{amember.name}})
     _weakkey_dict[result] = {{amember.name}}
     return result
     {% else %}
