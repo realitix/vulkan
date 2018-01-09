@@ -9,7 +9,6 @@ import sdl2
 import sdl2.ext
 import time
 from vulkan import *
-import pyvma as vma
 
 
 WIDTH = 400
@@ -225,11 +224,6 @@ presentation_queue = vkGetDeviceQueue(
     queueFamilyIndex=queue_family_present_index,
     queueIndex=0)
 print("Logical device and graphic queue successfully created\n")
-
-
-# ----------
-# Test pyvma
-vma_createinfo = vma.VmaAllocatorCreateInfo(physicalDevice=physical_device, device=logical_device)
 
 
 # ----------
