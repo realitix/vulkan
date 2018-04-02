@@ -465,15 +465,17 @@ def generate_py():
 
 def generate_cdef():
     """Generate the cdef output file"""
-    include_path = path.join(HERE, 'fake_libc_include')
+    include_libc_path = path.join(HERE, 'fake_libc_include')
+    include_vulkan_path = path.join(HERE, 'vulkan_include')
     out_file = path.join(HERE, path.pardir, 'vulkan', 'vulkan.cdef.h')
-    header = path.join(HERE, 'vulkan.h')
+    header = path.join(include_vulkan_path, 'vulkan.h')
 
     command = ['cpp',
                '-std=c99',
                '-P',
                '-nostdinc',
-               '-I' + include_path,
+               '-I' + include_libc_path,
+               '-I' + include_vulkan_path,
                '-o' + out_file,
                '-DVK_USE_PLATFORM_XCB_KHR',
                '-DVK_USE_PLATFORM_WAYLAND_KHR',
