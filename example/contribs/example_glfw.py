@@ -145,7 +145,7 @@ class HelloTriangleApplication(object):
     def __initWindow(self):
         glfw.init()
 
-        #glfw.window_hint(glfw.CLIENT_API, glfw.NO_API)
+        glfw.window_hint(glfw.CLIENT_API, glfw.NO_API)
         glfw.window_hint(glfw.RESIZABLE, False)
 
         self.__window = glfw.create_window(WIDTH, HEIGHT, "Vulkan", None, None)
