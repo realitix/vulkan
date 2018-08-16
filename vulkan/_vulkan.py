@@ -94,7 +94,7 @@ _cast_ptr = _cast_ptr3 if PY3 else _cast_ptr2
 
 
 # Load SDK
-_lib_names = ('libvulkan.so.1', 'vulkan-1.dll', 'libMoltenVK.dylib')
+_lib_names = ('libvulkan.so.1', 'vulkan-1.dll', 'libvulkan.dylib')
 for name in _lib_names:
     try:
         lib = ffi.dlopen(name)
