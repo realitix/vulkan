@@ -1,4 +1,3 @@
-from itertools import zip_longest
 from os import path
 import subprocess
 
@@ -21,7 +20,7 @@ def get_enum_names(vk):
 
 def get_handle_names(vk):
     return {s['name'] for s in vk['registry']['types']['type']
-            if s.get('@category', None) == 'handle'}
+            if s.get('@category', None) == 'handle' and not s.get('@alias')}
 
 
 def get_struct_names(vk):
@@ -68,6 +67,8 @@ def model_typedefs(vk, model):
                  if x.get('@category') == 'basetype']
 
     for typedef in bitmasks + basetypes:
+        if not typedef.get('type'):
+            continue
         model['typedefs'][typedef['name']] = typedef['type']
 
     # handles
@@ -75,6 +76,9 @@ def model_typedefs(vk, model):
                if x.get('@category') == 'handle']
 
     for handle in handles:
+        if 'name' not in handle or 'type' not in handle:
+            continue
+
         n = handle['name']
         t = handle['type']
         if t == 'VK_DEFINE_HANDLE':
@@ -149,7 +153,7 @@ def model_enums(vk, model):
             en = ext_name(standard_name, '_MAX_ENUM')
             model['enums'][name][en] = 0x7FFFFFFF
         else:
-            values = [int(x) for x in model['enums'][name].values()]
+            values = [int(x, 0) for x in model['enums'][name].values()]
 
             begin_attr = ext_name(standard_name, '_BEGIN_RANGE')
             end_attr = ext_name(standard_name, '_END_RANGE')
@@ -173,21 +177,27 @@ def model_macros(vk, model):
     macros = [x for x in vk['registry']['enums']
               if x.get('@type') not in ('bitmask', 'enum')]
 
-    special_values = {'1000.0f': '1000.0', '(~0U)': 0xffffffff, '(~0ULL)': -1}
+    # TODO: Check theses values
+    special_values = {'1000.0f': '1000.0',
+                      '(~0U)': 0xffffffff,
+                      '(~0ULL)': -1,
+                      '(~0U-1)': 0xfffffffe,
+                      '(~0U-2)': 0xfffffffd}
 
     for macro in macros[0]['enum']:
+        if '@name' not in macro or '@value' not in macro:
+            continue
+
         name = macro['@name']
         value = macro['@value']
 
         if value in special_values:
-            value = special_values[value]
+                value = special_values[value]
 
         model['macros'][name] = value
 
     # Extension Macros
-    extensions = [x for x in vk['registry']['extensions']['extension']]
-
-    for ext in extensions:
+    for ext in get_extensions_filtered(vk):
         model['macros'][ext['@name']] = 1
         for req in ext['require']:
             for enum in req['enum']:
@@ -215,6 +225,9 @@ def model_funcpointers(vk, model):
     for f in funcs:
         pfn_name = f['name']
         for s in structs:
+            if 'member' not in s:
+                continue
+
             for m in s['member']:
                 if m['type'] == pfn_name:
                     struct_name = s['@name']
@@ -278,6 +291,9 @@ def model_constructors(vk, model):
         return mlen
 
     for struct in structs:
+        if 'member' not in struct:
+            continue
+
         model['constructors'].append({
             'name': struct['@name'],
             'members': [{
@@ -294,7 +310,7 @@ def model_functions(vk, model):
 
     def get_vk_extension_functions():
         names = set()
-        for extension in vk['registry']['extensions']['extension']:
+        for extension in get_extensions_filtered(vk):
             for req in extension['require']:
                 if 'command' not in req:
                     continue
@@ -352,7 +368,7 @@ def model_functions(vk, model):
     ALLOCATE_EXCEPTION = ('vkGetFenceStatus', 'vkGetEventStatus',
                           'vkGetQueryPoolResults',
                           'vkGetPhysicalDeviceXlibPresentationSupportKHR')
-    COUNT_EXCEPTION = ('vkAcquireNextImageKHR',)
+    COUNT_EXCEPTION = ('vkAcquireNextImageKHR', 'vkEnumerateInstanceVersion')
 
     model['functions'] = []
     model['extension_functions'] = []
@@ -360,6 +376,9 @@ def model_functions(vk, model):
     extension_function_names = get_vk_extension_functions()
 
     for function in functions:
+        if '@alias' in function:
+            continue
+
         fname = function['proto']['name']
         ftype = function['proto']['type']
 
@@ -407,9 +426,7 @@ def model_ext_functions(vk, model):
     """Fill the model with extensions functions"""
     model['ext_functions'] = {'instance': set(), 'device': set()}
 
-    extensions = [x for x in vk['registry']['extensions']['extension']]
-
-    for extension in extensions:
+    for extension in get_extensions_filtered(vk):
         for req in extension['require']:
             if not req.get('command'):
                 continue
@@ -426,14 +443,19 @@ def init():
     return xmltodict.parse(xml, force_list=('enum', 'command', 'member'))
 
 
+def get_extensions_filtered(vk):
+    return [x for x in vk['registry']['extensions']['extension']
+            if 'DO_NOT_USE' not in x.get('@name', 'dummy')]
+
+
 def format_vk(vk):
     """Format vk before using it"""
 
     # Force extension require to be a list
-    extensions = [x for x in vk['registry']['extensions']['extension']]
-    for ext in extensions:
-        if not isinstance(ext['require'], list):
-            ext['require'] = [ext['require']]
+    for ext in get_extensions_filtered(vk):
+        req = ext['require']
+        if not isinstance(req, list):
+            ext['require'] = [req]
 
 
 def generate_py():
