@@ -735,6 +735,7 @@ VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR = None
 VK_ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT = -1000158000
 VK_ERROR_FRAGMENTATION_EXT = -1000161000
 VK_ERROR_NOT_PERMITTED_EXT = -1000174001
+VK_ERROR_INVALID_DEVICE_ADDRESS_EXT = -1000244000
 VK_SHADER_STAGE_VERTEX_BIT = 0x00000001
 VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT = 0x00000002
 VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT = 0x00000004
@@ -1096,6 +1097,12 @@ VK_CONSERVATIVE_RASTERIZATION_MODE_EXT__BEGIN_RANGE = 0
 VK_CONSERVATIVE_RASTERIZATION_MODE_EXT__END_RANGE = 2
 VK_CONSERVATIVE_RASTERIZATION_MODE_EXT__RANGE_SIZE = 3
 VK_CONSERVATIVE_RASTERIZATION_MODE_EXT__MAX_ENUM = 2147483647
+VK_RESOLVE_MODE_NONE_KHR = 0
+VK_RESOLVE_MODE_SAMPLE_ZERO_BIT_KHR = 0x00000001
+VK_RESOLVE_MODE_AVERAGE_BIT_KHR = 0x00000002
+VK_RESOLVE_MODE_MIN_BIT_KHR = 0x00000004
+VK_RESOLVE_MODE_MAX_BIT_KHR = 0x00000008
+VK_RESOLVE_MODE_FLAG_BITS_KHR__MAX_ENUM = 2147483647
 VK_GEOMETRY_OPAQUE_BIT_NV = 0x00000001
 VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_NV = 0x00000002
 VK_GEOMETRY_FLAG_BITS_NV__MAX_ENUM = 2147483647
@@ -1250,6 +1257,23 @@ VK_VALIDATION_CHECK_EXT__BEGIN_RANGE = 0
 VK_VALIDATION_CHECK_EXT__END_RANGE = 1
 VK_VALIDATION_CHECK_EXT__RANGE_SIZE = 2
 VK_VALIDATION_CHECK_EXT__MAX_ENUM = 2147483647
+VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT = 0
+VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT = 1
+VK_VALIDATION_FEATURE_ENABLE_EXT__BEGIN_RANGE = 0
+VK_VALIDATION_FEATURE_ENABLE_EXT__END_RANGE = 1
+VK_VALIDATION_FEATURE_ENABLE_EXT__RANGE_SIZE = 2
+VK_VALIDATION_FEATURE_ENABLE_EXT__MAX_ENUM = 2147483647
+VK_VALIDATION_FEATURE_DISABLE_ALL_EXT = 0
+VK_VALIDATION_FEATURE_DISABLE_SHADERS_EXT = 1
+VK_VALIDATION_FEATURE_DISABLE_THREAD_SAFETY_EXT = 2
+VK_VALIDATION_FEATURE_DISABLE_API_PARAMETERS_EXT = 3
+VK_VALIDATION_FEATURE_DISABLE_OBJECT_LIFETIMES_EXT = 4
+VK_VALIDATION_FEATURE_DISABLE_CORE_CHECKS_EXT = 5
+VK_VALIDATION_FEATURE_DISABLE_UNIQUE_HANDLES_EXT = 6
+VK_VALIDATION_FEATURE_DISABLE_EXT__BEGIN_RANGE = 0
+VK_VALIDATION_FEATURE_DISABLE_EXT__END_RANGE = 6
+VK_VALIDATION_FEATURE_DISABLE_EXT__RANGE_SIZE = 7
+VK_VALIDATION_FEATURE_DISABLE_EXT__MAX_ENUM = 2147483647
 VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT = 0x00000001
 VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT = 0x00000002
 VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT = 0x00000004
@@ -1543,8 +1567,10 @@ VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE = 4
 VK_IMG_filter_cubic = 1
 VK_IMG_FILTER_CUBIC_SPEC_VERSION = 1
 VK_IMG_FILTER_CUBIC_EXTENSION_NAME = "VK_IMG_filter_cubic"
-VK_FILTER_CUBIC_IMG = 1000015000
-VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_IMG = 0x00002000
+VK_FILTER_CUBIC_EXT = 1000015000
+VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT = 0x00002000
+VK_FILTER_CUBIC_IMG = None
+VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_IMG = None
 VK_AMD_extension_17 = 1
 VK_AMD_EXTENSION_17_SPEC_VERSION = 0
 VK_AMD_EXTENSION_17_EXTENSION_NAME = "VK_AMD_extension_17"
@@ -1577,7 +1603,8 @@ VK_QUEUE_RESERVED_6_BIT_KHR = 0x00000040
 VK_PIPELINE_STAGE_RESERVED_27_BIT_KHR = 0x08000000
 VK_ACCESS_RESERVED_30_BIT_KHR = 0x40000000
 VK_ACCESS_RESERVED_31_BIT_KHR = 0x80000000
-VK_BUFFER_USAGE_RESERVED_14_BIT_KHR = 0x00004000
+VK_BUFFER_USAGE_RESERVED_15_BIT_KHR = 0x00008000
+VK_BUFFER_USAGE_RESERVED_16_BIT_KHR = 0x00010000
 VK_IMAGE_USAGE_RESERVED_13_BIT_KHR = 0x00002000
 VK_IMAGE_USAGE_RESERVED_14_BIT_KHR = 0x00004000
 VK_IMAGE_USAGE_RESERVED_15_BIT_KHR = 0x00008000
@@ -1592,6 +1619,7 @@ VK_PIPELINE_STAGE_RESERVED_26_BIT_KHR = 0x04000000
 VK_ACCESS_RESERVED_28_BIT_KHR = 0x10000000
 VK_ACCESS_RESERVED_29_BIT_KHR = 0x20000000
 VK_BUFFER_USAGE_RESERVED_13_BIT_KHR = 0x00002000
+VK_BUFFER_USAGE_RESERVED_14_BIT_KHR = 0x00004000
 VK_IMAGE_USAGE_RESERVED_10_BIT_KHR = 0x00000400
 VK_IMAGE_USAGE_RESERVED_11_BIT_KHR = 0x00000800
 VK_IMAGE_USAGE_RESERVED_12_BIT_KHR = 0x00001000
@@ -1892,9 +1920,10 @@ VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_EXT = 1000081002
 VK_ACCESS_CONDITIONAL_RENDERING_READ_BIT_EXT = 0x00100000
 VK_BUFFER_USAGE_CONDITIONAL_RENDERING_BIT_EXT = 0x00000200
 VK_PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT = 0x00040000
-VK_KHR_extension_83 = 1
-VK_KHR_EXTENSION_83_SPEC_VERSION = 0
-VK_KHR_EXTENSION_83_EXTENSION_NAME = "VK_KHR_extension_83"
+VK_KHR_shader_float16_int8 = 1
+VK_KHR_SHADER_FLOAT16_INT8_SPEC_VERSION = 1
+VK_KHR_SHADER_FLOAT16_INT8_EXTENSION_NAME = "VK_KHR_shader_float16_int8"
+VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT16_INT8_FEATURES_KHR = 1000082000
 VK_KHR_16bit_storage = 1
 VK_KHR_16BIT_STORAGE_SPEC_VERSION = 1
 VK_KHR_16BIT_STORAGE_EXTENSION_NAME = "VK_KHR_16bit_storage"
@@ -2468,9 +2497,11 @@ VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT_KHR = None
 VK_KHR_draw_indirect_count = 1
 VK_KHR_DRAW_INDIRECT_COUNT_SPEC_VERSION = 1
 VK_KHR_DRAW_INDIRECT_COUNT_EXTENSION_NAME = "VK_KHR_draw_indirect_count"
-VK_QCOM_extension_171 = 1
-VK_QCOM_extension_171_SPEC_VERSION = 0
-VK_QCOM_extension_171_EXTENSION_NAME = "VK_QCOM_extension_171"
+VK_EXT_filter_cubic = 1
+VK_EXT_FILTER_CUBIC_SPEC_VERSION = 1
+VK_EXT_FILTER_CUBIC_EXTENSION_NAME = "VK_EXT_filter_cubic"
+VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT = 1000170000
+VK_STRUCTURE_TYPE_FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT = 1000170001
 VK_QCOM_extension_172 = 1
 VK_QCOM_extension_172_SPEC_VERSION = 0
 VK_QCOM_extension_172_EXTENSION_NAME = "VK_QCOM_extension_172"
@@ -2564,16 +2595,19 @@ VK_KHR_driver_properties = 1
 VK_KHR_DRIVER_PROPERTIES_SPEC_VERSION = 1
 VK_KHR_DRIVER_PROPERTIES_EXTENSION_NAME = "VK_KHR_driver_properties"
 VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRIVER_PROPERTIES_KHR = 1000196000
-VK_ARM_extension_198 = 1
-VK_ARM_EXTENSION_198_SPEC_VERSION = 0
-VK_ARM_EXTENSION_198_EXTENSION_NAME = "VK_EXT_extension_198"
+VK_KHR_shader_float_controls = 1
+VK_KHR_SHADER_FLOAT_CONTROLS_SPEC_VERSION = 1
+VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME = "VK_KHR_shader_float_controls"
+VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES_KHR = 1000197000
 VK_NV_shader_subgroup_partitioned = 1
 VK_NV_SHADER_SUBGROUP_PARTITIONED_SPEC_VERSION = 1
 VK_NV_SHADER_SUBGROUP_PARTITIONED_EXTENSION_NAME = "VK_NV_shader_subgroup_partitioned"
 VK_SUBGROUP_FEATURE_PARTITIONED_BIT_NV = 0x00000100
-VK_KHR_extension_200 = 1
-VK_KHR_EXTENSION_200_SPEC_VERSION = 0
-VK_KHR_EXTENSION_200_EXTENSION_NAME = "VK_KHR_extension_200"
+VK_KHR_depth_stencil_resolve = 1
+VK_KHR_DEPTH_STENCIL_RESOLVE_SPEC_VERSION = 1
+VK_KHR_DEPTH_STENCIL_RESOLVE_EXTENSION_NAME = "VK_KHR_depth_stencil_resolve"
+VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES_KHR = 1000199000
+VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE_KHR = 1000199001
 VK_KHR_swapchain_mutable_format = 1
 VK_KHR_SWAPCHAIN_MUTABLE_FORMAT_SPEC_VERSION = 1
 VK_KHR_SWAPCHAIN_MUTABLE_FORMAT_EXTENSION_NAME = "VK_KHR_swapchain_mutable_format"
@@ -2623,11 +2657,11 @@ VK_INTEL_extension_211 = 1
 VK_KHR_EXTENSION_211_SPEC_VERSION = 0
 VK_KHR_EXTENSION_211_EXTENSION_NAME = "VK_KHR_extension_211"
 VK_KHR_vulkan_memory_model = 1
-VK_KHR_VULKAN_MEMORY_MODEL_SPEC_VERSION = 2
+VK_KHR_VULKAN_MEMORY_MODEL_SPEC_VERSION = 3
 VK_KHR_VULKAN_MEMORY_MODEL_EXTENSION_NAME = "VK_KHR_vulkan_memory_model"
 VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR = 1000211000
 VK_EXT_pci_bus_info = 1
-VK_EXT_PCI_BUS_INFO_SPEC_VERSION = 1
+VK_EXT_PCI_BUS_INFO_SPEC_VERSION = 2
 VK_EXT_PCI_BUS_INFO_EXTENSION_NAME = "VK_EXT_pci_bus_info"
 VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT = 1000212000
 VK_AMD_extension_214 = 1
@@ -2676,10 +2710,10 @@ VK_EXT_extension_223 = 1
 VK_EXT_EXTENSION_223_SPEC_VERSION = 0
 VK_EXT_EXTENSION_223_EXTENSION_NAME = "VK_EXT_extension_223"
 VK_GOOGLE_hlsl_functionality1 = 1
-VK_GOOGLE_HLSL_FUNCTIONALITY1_SPEC_VERSION = 0
+VK_GOOGLE_HLSL_FUNCTIONALITY1_SPEC_VERSION = 1
 VK_GOOGLE_HLSL_FUNCTIONALITY1_EXTENSION_NAME = "VK_GOOGLE_hlsl_functionality1"
 VK_GOOGLE_decorate_string = 1
-VK_GOOGLE_DECORATE_STRING_SPEC_VERSION = 0
+VK_GOOGLE_DECORATE_STRING_SPEC_VERSION = 1
 VK_GOOGLE_DECORATE_STRING_EXTENSION_NAME = "VK_GOOGLE_decorate_string"
 VK_AMD_extension_226 = 1
 VK_AMD_EXTENSION_226_SPEC_VERSION = 0
@@ -2717,18 +2751,22 @@ VK_AMD_EXTENSION_236_EXTENSION_NAME = "VK_AMD_extension_236"
 VK_KHR_extension_237 = 1
 VK_KHR_EXTENSION_237_SPEC_VERSION = 0
 VK_KHR_EXTENSION_237_EXTENSION_NAME = "VK_KHR_extension_237"
-VK_KHR_extension_238 = 1
-VK_KHR_EXTENSION_238_SPEC_VERSION = 0
-VK_KHR_EXTENSION_238_EXTENSION_NAME = "VK_KHR_extension_238"
-VK_KHR_extension_239 = 1
-VK_KHR_EXTENSION_239_SPEC_VERSION = 0
-VK_KHR_EXTENSION_239_EXTENSION_NAME = "VK_KHR_extension_239"
+VK_EXT_memory_budget = 1
+VK_EXT_MEMORY_BUDGET_SPEC_VERSION = 1
+VK_EXT_MEMORY_BUDGET_EXTENSION_NAME = "VK_EXT_memory_budget"
+VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT = 1000237000
+VK_EXT_memory_priority = 1
+VK_EXT_MEMORY_PRIORITY_SPEC_VERSION = 1
+VK_EXT_MEMORY_PRIORITY_EXTENSION_NAME = "VK_EXT_memory_priority"
+VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT = 1000238000
+VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT = 1000238001
 VK_KHR_extension_240 = 1
 VK_KHR_EXTENSION_240_SPEC_VERSION = 0
 VK_KHR_EXTENSION_240_EXTENSION_NAME = "VK_KHR_extension_240"
-VK_NV_extension_241 = 1
-VK_NV_EXTENSION_241_SPEC_VERSION = 0
-VK_NV_EXTENSION_241_EXTENSION_NAME = "VK_NV_extension_241"
+VK_NV_dedicated_allocation_image_aliasing = 1
+VK_NV_DEDICATED_ALLOCATION_IMAGE_ALIASING_SPEC_VERSION = 1
+VK_NV_DEDICATED_ALLOCATION_IMAGE_ALIASING_EXTENSION_NAME = "VK_NV_dedicated_allocation_image_aliasing"
+VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV = 1000240000
 VK_NV_extension_242 = 1
 VK_NV_EXTENSION_242_SPEC_VERSION = 0
 VK_NV_EXTENSION_242_EXTENSION_NAME = "VK_NV_extension_242"
@@ -2738,9 +2776,14 @@ VK_INTEL_EXTENSION_243_EXTENSION_NAME = "VK_INTEL_extension_243"
 VK_MESA_extension_244 = 1
 VK_MESA_EXTENSION_244_SPEC_VERSION = 0
 VK_MESA_EXTENSION_244_EXTENSION_NAME = "VK_MESA_extension_244"
-VK_NV_extension_245 = 1
-VK_NV_EXTENSION_245_SPEC_VERSION = 0
-VK_NV_EXTENSION_245_EXTENSION_NAME = "VK_NV_extension_245"
+VK_EXT_buffer_device_address = 1
+VK_EXT_BUFFER_DEVICE_ADDRESS_SPEC_VERSION = 2
+VK_EXT_BUFFER_DEVICE_ADDRESS_EXTENSION_NAME = "VK_EXT_buffer_device_address"
+VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_ADDRESS_FEATURES_EXT = 1000244000
+VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO_EXT = 1000244001
+VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT = 1000244002
+VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT_EXT = 0x00020000
+VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_EXT = 0x00000010
 VK_EXT_extension_246 = 1
 VK_EXT_EXTENSION_246_SPEC_VERSION = 0
 VK_EXT_EXTENSION_246_EXTENSION_NAME = "VK_EXT_extension_246"
@@ -2748,9 +2791,34 @@ VK_EXT_separate_stencil_usage = 1
 VK_EXT_SEPARATE_STENCIL_USAGE_SPEC_VERSION = 1
 VK_EXT_SEPARATE_STENCIL_USAGE_EXTENSION_NAME = "VK_EXT_separate_stencil_usage"
 VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO_EXT = 1000246000
-VK_EXT_extension_248 = 1
-VK_EXT_EXTENSION_248_SPEC_VERSION = 0
-VK_EXT_EXTENSION_248_EXTENSION_NAME = "VK_EXT_extension_248"
+VK_EXT_validation_features = 1
+VK_EXT_VALIDATION_FEATURES_SPEC_VERSION = 1
+VK_EXT_VALIDATION_FEATURES_EXTENSION_NAME = "VK_EXT_validation_features"
+VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT = 1000247000
+VK_KHR_extension_249 = 1
+VK_KHR_EXTENSION_249_SPEC_VERSION = 0
+VK_KHR_EXTENSION_249_EXTENSION_NAME = "VK_KHR_extension_249"
+VK_NV_extension_250 = 1
+VK_NV_EXTENSION_250_SPEC_VERSION = 0
+VK_NV_EXTENSION_250_EXTENSION_NAME = "VK_NV_extension_250"
+VK_NV_extension_251 = 1
+VK_NV_EXTENSION_251_SPEC_VERSION = 0
+VK_NV_EXTENSION_251_EXTENSION_NAME = "VK_NV_extension_251"
+VK_EXT_extension_252 = 1
+VK_NV_EXTENSION_252_SPEC_VERSION = 0
+VK_NV_EXTENSION_252_EXTENSION_NAME = "VK_NV_extension_252"
+VK_EXT_extension_253 = 1
+VK_NV_EXTENSION_253_SPEC_VERSION = 0
+VK_NV_EXTENSION_253_EXTENSION_NAME = "VK_NV_extension_253"
+VK_EXT_extension_254 = 1
+VK_EXT_EXTENSION_254_SPEC_VERSION = 1
+VK_EXT_EXTENSION_254_EXTENSION_NAME = "VK_EXT_extension_254"
+VK_EXT_extension_255 = 1
+VK_EXT_EXTENSION_255_SPEC_VERSION = 0
+VK_EXT_EXTENSION_255_EXTENSION_NAME = "VK_EXT_extension_255"
+VK_EXT_extension_256 = 1
+VK_EXT_EXTENSION_256_SPEC_VERSION = 0
+VK_EXT_EXTENSION_256_EXTENSION_NAME = "VK_EXT_extension_256"
 
 
 
@@ -2818,6 +2886,8 @@ class VkErrorInvalidExternalHandleKhr(VkError):
     pass
 class VkErrorFragmentationExt(VkError):
     pass
+class VkErrorInvalidDeviceAddressExt(VkError):
+    pass
 
 exception_codes = {
     1:VkNotReady,
@@ -2848,6 +2918,7 @@ exception_codes = {
     -1000012000:VkErrorInvalidShaderNv,
     None:VkErrorInvalidExternalHandleKhr,
     -1000161000:VkErrorFragmentationExt,
+    -1000244000:VkErrorInvalidDeviceAddressExt,
 }
 
 _internal_vkInternalAllocationNotification = None
@@ -3578,6 +3649,14 @@ def VkValidationFlagsEXT(sType=VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT,pNext=None
         disabledValidationCheckCount = len(pDisabledValidationChecks)
 
     return _new('VkValidationFlagsEXT', sType=sType,pNext=pNext,disabledValidationCheckCount=disabledValidationCheckCount,pDisabledValidationChecks=pDisabledValidationChecks)
+
+def VkValidationFeaturesEXT(sType=VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT,pNext=None,enabledValidationFeatureCount=None,pEnabledValidationFeatures=None,disabledValidationFeatureCount=None,pDisabledValidationFeatures=None,):
+    if enabledValidationFeatureCount is None and pEnabledValidationFeatures is not None:
+        enabledValidationFeatureCount = len(pEnabledValidationFeatures)
+    if disabledValidationFeatureCount is None and pDisabledValidationFeatures is not None:
+        disabledValidationFeatureCount = len(pDisabledValidationFeatures)
+
+    return _new('VkValidationFeaturesEXT', sType=sType,pNext=pNext,enabledValidationFeatureCount=enabledValidationFeatureCount,pEnabledValidationFeatures=pEnabledValidationFeatures,disabledValidationFeatureCount=disabledValidationFeatureCount,pDisabledValidationFeatures=pDisabledValidationFeatures)
 
 def VkPipelineRasterizationStateRasterizationOrderAMD(sType=VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD,pNext=None,rasterizationOrder=None,):
 
@@ -4385,6 +4464,14 @@ def VkPhysicalDeviceShaderDrawParameterFeatures(sType=VK_STRUCTURE_TYPE_PHYSICAL
 
     return _new('VkPhysicalDeviceShaderDrawParameterFeatures', sType=sType,pNext=pNext,shaderDrawParameters=shaderDrawParameters)
 
+def VkPhysicalDeviceFloat16Int8FeaturesKHR(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT16_INT8_FEATURES_KHR,pNext=None,shaderFloat16=None,shaderInt8=None,):
+
+    return _new('VkPhysicalDeviceFloat16Int8FeaturesKHR', sType=sType,pNext=pNext,shaderFloat16=shaderFloat16,shaderInt8=shaderInt8)
+
+def VkPhysicalDeviceFloatControlsPropertiesKHR(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES_KHR,pNext=None,separateDenormSettings=None,separateRoundingModeSettings=None,shaderSignedZeroInfNanPreserveFloat16=None,shaderSignedZeroInfNanPreserveFloat32=None,shaderSignedZeroInfNanPreserveFloat64=None,shaderDenormPreserveFloat16=None,shaderDenormPreserveFloat32=None,shaderDenormPreserveFloat64=None,shaderDenormFlushToZeroFloat16=None,shaderDenormFlushToZeroFloat32=None,shaderDenormFlushToZeroFloat64=None,shaderRoundingModeRTEFloat16=None,shaderRoundingModeRTEFloat32=None,shaderRoundingModeRTEFloat64=None,shaderRoundingModeRTZFloat16=None,shaderRoundingModeRTZFloat32=None,shaderRoundingModeRTZFloat64=None,):
+
+    return _new('VkPhysicalDeviceFloatControlsPropertiesKHR', sType=sType,pNext=pNext,separateDenormSettings=separateDenormSettings,separateRoundingModeSettings=separateRoundingModeSettings,shaderSignedZeroInfNanPreserveFloat16=shaderSignedZeroInfNanPreserveFloat16,shaderSignedZeroInfNanPreserveFloat32=shaderSignedZeroInfNanPreserveFloat32,shaderSignedZeroInfNanPreserveFloat64=shaderSignedZeroInfNanPreserveFloat64,shaderDenormPreserveFloat16=shaderDenormPreserveFloat16,shaderDenormPreserveFloat32=shaderDenormPreserveFloat32,shaderDenormPreserveFloat64=shaderDenormPreserveFloat64,shaderDenormFlushToZeroFloat16=shaderDenormFlushToZeroFloat16,shaderDenormFlushToZeroFloat32=shaderDenormFlushToZeroFloat32,shaderDenormFlushToZeroFloat64=shaderDenormFlushToZeroFloat64,shaderRoundingModeRTEFloat16=shaderRoundingModeRTEFloat16,shaderRoundingModeRTEFloat32=shaderRoundingModeRTEFloat32,shaderRoundingModeRTEFloat64=shaderRoundingModeRTEFloat64,shaderRoundingModeRTZFloat16=shaderRoundingModeRTZFloat16,shaderRoundingModeRTZFloat32=shaderRoundingModeRTZFloat32,shaderRoundingModeRTZFloat64=shaderRoundingModeRTZFloat64)
+
 def VkNativeBufferANDROID(sType=VK_STRUCTURE_TYPE_NATIVE_BUFFER_ANDROID,pNext=None,handle=None,stride=None,format=None,usage=None,):
 
     return _new('VkNativeBufferANDROID', sType=sType,pNext=pNext,handle=handle,stride=stride,format=format,usage=usage)
@@ -4579,9 +4666,9 @@ def VkPhysicalDeviceConditionalRenderingFeaturesEXT(sType=VK_STRUCTURE_TYPE_PHYS
 
     return _new('VkPhysicalDeviceConditionalRenderingFeaturesEXT', sType=sType,pNext=pNext,conditionalRendering=conditionalRendering,inheritedConditionalRendering=inheritedConditionalRendering)
 
-def VkPhysicalDeviceVulkanMemoryModelFeaturesKHR(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR,pNext=None,vulkanMemoryModel=None,vulkanMemoryModelDeviceScope=None,):
+def VkPhysicalDeviceVulkanMemoryModelFeaturesKHR(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR,pNext=None,vulkanMemoryModel=None,vulkanMemoryModelDeviceScope=None,vulkanMemoryModelAvailabilityVisibilityChains=None,):
 
-    return _new('VkPhysicalDeviceVulkanMemoryModelFeaturesKHR', sType=sType,pNext=pNext,vulkanMemoryModel=vulkanMemoryModel,vulkanMemoryModelDeviceScope=vulkanMemoryModelDeviceScope)
+    return _new('VkPhysicalDeviceVulkanMemoryModelFeaturesKHR', sType=sType,pNext=pNext,vulkanMemoryModel=vulkanMemoryModel,vulkanMemoryModelDeviceScope=vulkanMemoryModelDeviceScope,vulkanMemoryModelAvailabilityVisibilityChains=vulkanMemoryModelAvailabilityVisibilityChains)
 
 def VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES_KHR,pNext=None,shaderBufferInt64Atomics=None,shaderSharedInt64Atomics=None,):
 
@@ -4598,6 +4685,14 @@ def VkQueueFamilyCheckpointPropertiesNV(sType=VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHE
 def VkCheckpointDataNV(sType=VK_STRUCTURE_TYPE_CHECKPOINT_DATA_NV,pNext=None,stage=None,pCheckpointMarker=None,):
 
     return _new('VkCheckpointDataNV', sType=sType,pNext=pNext,stage=stage,pCheckpointMarker=pCheckpointMarker)
+
+def VkPhysicalDeviceDepthStencilResolvePropertiesKHR(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES_KHR,pNext=None,supportedDepthResolveModes=None,supportedStencilResolveModes=None,independentResolveNone=None,independentResolve=None,):
+
+    return _new('VkPhysicalDeviceDepthStencilResolvePropertiesKHR', sType=sType,pNext=pNext,supportedDepthResolveModes=supportedDepthResolveModes,supportedStencilResolveModes=supportedStencilResolveModes,independentResolveNone=independentResolveNone,independentResolve=independentResolve)
+
+def VkSubpassDescriptionDepthStencilResolveKHR(sType=VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE_KHR,pNext=None,depthResolveMode=None,stencilResolveMode=None,pDepthStencilResolveAttachment=None,):
+
+    return _new('VkSubpassDescriptionDepthStencilResolveKHR', sType=sType,pNext=pNext,depthResolveMode=depthResolveMode,stencilResolveMode=stencilResolveMode,pDepthStencilResolveAttachment=pDepthStencilResolveAttachment)
 
 def VkImageViewASTCDecodeModeEXT(sType=VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT,pNext=None,decodeMode=None,):
 
@@ -4652,6 +4747,10 @@ def VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV(sType=VK_STRUCTURE_TYPE_
 def VkPhysicalDeviceShaderImageFootprintFeaturesNV(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV,pNext=None,imageFootprint=None,):
 
     return _new('VkPhysicalDeviceShaderImageFootprintFeaturesNV', sType=sType,pNext=pNext,imageFootprint=imageFootprint)
+
+def VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV,pNext=None,dedicatedAllocationImageAliasing=None,):
+
+    return _new('VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV', sType=sType,pNext=pNext,dedicatedAllocationImageAliasing=dedicatedAllocationImageAliasing)
 
 def VkShadingRatePaletteNV(shadingRatePaletteEntryCount=None,pShadingRatePaletteEntries=None,):
     if shadingRatePaletteEntryCount is None and pShadingRatePaletteEntries is not None:
@@ -4814,6 +4913,38 @@ def VkRenderPassFragmentDensityMapCreateInfoEXT(sType=VK_STRUCTURE_TYPE_RENDER_P
 def VkPhysicalDeviceScalarBlockLayoutFeaturesEXT(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES_EXT,pNext=None,scalarBlockLayout=None,):
 
     return _new('VkPhysicalDeviceScalarBlockLayoutFeaturesEXT', sType=sType,pNext=pNext,scalarBlockLayout=scalarBlockLayout)
+
+def VkPhysicalDeviceMemoryBudgetPropertiesEXT(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT,pNext=None,heapBudget=None,heapUsage=None,):
+
+    return _new('VkPhysicalDeviceMemoryBudgetPropertiesEXT', sType=sType,pNext=pNext,heapBudget=heapBudget,heapUsage=heapUsage)
+
+def VkPhysicalDeviceMemoryPriorityFeaturesEXT(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT,pNext=None,memoryPriority=None,):
+
+    return _new('VkPhysicalDeviceMemoryPriorityFeaturesEXT', sType=sType,pNext=pNext,memoryPriority=memoryPriority)
+
+def VkMemoryPriorityAllocateInfoEXT(sType=VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT,pNext=None,priority=None,):
+
+    return _new('VkMemoryPriorityAllocateInfoEXT', sType=sType,pNext=pNext,priority=priority)
+
+def VkPhysicalDeviceBufferAddressFeaturesEXT(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_ADDRESS_FEATURES_EXT,pNext=None,bufferDeviceAddress=None,bufferDeviceAddressCaptureReplay=None,bufferDeviceAddressMultiDevice=None,):
+
+    return _new('VkPhysicalDeviceBufferAddressFeaturesEXT', sType=sType,pNext=pNext,bufferDeviceAddress=bufferDeviceAddress,bufferDeviceAddressCaptureReplay=bufferDeviceAddressCaptureReplay,bufferDeviceAddressMultiDevice=bufferDeviceAddressMultiDevice)
+
+def VkBufferDeviceAddressInfoEXT(sType=VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO_EXT,pNext=None,buffer=None,):
+
+    return _new('VkBufferDeviceAddressInfoEXT', sType=sType,pNext=pNext,buffer=buffer)
+
+def VkBufferDeviceAddressCreateInfoEXT(sType=VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT,pNext=None,deviceAddress=None,):
+
+    return _new('VkBufferDeviceAddressCreateInfoEXT', sType=sType,pNext=pNext,deviceAddress=deviceAddress)
+
+def VkPhysicalDeviceImageViewImageFormatInfoEXT(sType=VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT,pNext=None,imageViewType=None,):
+
+    return _new('VkPhysicalDeviceImageViewImageFormatInfoEXT', sType=sType,pNext=pNext,imageViewType=imageViewType)
+
+def VkFilterCubicImageViewImageFormatPropertiesEXT(sType=VK_STRUCTURE_TYPE_FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT,pNext=None,filterCubic=None,filterCubicMinmax=None,):
+
+    return _new('VkFilterCubicImageViewImageFormatPropertiesEXT', sType=sType,pNext=pNext,filterCubic=filterCubic,filterCubicMinmax=filterCubicMinmax)
 
 
 
@@ -8722,6 +8853,19 @@ def _wrap_vkGetImageDrmFormatModifierPropertiesEXT(fn):
 
 
     return vkGetImageDrmFormatModifierPropertiesEXT
+def _wrap_vkGetBufferDeviceAddressEXT(fn):
+    def vkGetBufferDeviceAddressEXT(device
+            ,):
+
+        pInfo = ffi.new('VkBufferDeviceAddressInfoEXT*')
+
+        result = _callApi(fn, device,pInfo)
+
+        return pInfo[0]
+
+
+
+    return vkGetBufferDeviceAddressEXT
 
 _instance_ext_funcs = {
     'vkDestroySurfaceKHR':_wrap_vkDestroySurfaceKHR,
@@ -8903,6 +9047,7 @@ _instance_ext_funcs = {
     'vkCmdSetExclusiveScissorNV':_wrap_vkCmdSetExclusiveScissorNV,
     'vkCmdSetCheckpointNV':_wrap_vkCmdSetCheckpointNV,
     'vkGetQueueCheckpointDataNV':_wrap_vkGetQueueCheckpointDataNV,
+    'vkGetBufferDeviceAddressEXT':_wrap_vkGetBufferDeviceAddressEXT,
 }
 
 
@@ -9025,6 +9170,7 @@ _device_ext_funcs = {
     'vkCmdSetExclusiveScissorNV':_wrap_vkCmdSetExclusiveScissorNV,
     'vkCmdSetCheckpointNV':_wrap_vkCmdSetCheckpointNV,
     'vkGetQueueCheckpointDataNV':_wrap_vkGetQueueCheckpointDataNV,
+    'vkGetBufferDeviceAddressEXT':_wrap_vkGetBufferDeviceAddressEXT,
 }
 
 
