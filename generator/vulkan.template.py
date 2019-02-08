@@ -414,19 +414,19 @@ def _wrap_{{f.name}}(fn):
 {% endfor %}
 
 _instance_ext_funcs = {
-{% for i in model.ext_functions.instance %}
-    '{{i}}':_wrap_{{i}},
+{% for k, v in model.ext_functions.instance.items() %}
+    '{{k}}':_wrap_{{v}},
 {% endfor %}
 {# device functions can be accessed with getInstance.. but it's not the best way #}
-{% for i in model.ext_functions.device %}
-    '{{i}}':_wrap_{{i}},
+{% for k, v in model.ext_functions.device.items() %}
+    '{{k}}':_wrap_{{v}},
 {% endfor %}
 }
 
 
 _device_ext_funcs = {
-{% for i in model.ext_functions.device %}
-    '{{i}}':_wrap_{{i}},
+{% for k, v in model.ext_functions.device.items() %}
+    '{{k}}':_wrap_{{v}},
 {% endfor %}
 }
 
@@ -459,3 +459,9 @@ def vkMapMemory(device, memory, offset, size, flags):
         raise exception_codes[result]
 
     return ffi.buffer(ppData[0], size)
+
+
+{# Alias #}
+{% for name, alias in model.alias.items() %}
+#{{alias}} = {{name}}
+{% endfor %}

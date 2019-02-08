@@ -165,6 +165,23 @@ def model_enums(vk, model):
             model['enums'][name][size_attr] = max(values) - min(values) + 1
             model['enums'][name][max_attr] = 0x7FFFFFFF
 
+    # Enum in features
+    ext_base = 1000000000
+    ext_blocksize = 1000
+    # base + (ext - 1) * blocksize + offset
+    for feature in vk['registry']['feature']:
+        for require in feature['require']:
+            if not 'enum' in require:
+                continue
+            for enum in require['enum']:
+                if not '@extnumber' in enum:
+                    continue
+                n1 = int(enum['@extnumber'])
+                n2 = int(enum['@offset'])
+                extend = enum['@extends']
+                val = ext_base + (n1 - 1) * ext_blocksize + n2
+                model['enums'][extend][enum['@name']] = val
+
 
 def model_macros(vk, model):
     """Fill the model with macros
@@ -315,7 +332,13 @@ def model_functions(vk, model):
                 if 'command' not in req:
                     continue
                 for command in req['command']:
-                    names.add(command['@name'])
+                    cn = command['@name']
+                    names.add(cn)
+                    
+                    # add alias command too
+                    for alias, n in model['alias'].items():
+                        if n == cn:
+                            names.add(alias)
         return names
 
     def get_count_param(command):
@@ -424,16 +447,38 @@ def model_functions(vk, model):
 
 def model_ext_functions(vk, model):
     """Fill the model with extensions functions"""
-    model['ext_functions'] = {'instance': set(), 'device': set()}
+    model['ext_functions'] = {'instance': {}, 'device': {}}
+
+    # invert the alias to better lookup
+    alias = {v: k for k, v in model['alias'].items()}
 
     for extension in get_extensions_filtered(vk):
         for req in extension['require']:
             if not req.get('command'):
                 continue
 
-            command_names = [x['@name'] for x in req['command']]
             ext_type = extension['@type']
-            model['ext_functions'][ext_type].update(command_names)
+            for x in req['command']:
+                name = x['@name']
+                if name in alias.keys():
+                    model['ext_functions'][ext_type][name] = alias[name]
+                else:
+                    model['ext_functions'][ext_type][name] = name
+
+
+def model_alias(vk, model):
+    """Fill the model with alias since V1"""
+    model['alias'] = {}
+
+    # types
+    for s in vk['registry']['types']['type']:
+        if s.get('@category', None) == 'handle' and s.get('@alias'):
+            model['alias'][s['@alias']] = s['@name'] 
+              
+    # commands
+    for c in vk['registry']['commands']['command']:
+        if c.get('@alias'):
+            model['alias'][c['@alias']] = c['@name']
 
 
 def init():
@@ -464,6 +509,7 @@ def generate_py():
 
     vk = init()
     format_vk(vk)
+    model_alias(vk, model)
     model_typedefs(vk, model)
     model_enums(vk, model)
     model_macros(vk, model)
