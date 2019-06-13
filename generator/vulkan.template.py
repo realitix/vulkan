@@ -331,13 +331,13 @@ def _callApi(fn, *args):
 def {{f.name}}({{params_def(f)}}):
     {% set rmember = f.return_member %}
 
-    {% if rmember.static_count %}
-    {% set sc = rmember.static_count %}
-    {{rmember.name}} = ffi.new('{{rmember.type}}[%d]' % {{sc.key}}.{{sc.value}})
-    {% else %}
     if not {{rmember.name}}:
+        {% if rmember.static_count %}
+        {% set sc = rmember.static_count %}
+        {{rmember.name}} = ffi.new('{{rmember.type}}[%d]' % {{sc}})
+        {% else %}
         {{rmember.name}} = ffi.new('{{rmember.type}}*')
-    {% endif %}
+        {% endif %}
 
     result = _callApi({{fn_call}}, {{params_call(f)}})
     {% if f.return_result %}

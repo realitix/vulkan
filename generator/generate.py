@@ -345,11 +345,13 @@ def model_functions(vk, model):
                             names.add(alias)
         return names
 
-    def get_count_param(command):
+    def has_count_param(command):
+        # check if a params type is uint32_t*
         for param in command['param']:
             if param['type'] + param.get('#text', '') == 'uint32_t*':
-                return param
-        return None
+                return True
+        
+        return False
 
     def member_has_str(name):
         c = next(iter([x for x in model['constructors']
@@ -377,7 +379,12 @@ def model_functions(vk, model):
         static_count = None
         if '@len' in member and '::' in member['@len']:
             lens = member['@len'].split('::')
-            static_count = {'key': lens[0], 'value': lens[1]}
+            #static_count = {'key': lens[0], 'value': lens[1]}
+            static_count = lens[0]+'.'+lens[1]
+
+        # see vkCreateGraphicsPipelines for exemple
+        #if '@len' in member:
+        #    static_count = {'key:'}
 
         # see vkGetRayTracingShaderGroupHandlesNV for exemple
         if '@len' in member and 'dataSize' in member['@len']:
@@ -419,11 +426,11 @@ def model_functions(vk, model):
         if type(function['param']) is not list:
             function['param'] = [function['param']]
 
-        count_param = get_count_param(function)
+        count_param = has_count_param(function)
         if fname in COUNT_EXCEPTION:
             count_param = None
         is_allocate = any([fname.startswith(a) for a in ALLOCATE_PREFIX])
-        is_count = is_allocate and count_param is not None
+        is_count = is_allocate and count_param
 
         if fname in ALLOCATE_EXCEPTION or ftype == 'VkBool32':
             is_allocate = is_count = False
