@@ -294,16 +294,22 @@ def _callApi(fn, *args):
 
 {# Macro for function parameters #}
 {%- macro params_def(f) -%}
+    {% set members = f.members %}
+    {% set optional_members = [] %}
+
     {% if f.count %}
         {% set members = f.members[:-2] %}
     {% elif f.allocate %}
         {% set members = f.members[:-1] %}
-    {% else %}
-        {% set members = f.members %}
+        {% set optional_members = [f.members[-1]]%}
     {% endif %}
 
     {%- for m in members -%}
         {{m.name}}
+        ,
+    {%- endfor -%}
+    {%- for m in optional_members -%}
+        {{m.name}}=None
         ,
     {%- endfor -%}
 {%- endmacro -%}
@@ -329,7 +335,8 @@ def {{f.name}}({{params_def(f)}}):
     {% set sc = rmember.static_count %}
     {{rmember.name}} = ffi.new('{{rmember.type}}[%d]' % {{sc.key}}.{{sc.value}})
     {% else %}
-    {{rmember.name}} = ffi.new('{{rmember.type}}*')
+    if not {{rmember.name}}:
+        {{rmember.name}} = ffi.new('{{rmember.type}}*')
     {% endif %}
 
     result = _callApi({{fn_call}}, {{params_call(f)}})
