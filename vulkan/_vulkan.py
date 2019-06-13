@@ -9313,7 +9313,7 @@ def _wrap_vkGetRayTracingShaderGroupHandlesNV(fn):
             ,):
 
         if not pData:
-            pData = ffi.new('void*')
+            pData = ffi.new('uint64_t*')
 
         result = _callApi(fn, device,pipeline,firstGroup,groupCount,dataSize,pData)
         if result != VK_SUCCESS:
@@ -9333,7 +9333,7 @@ def _wrap_vkGetAccelerationStructureHandleNV(fn):
             ,):
 
         if not pData:
-            pData = ffi.new('void*')
+            pData = ffi.new('uint64_t*')
 
         result = _callApi(fn, device,accelerationStructure,dataSize,pData)
         if result != VK_SUCCESS:
