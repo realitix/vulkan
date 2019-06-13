@@ -375,6 +375,10 @@ def model_functions(vk, model):
             lens = member['@len'].split('::')
             static_count = {'key': lens[0], 'value': lens[1]}
 
+        # see vkGetRayTracingShaderGroupHandlesNV for exemple
+        if '@len' in member and 'dataSize' in member['@len']:
+            t = 'uint64_t'
+
         is_handle = t in get_handle_names(vk)
         is_enum = t in get_enum_names(vk)
         is_struct = t in get_struct_names(vk)
