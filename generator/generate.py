@@ -221,6 +221,10 @@ def model_macros(vk, model):
                 ename = enum['@name']
                 evalue = parse_constant(enum, int(ext['@number']))
 
+                # don't erase existing macros
+                if ename in model['macros']:
+                    continue
+
                 if enum.get('@extends') == 'VkResult':
                     model['enums']['VkResult'][ename] = evalue
                 else:
