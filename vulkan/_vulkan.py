@@ -5928,7 +5928,7 @@ device
 
     custom_return = True
     if not pPipelines:
-        pPipelines = ffi.new('VkPipeline*')
+        pPipelines = ffi.new('VkPipeline[%d]' % createInfoCount)
         custom_return = False
 
     result = _callApi(lib.vkCreateGraphicsPipelines, device,pipelineCache,createInfoCount,pCreateInfos,pAllocator,pPipelines)
@@ -5938,7 +5938,7 @@ device
     if custom_return:
         return pPipelines
 
-    return pPipelines[0]
+    return pPipelines
 
 
 
@@ -5953,7 +5953,7 @@ device
 
     custom_return = True
     if not pPipelines:
-        pPipelines = ffi.new('VkPipeline*')
+        pPipelines = ffi.new('VkPipeline[%d]' % createInfoCount)
         custom_return = False
 
     result = _callApi(lib.vkCreateComputePipelines, device,pipelineCache,createInfoCount,pCreateInfos,pAllocator,pPipelines)
@@ -5963,7 +5963,7 @@ device
     if custom_return:
         return pPipelines
 
-    return pPipelines[0]
+    return pPipelines
 
 
 
@@ -6976,7 +6976,7 @@ def _wrap_vkCreateSharedSwapchainsKHR(fn):
 
         custom_return = True
         if not pSwapchains:
-            pSwapchains = ffi.new('VkSwapchainKHR*')
+            pSwapchains = ffi.new('VkSwapchainKHR[%d]' % swapchainCount)
             custom_return = False
 
         result = _callApi(fn, device,swapchainCount,pCreateInfos,pAllocator,pSwapchains)
@@ -6986,7 +6986,7 @@ def _wrap_vkCreateSharedSwapchainsKHR(fn):
         if custom_return:
             return pSwapchains
 
-        return pSwapchains[0]
+        return pSwapchains
 
 
 
@@ -9036,7 +9036,7 @@ def _wrap_vkGetValidationCacheDataEXT(fn):
 
         custom_return = True
         if not pData:
-            pData = ffi.new('void*')
+            pData = ffi.new('void[%d]' % pDataSize)
             custom_return = False
 
         result = _callApi(fn, device,validationCache,pDataSize,pData)
@@ -9046,7 +9046,7 @@ def _wrap_vkGetValidationCacheDataEXT(fn):
         if custom_return:
             return pData
 
-        return pData[0]
+        return pData
 
 
 
@@ -9163,7 +9163,7 @@ def _wrap_vkGetShaderInfoAMD(fn):
 
         custom_return = True
         if not pInfo:
-            pInfo = ffi.new('void*')
+            pInfo = ffi.new('void[%d]' % pInfoSize)
             custom_return = False
 
         result = _callApi(fn, device,pipeline,shaderStage,infoType,pInfoSize,pInfo)
@@ -9173,7 +9173,7 @@ def _wrap_vkGetShaderInfoAMD(fn):
         if custom_return:
             return pInfo
 
-        return pInfo[0]
+        return pInfo
 
 
 
@@ -9846,7 +9846,7 @@ def _wrap_vkGetRayTracingShaderGroupHandlesNV(fn):
 
         custom_return = True
         if not pData:
-            pData = ffi.new('uint64_t*')
+            pData = ffi.new('uint64_t[%d]' % dataSize)
             custom_return = False
 
         result = _callApi(fn, device,pipeline,firstGroup,groupCount,dataSize,pData)
@@ -9856,7 +9856,7 @@ def _wrap_vkGetRayTracingShaderGroupHandlesNV(fn):
         if custom_return:
             return pData
 
-        return pData[0]
+        return pData
 
 
 
@@ -9871,7 +9871,7 @@ def _wrap_vkGetAccelerationStructureHandleNV(fn):
 
         custom_return = True
         if not pData:
-            pData = ffi.new('uint64_t*')
+            pData = ffi.new('uint64_t[%d]' % dataSize)
             custom_return = False
 
         result = _callApi(fn, device,accelerationStructure,dataSize,pData)
@@ -9881,7 +9881,7 @@ def _wrap_vkGetAccelerationStructureHandleNV(fn):
         if custom_return:
             return pData
 
-        return pData[0]
+        return pData
 
 
 
@@ -9898,7 +9898,7 @@ def _wrap_vkCreateRayTracingPipelinesNV(fn):
 
         custom_return = True
         if not pPipelines:
-            pPipelines = ffi.new('VkPipeline*')
+            pPipelines = ffi.new('VkPipeline[%d]' % createInfoCount)
             custom_return = False
 
         result = _callApi(fn, device,pipelineCache,createInfoCount,pCreateInfos,pAllocator,pPipelines)
@@ -9908,7 +9908,7 @@ def _wrap_vkCreateRayTracingPipelinesNV(fn):
         if custom_return:
             return pPipelines
 
-        return pPipelines[0]
+        return pPipelines
 
 
 
