@@ -377,14 +377,12 @@ def model_functions(vk, model):
         t = member['type']
 
         static_count = None
-        if '@len' in member and '::' in member['@len']:
-            lens = member['@len'].split('::')
-            #static_count = {'key': lens[0], 'value': lens[1]}
-            static_count = lens[0]+'.'+lens[1]
-
-        # see vkCreateGraphicsPipelines for exemple
-        #if '@len' in member:
-        #    static_count = {'key:'}
+        if '@len' in member:
+            # see vkCreateGraphicsPipelines for exemple
+            static_count = member['@len']
+            if '::' in static_count:
+                lens = member['@len'].split('::')
+                static_count = lens[0]+'.'+lens[1]
 
         # see vkGetRayTracingShaderGroupHandlesNV for exemple
         if '@len' in member and 'dataSize' in member['@len']:

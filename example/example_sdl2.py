@@ -544,7 +544,8 @@ pipeline_create = VkGraphicsPipelineCreateInfo(
     basePipelineHandle=None,
     basePipelineIndex=-1)
 
-pipeline = vkCreateGraphicsPipelines(logical_device, None, 1, [pipeline_create], None)
+pipelines = vkCreateGraphicsPipelines(logical_device, None, 1, [pipeline_create], None)
+pipeline = pipelines[0]
 
 
 # Framebuffers creation
