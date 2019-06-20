@@ -4973,12 +4973,17 @@ pCreateInfo
         ,pInstance=None
         ,):
 
+    custom_return = True
     if not pInstance:
         pInstance = ffi.new('VkInstance*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateInstance, pCreateInfo,pAllocator,pInstance)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pInstance
 
     return pInstance[0]
 
@@ -5015,10 +5020,15 @@ physicalDevice
         ,pProperties=None
         ,):
 
+    custom_return = True
     if not pProperties:
         pProperties = ffi.new('VkPhysicalDeviceProperties*')
+        custom_return = False
 
     result = _callApi(lib.vkGetPhysicalDeviceProperties, physicalDevice,pProperties)
+
+    if custom_return:
+        return pProperties
 
     return StrWrap(pProperties[0])
 
@@ -5044,10 +5054,15 @@ physicalDevice
         ,pMemoryProperties=None
         ,):
 
+    custom_return = True
     if not pMemoryProperties:
         pMemoryProperties = ffi.new('VkPhysicalDeviceMemoryProperties*')
+        custom_return = False
 
     result = _callApi(lib.vkGetPhysicalDeviceMemoryProperties, physicalDevice,pMemoryProperties)
+
+    if custom_return:
+        return pMemoryProperties
 
     return pMemoryProperties[0]
 
@@ -5058,10 +5073,15 @@ physicalDevice
         ,pFeatures=None
         ,):
 
+    custom_return = True
     if not pFeatures:
         pFeatures = ffi.new('VkPhysicalDeviceFeatures*')
+        custom_return = False
 
     result = _callApi(lib.vkGetPhysicalDeviceFeatures, physicalDevice,pFeatures)
+
+    if custom_return:
+        return pFeatures
 
     return pFeatures[0]
 
@@ -5073,10 +5093,15 @@ physicalDevice
         ,pFormatProperties=None
         ,):
 
+    custom_return = True
     if not pFormatProperties:
         pFormatProperties = ffi.new('VkFormatProperties*')
+        custom_return = False
 
     result = _callApi(lib.vkGetPhysicalDeviceFormatProperties, physicalDevice,format,pFormatProperties)
+
+    if custom_return:
+        return pFormatProperties
 
     return pFormatProperties[0]
 
@@ -5092,12 +5117,17 @@ physicalDevice
         ,pImageFormatProperties=None
         ,):
 
+    custom_return = True
     if not pImageFormatProperties:
         pImageFormatProperties = ffi.new('VkImageFormatProperties*')
+        custom_return = False
 
     result = _callApi(lib.vkGetPhysicalDeviceImageFormatProperties, physicalDevice,format,type,tiling,usage,flags,pImageFormatProperties)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pImageFormatProperties
 
     return pImageFormatProperties[0]
 
@@ -5110,12 +5140,17 @@ physicalDevice
         ,pDevice=None
         ,):
 
+    custom_return = True
     if not pDevice:
         pDevice = ffi.new('VkDevice*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateDevice, physicalDevice,pCreateInfo,pAllocator,pDevice)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pDevice
 
     return pDevice[0]
 
@@ -5132,12 +5167,17 @@ def vkEnumerateInstanceVersion(
 pApiVersion=None
         ,):
 
+    custom_return = True
     if not pApiVersion:
         pApiVersion = ffi.new('uint32_t*')
+        custom_return = False
 
     result = _callApi(lib.vkEnumerateInstanceVersion, pApiVersion)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pApiVersion
 
     return pApiVersion[0]
 
@@ -5234,10 +5274,15 @@ device
         ,pQueue=None
         ,):
 
+    custom_return = True
     if not pQueue:
         pQueue = ffi.new('VkQueue*')
+        custom_return = False
 
     result = _callApi(lib.vkGetDeviceQueue, device,queueFamilyIndex,queueIndex,pQueue)
+
+    if custom_return:
+        return pQueue
 
     return pQueue[0]
 
@@ -5277,12 +5322,17 @@ device
         ,pMemory=None
         ,):
 
+    custom_return = True
     if not pMemory:
         pMemory = ffi.new('VkDeviceMemory*')
+        custom_return = False
 
     result = _callApi(lib.vkAllocateMemory, device,pAllocateInfo,pAllocator,pMemory)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pMemory
 
     return pMemory[0]
 
@@ -5329,10 +5379,15 @@ device
         ,pCommittedMemoryInBytes=None
         ,):
 
+    custom_return = True
     if not pCommittedMemoryInBytes:
         pCommittedMemoryInBytes = ffi.new('VkDeviceSize*')
+        custom_return = False
 
     result = _callApi(lib.vkGetDeviceMemoryCommitment, device,memory,pCommittedMemoryInBytes)
+
+    if custom_return:
+        return pCommittedMemoryInBytes
 
     return pCommittedMemoryInBytes[0]
 
@@ -5344,10 +5399,15 @@ device
         ,pMemoryRequirements=None
         ,):
 
+    custom_return = True
     if not pMemoryRequirements:
         pMemoryRequirements = ffi.new('VkMemoryRequirements*')
+        custom_return = False
 
     result = _callApi(lib.vkGetBufferMemoryRequirements, device,buffer,pMemoryRequirements)
+
+    if custom_return:
+        return pMemoryRequirements
 
     return pMemoryRequirements[0]
 
@@ -5370,10 +5430,15 @@ device
         ,pMemoryRequirements=None
         ,):
 
+    custom_return = True
     if not pMemoryRequirements:
         pMemoryRequirements = ffi.new('VkMemoryRequirements*')
+        custom_return = False
 
     result = _callApi(lib.vkGetImageMemoryRequirements, device,image,pMemoryRequirements)
+
+    if custom_return:
+        return pMemoryRequirements
 
     return pMemoryRequirements[0]
 
@@ -5444,12 +5509,17 @@ device
         ,pFence=None
         ,):
 
+    custom_return = True
     if not pFence:
         pFence = ffi.new('VkFence*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateFence, device,pCreateInfo,pAllocator,pFence)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pFence
 
     return pFence[0]
 
@@ -5501,12 +5571,17 @@ device
         ,pSemaphore=None
         ,):
 
+    custom_return = True
     if not pSemaphore:
         pSemaphore = ffi.new('VkSemaphore*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateSemaphore, device,pCreateInfo,pAllocator,pSemaphore)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pSemaphore
 
     return pSemaphore[0]
 
@@ -5527,12 +5602,17 @@ device
         ,pEvent=None
         ,):
 
+    custom_return = True
     if not pEvent:
         pEvent = ffi.new('VkEvent*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateEvent, device,pCreateInfo,pAllocator,pEvent)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pEvent
 
     return pEvent[0]
 
@@ -5580,12 +5660,17 @@ device
         ,pQueryPool=None
         ,):
 
+    custom_return = True
     if not pQueryPool:
         pQueryPool = ffi.new('VkQueryPool*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateQueryPool, device,pCreateInfo,pAllocator,pQueryPool)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pQueryPool
 
     return pQueryPool[0]
 
@@ -5621,12 +5706,17 @@ device
         ,pBuffer=None
         ,):
 
+    custom_return = True
     if not pBuffer:
         pBuffer = ffi.new('VkBuffer*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateBuffer, device,pCreateInfo,pAllocator,pBuffer)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pBuffer
 
     return pBuffer[0]
 
@@ -5647,12 +5737,17 @@ device
         ,pView=None
         ,):
 
+    custom_return = True
     if not pView:
         pView = ffi.new('VkBufferView*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateBufferView, device,pCreateInfo,pAllocator,pView)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pView
 
     return pView[0]
 
@@ -5673,12 +5768,17 @@ device
         ,pImage=None
         ,):
 
+    custom_return = True
     if not pImage:
         pImage = ffi.new('VkImage*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateImage, device,pCreateInfo,pAllocator,pImage)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pImage
 
     return pImage[0]
 
@@ -5699,10 +5799,15 @@ device
         ,pLayout=None
         ,):
 
+    custom_return = True
     if not pLayout:
         pLayout = ffi.new('VkSubresourceLayout*')
+        custom_return = False
 
     result = _callApi(lib.vkGetImageSubresourceLayout, device,image,pSubresource,pLayout)
+
+    if custom_return:
+        return pLayout
 
     return pLayout[0]
 
@@ -5715,12 +5820,17 @@ device
         ,pView=None
         ,):
 
+    custom_return = True
     if not pView:
         pView = ffi.new('VkImageView*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateImageView, device,pCreateInfo,pAllocator,pView)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pView
 
     return pView[0]
 
@@ -5741,12 +5851,17 @@ device
         ,pShaderModule=None
         ,):
 
+    custom_return = True
     if not pShaderModule:
         pShaderModule = ffi.new('VkShaderModule*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateShaderModule, device,pCreateInfo,pAllocator,pShaderModule)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pShaderModule
 
     return pShaderModule[0]
 
@@ -5767,12 +5882,17 @@ device
         ,pPipelineCache=None
         ,):
 
+    custom_return = True
     if not pPipelineCache:
         pPipelineCache = ffi.new('VkPipelineCache*')
+        custom_return = False
 
     result = _callApi(lib.vkCreatePipelineCache, device,pCreateInfo,pAllocator,pPipelineCache)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pPipelineCache
 
     return pPipelineCache[0]
 
@@ -5806,12 +5926,17 @@ device
         ,pPipelines=None
         ,):
 
+    custom_return = True
     if not pPipelines:
         pPipelines = ffi.new('VkPipeline*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateGraphicsPipelines, device,pipelineCache,createInfoCount,pCreateInfos,pAllocator,pPipelines)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pPipelines
 
     return pPipelines[0]
 
@@ -5826,12 +5951,17 @@ device
         ,pPipelines=None
         ,):
 
+    custom_return = True
     if not pPipelines:
         pPipelines = ffi.new('VkPipeline*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateComputePipelines, device,pipelineCache,createInfoCount,pCreateInfos,pAllocator,pPipelines)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pPipelines
 
     return pPipelines[0]
 
@@ -5852,12 +5982,17 @@ device
         ,pPipelineLayout=None
         ,):
 
+    custom_return = True
     if not pPipelineLayout:
         pPipelineLayout = ffi.new('VkPipelineLayout*')
+        custom_return = False
 
     result = _callApi(lib.vkCreatePipelineLayout, device,pCreateInfo,pAllocator,pPipelineLayout)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pPipelineLayout
 
     return pPipelineLayout[0]
 
@@ -5878,12 +6013,17 @@ device
         ,pSampler=None
         ,):
 
+    custom_return = True
     if not pSampler:
         pSampler = ffi.new('VkSampler*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateSampler, device,pCreateInfo,pAllocator,pSampler)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pSampler
 
     return pSampler[0]
 
@@ -5904,12 +6044,17 @@ device
         ,pSetLayout=None
         ,):
 
+    custom_return = True
     if not pSetLayout:
         pSetLayout = ffi.new('VkDescriptorSetLayout*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateDescriptorSetLayout, device,pCreateInfo,pAllocator,pSetLayout)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pSetLayout
 
     return pSetLayout[0]
 
@@ -5930,12 +6075,17 @@ device
         ,pDescriptorPool=None
         ,):
 
+    custom_return = True
     if not pDescriptorPool:
         pDescriptorPool = ffi.new('VkDescriptorPool*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateDescriptorPool, device,pCreateInfo,pAllocator,pDescriptorPool)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pDescriptorPool
 
     return pDescriptorPool[0]
 
@@ -5965,11 +6115,17 @@ device
         ,pDescriptorSets=None
         ,):
 
-    pDescriptorSets = ffi.new('VkDescriptorSet[%d]' % pAllocateInfo.descriptorSetCount)
+    custom_return = True
+    if not pDescriptorSets:
+        pDescriptorSets = ffi.new('VkDescriptorSet[%d]' % pAllocateInfo.descriptorSetCount)
+        custom_return = False
 
     result = _callApi(lib.vkAllocateDescriptorSets, device,pAllocateInfo,pDescriptorSets)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pDescriptorSets
 
     return pDescriptorSets
 
@@ -6003,12 +6159,17 @@ device
         ,pFramebuffer=None
         ,):
 
+    custom_return = True
     if not pFramebuffer:
         pFramebuffer = ffi.new('VkFramebuffer*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateFramebuffer, device,pCreateInfo,pAllocator,pFramebuffer)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pFramebuffer
 
     return pFramebuffer[0]
 
@@ -6029,12 +6190,17 @@ device
         ,pRenderPass=None
         ,):
 
+    custom_return = True
     if not pRenderPass:
         pRenderPass = ffi.new('VkRenderPass*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateRenderPass, device,pCreateInfo,pAllocator,pRenderPass)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pRenderPass
 
     return pRenderPass[0]
 
@@ -6054,10 +6220,15 @@ device
         ,pGranularity=None
         ,):
 
+    custom_return = True
     if not pGranularity:
         pGranularity = ffi.new('VkExtent2D*')
+        custom_return = False
 
     result = _callApi(lib.vkGetRenderAreaGranularity, device,renderPass,pGranularity)
+
+    if custom_return:
+        return pGranularity
 
     return pGranularity[0]
 
@@ -6070,12 +6241,17 @@ device
         ,pCommandPool=None
         ,):
 
+    custom_return = True
     if not pCommandPool:
         pCommandPool = ffi.new('VkCommandPool*')
+        custom_return = False
 
     result = _callApi(lib.vkCreateCommandPool, device,pCreateInfo,pAllocator,pCommandPool)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pCommandPool
 
     return pCommandPool[0]
 
@@ -6105,11 +6281,17 @@ device
         ,pCommandBuffers=None
         ,):
 
-    pCommandBuffers = ffi.new('VkCommandBuffer[%d]' % pAllocateInfo.commandBufferCount)
+    custom_return = True
+    if not pCommandBuffers:
+        pCommandBuffers = ffi.new('VkCommandBuffer[%d]' % pAllocateInfo.commandBufferCount)
+        custom_return = False
 
     result = _callApi(lib.vkAllocateCommandBuffers, device,pAllocateInfo,pCommandBuffers)
     if result != VK_SUCCESS:
         raise exception_codes[result]
+
+    if custom_return:
+        return pCommandBuffers
 
     return pCommandBuffers
 
@@ -6602,12 +6784,17 @@ def _wrap_vkCreateAndroidSurfaceKHR(fn):
             ,pSurface=None
             ,):
 
+        custom_return = True
         if not pSurface:
             pSurface = ffi.new('VkSurfaceKHR*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurface
 
         return pSurface[0]
 
@@ -6711,12 +6898,17 @@ def _wrap_vkCreateDisplayModeKHR(fn):
             ,pMode=None
             ,):
 
+        custom_return = True
         if not pMode:
             pMode = ffi.new('VkDisplayModeKHR*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,display,pCreateInfo,pAllocator,pMode)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pMode
 
         return pMode[0]
 
@@ -6731,12 +6923,17 @@ def _wrap_vkGetDisplayPlaneCapabilitiesKHR(fn):
             ,pCapabilities=None
             ,):
 
+        custom_return = True
         if not pCapabilities:
             pCapabilities = ffi.new('VkDisplayPlaneCapabilitiesKHR*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,mode,planeIndex,pCapabilities)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pCapabilities
 
         return pCapabilities[0]
 
@@ -6751,12 +6948,17 @@ def _wrap_vkCreateDisplayPlaneSurfaceKHR(fn):
             ,pSurface=None
             ,):
 
+        custom_return = True
         if not pSurface:
             pSurface = ffi.new('VkSurfaceKHR*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurface
 
         return pSurface[0]
 
@@ -6772,12 +6974,17 @@ def _wrap_vkCreateSharedSwapchainsKHR(fn):
             ,pSwapchains=None
             ,):
 
+        custom_return = True
         if not pSwapchains:
             pSwapchains = ffi.new('VkSwapchainKHR*')
+            custom_return = False
 
         result = _callApi(fn, device,swapchainCount,pCreateInfos,pAllocator,pSwapchains)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSwapchains
 
         return pSwapchains[0]
 
@@ -6802,12 +7009,17 @@ def _wrap_vkGetPhysicalDeviceSurfaceSupportKHR(fn):
             ,pSupported=None
             ,):
 
+        custom_return = True
         if not pSupported:
             pSupported = ffi.new('VkBool32*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,queueFamilyIndex,surface,pSupported)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSupported
 
         return pSupported[0]
 
@@ -6821,12 +7033,17 @@ def _wrap_vkGetPhysicalDeviceSurfaceCapabilitiesKHR(fn):
             ,pSurfaceCapabilities=None
             ,):
 
+        custom_return = True
         if not pSurfaceCapabilities:
             pSurfaceCapabilities = ffi.new('VkSurfaceCapabilitiesKHR*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,surface,pSurfaceCapabilities)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurfaceCapabilities
 
         return pSurfaceCapabilities[0]
 
@@ -6885,12 +7102,17 @@ def _wrap_vkCreateSwapchainKHR(fn):
             ,pSwapchain=None
             ,):
 
+        custom_return = True
         if not pSwapchain:
             pSwapchain = ffi.new('VkSwapchainKHR*')
+            custom_return = False
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pSwapchain)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSwapchain
 
         return pSwapchain[0]
 
@@ -6939,12 +7161,17 @@ def _wrap_vkAcquireNextImageKHR(fn):
             ,pImageIndex=None
             ,):
 
+        custom_return = True
         if not pImageIndex:
             pImageIndex = ffi.new('uint32_t*')
+            custom_return = False
 
         result = _callApi(fn, device,swapchain,timeout,semaphore,fence,pImageIndex)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pImageIndex
 
         return pImageIndex[0]
 
@@ -6970,12 +7197,17 @@ def _wrap_vkCreateViSurfaceNN(fn):
             ,pSurface=None
             ,):
 
+        custom_return = True
         if not pSurface:
             pSurface = ffi.new('VkSurfaceKHR*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurface
 
         return pSurface[0]
 
@@ -6990,12 +7222,17 @@ def _wrap_vkCreateWaylandSurfaceKHR(fn):
             ,pSurface=None
             ,):
 
+        custom_return = True
         if not pSurface:
             pSurface = ffi.new('VkSurfaceKHR*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurface
 
         return pSurface[0]
 
@@ -7020,12 +7257,17 @@ def _wrap_vkCreateWin32SurfaceKHR(fn):
             ,pSurface=None
             ,):
 
+        custom_return = True
         if not pSurface:
             pSurface = ffi.new('VkSurfaceKHR*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurface
 
         return pSurface[0]
 
@@ -7049,12 +7291,17 @@ def _wrap_vkCreateXlibSurfaceKHR(fn):
             ,pSurface=None
             ,):
 
+        custom_return = True
         if not pSurface:
             pSurface = ffi.new('VkSurfaceKHR*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurface
 
         return pSurface[0]
 
@@ -7080,12 +7327,17 @@ def _wrap_vkCreateXcbSurfaceKHR(fn):
             ,pSurface=None
             ,):
 
+        custom_return = True
         if not pSurface:
             pSurface = ffi.new('VkSurfaceKHR*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurface
 
         return pSurface[0]
 
@@ -7111,12 +7363,17 @@ def _wrap_vkCreateImagePipeSurfaceFUCHSIA(fn):
             ,pSurface=None
             ,):
 
+        custom_return = True
         if not pSurface:
             pSurface = ffi.new('VkSurfaceKHR*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurface
 
         return pSurface[0]
 
@@ -7131,12 +7388,17 @@ def _wrap_vkCreateDebugReportCallbackEXT(fn):
             ,pCallback=None
             ,):
 
+        custom_return = True
         if not pCallback:
             pCallback = ffi.new('VkDebugReportCallbackEXT*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pCallback)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pCallback
 
         return pCallback[0]
 
@@ -7228,12 +7490,17 @@ def _wrap_vkGetPhysicalDeviceExternalImageFormatPropertiesNV(fn):
             ,pExternalImageFormatProperties=None
             ,):
 
+        custom_return = True
         if not pExternalImageFormatProperties:
             pExternalImageFormatProperties = ffi.new('VkExternalImageFormatPropertiesNV*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,format,type,tiling,usage,flags,externalHandleType,pExternalImageFormatProperties)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pExternalImageFormatProperties
 
         return pExternalImageFormatProperties[0]
 
@@ -7248,12 +7515,17 @@ def _wrap_vkGetMemoryWin32HandleNV(fn):
             ,pHandle=None
             ,):
 
+        custom_return = True
         if not pHandle:
             pHandle = ffi.new('HANDLE*')
+            custom_return = False
 
         result = _callApi(fn, device,memory,handleType,pHandle)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pHandle
 
         return pHandle[0]
 
@@ -7314,12 +7586,17 @@ def _wrap_vkCreateIndirectCommandsLayoutNVX(fn):
             ,pIndirectCommandsLayout=None
             ,):
 
+        custom_return = True
         if not pIndirectCommandsLayout:
             pIndirectCommandsLayout = ffi.new('VkIndirectCommandsLayoutNVX*')
+            custom_return = False
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pIndirectCommandsLayout)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pIndirectCommandsLayout
 
         return pIndirectCommandsLayout[0]
 
@@ -7344,12 +7621,17 @@ def _wrap_vkCreateObjectTableNVX(fn):
             ,pObjectTable=None
             ,):
 
+        custom_return = True
         if not pObjectTable:
             pObjectTable = ffi.new('VkObjectTableNVX*')
+            custom_return = False
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pObjectTable)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pObjectTable
 
         return pObjectTable[0]
 
@@ -7401,10 +7683,15 @@ def _wrap_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX(fn):
             ,pLimits=None
             ,):
 
+        custom_return = True
         if not pLimits:
             pLimits = ffi.new('VkDeviceGeneratedCommandsLimitsNVX*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,pFeatures,pLimits)
+
+        if custom_return:
+            return pLimits
 
         return pLimits[0]
 
@@ -7417,10 +7704,15 @@ def _wrap_vkGetPhysicalDeviceFeatures2(fn):
             ,pFeatures=None
             ,):
 
+        custom_return = True
         if not pFeatures:
             pFeatures = ffi.new('VkPhysicalDeviceFeatures2*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,pFeatures)
+
+        if custom_return:
+            return pFeatures
 
         return pFeatures[0]
 
@@ -7433,10 +7725,15 @@ def _wrap_vkGetPhysicalDeviceProperties2(fn):
             ,pProperties=None
             ,):
 
+        custom_return = True
         if not pProperties:
             pProperties = ffi.new('VkPhysicalDeviceProperties2*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,pProperties)
+
+        if custom_return:
+            return pProperties
 
         return pProperties[0]
 
@@ -7450,10 +7747,15 @@ def _wrap_vkGetPhysicalDeviceFormatProperties2(fn):
             ,pFormatProperties=None
             ,):
 
+        custom_return = True
         if not pFormatProperties:
             pFormatProperties = ffi.new('VkFormatProperties2*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,format,pFormatProperties)
+
+        if custom_return:
+            return pFormatProperties
 
         return pFormatProperties[0]
 
@@ -7467,12 +7769,17 @@ def _wrap_vkGetPhysicalDeviceImageFormatProperties2(fn):
             ,pImageFormatProperties=None
             ,):
 
+        custom_return = True
         if not pImageFormatProperties:
             pImageFormatProperties = ffi.new('VkImageFormatProperties2*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,pImageFormatInfo,pImageFormatProperties)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pImageFormatProperties
 
         return pImageFormatProperties[0]
 
@@ -7502,10 +7809,15 @@ def _wrap_vkGetPhysicalDeviceMemoryProperties2(fn):
             ,pMemoryProperties=None
             ,):
 
+        custom_return = True
         if not pMemoryProperties:
             pMemoryProperties = ffi.new('VkPhysicalDeviceMemoryProperties2*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,pMemoryProperties)
+
+        if custom_return:
+            return pMemoryProperties
 
         return pMemoryProperties[0]
 
@@ -7560,10 +7872,15 @@ def _wrap_vkGetPhysicalDeviceExternalBufferProperties(fn):
             ,pExternalBufferProperties=None
             ,):
 
+        custom_return = True
         if not pExternalBufferProperties:
             pExternalBufferProperties = ffi.new('VkExternalBufferProperties*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,pExternalBufferInfo,pExternalBufferProperties)
+
+        if custom_return:
+            return pExternalBufferProperties
 
         return pExternalBufferProperties[0]
 
@@ -7577,12 +7894,17 @@ def _wrap_vkGetMemoryWin32HandleKHR(fn):
             ,pHandle=None
             ,):
 
+        custom_return = True
         if not pHandle:
             pHandle = ffi.new('HANDLE*')
+            custom_return = False
 
         result = _callApi(fn, device,pGetWin32HandleInfo,pHandle)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pHandle
 
         return pHandle[0]
 
@@ -7597,12 +7919,17 @@ def _wrap_vkGetMemoryWin32HandlePropertiesKHR(fn):
             ,pMemoryWin32HandleProperties=None
             ,):
 
+        custom_return = True
         if not pMemoryWin32HandleProperties:
             pMemoryWin32HandleProperties = ffi.new('VkMemoryWin32HandlePropertiesKHR*')
+            custom_return = False
 
         result = _callApi(fn, device,handleType,handle,pMemoryWin32HandleProperties)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pMemoryWin32HandleProperties
 
         return pMemoryWin32HandleProperties[0]
 
@@ -7616,12 +7943,17 @@ def _wrap_vkGetMemoryFdKHR(fn):
             ,pFd=None
             ,):
 
+        custom_return = True
         if not pFd:
             pFd = ffi.new('int*')
+            custom_return = False
 
         result = _callApi(fn, device,pGetFdInfo,pFd)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pFd
 
         return pFd[0]
 
@@ -7636,12 +7968,17 @@ def _wrap_vkGetMemoryFdPropertiesKHR(fn):
             ,pMemoryFdProperties=None
             ,):
 
+        custom_return = True
         if not pMemoryFdProperties:
             pMemoryFdProperties = ffi.new('VkMemoryFdPropertiesKHR*')
+            custom_return = False
 
         result = _callApi(fn, device,handleType,fd,pMemoryFdProperties)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pMemoryFdProperties
 
         return pMemoryFdProperties[0]
 
@@ -7655,10 +7992,15 @@ def _wrap_vkGetPhysicalDeviceExternalSemaphoreProperties(fn):
             ,pExternalSemaphoreProperties=None
             ,):
 
+        custom_return = True
         if not pExternalSemaphoreProperties:
             pExternalSemaphoreProperties = ffi.new('VkExternalSemaphoreProperties*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,pExternalSemaphoreInfo,pExternalSemaphoreProperties)
+
+        if custom_return:
+            return pExternalSemaphoreProperties
 
         return pExternalSemaphoreProperties[0]
 
@@ -7672,12 +8014,17 @@ def _wrap_vkGetSemaphoreWin32HandleKHR(fn):
             ,pHandle=None
             ,):
 
+        custom_return = True
         if not pHandle:
             pHandle = ffi.new('HANDLE*')
+            custom_return = False
 
         result = _callApi(fn, device,pGetWin32HandleInfo,pHandle)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pHandle
 
         return pHandle[0]
 
@@ -7702,12 +8049,17 @@ def _wrap_vkGetSemaphoreFdKHR(fn):
             ,pFd=None
             ,):
 
+        custom_return = True
         if not pFd:
             pFd = ffi.new('int*')
+            custom_return = False
 
         result = _callApi(fn, device,pGetFdInfo,pFd)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pFd
 
         return pFd[0]
 
@@ -7732,10 +8084,15 @@ def _wrap_vkGetPhysicalDeviceExternalFenceProperties(fn):
             ,pExternalFenceProperties=None
             ,):
 
+        custom_return = True
         if not pExternalFenceProperties:
             pExternalFenceProperties = ffi.new('VkExternalFenceProperties*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,pExternalFenceInfo,pExternalFenceProperties)
+
+        if custom_return:
+            return pExternalFenceProperties
 
         return pExternalFenceProperties[0]
 
@@ -7749,12 +8106,17 @@ def _wrap_vkGetFenceWin32HandleKHR(fn):
             ,pHandle=None
             ,):
 
+        custom_return = True
         if not pHandle:
             pHandle = ffi.new('HANDLE*')
+            custom_return = False
 
         result = _callApi(fn, device,pGetWin32HandleInfo,pHandle)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pHandle
 
         return pHandle[0]
 
@@ -7779,12 +8141,17 @@ def _wrap_vkGetFenceFdKHR(fn):
             ,pFd=None
             ,):
 
+        custom_return = True
         if not pFd:
             pFd = ffi.new('int*')
+            custom_return = False
 
         result = _callApi(fn, device,pGetFdInfo,pFd)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pFd
 
         return pFd[0]
 
@@ -7820,12 +8187,17 @@ def _wrap_vkAcquireXlibDisplayEXT(fn):
             ,display=None
             ,):
 
+        custom_return = True
         if not display:
             display = ffi.new('VkDisplayKHR*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,dpy,display)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return display
 
         return display[0]
 
@@ -7840,12 +8212,17 @@ def _wrap_vkGetRandROutputDisplayEXT(fn):
             ,pDisplay=None
             ,):
 
+        custom_return = True
         if not pDisplay:
             pDisplay = ffi.new('VkDisplayKHR*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,dpy,rrOutput,pDisplay)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pDisplay
 
         return pDisplay[0]
 
@@ -7899,12 +8276,17 @@ def _wrap_vkGetSwapchainCounterEXT(fn):
             ,pCounterValue=None
             ,):
 
+        custom_return = True
         if not pCounterValue:
             pCounterValue = ffi.new('uint64_t*')
+            custom_return = False
 
         result = _callApi(fn, device,swapchain,counter,pCounterValue)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pCounterValue
 
         return pCounterValue[0]
 
@@ -7918,12 +8300,17 @@ def _wrap_vkGetPhysicalDeviceSurfaceCapabilities2EXT(fn):
             ,pSurfaceCapabilities=None
             ,):
 
+        custom_return = True
         if not pSurfaceCapabilities:
             pSurfaceCapabilities = ffi.new('VkSurfaceCapabilities2EXT*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,surface,pSurfaceCapabilities)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurfaceCapabilities
 
         return pSurfaceCapabilities[0]
 
@@ -7960,10 +8347,15 @@ def _wrap_vkGetDeviceGroupPeerMemoryFeatures(fn):
             ,pPeerMemoryFeatures=None
             ,):
 
+        custom_return = True
         if not pPeerMemoryFeatures:
             pPeerMemoryFeatures = ffi.new('VkPeerMemoryFeatureFlags*')
+            custom_return = False
 
         result = _callApi(fn, device,heapIndex,localDeviceIndex,remoteDeviceIndex,pPeerMemoryFeatures)
+
+        if custom_return:
+            return pPeerMemoryFeatures
 
         return pPeerMemoryFeatures[0]
 
@@ -8009,12 +8401,17 @@ def _wrap_vkGetDeviceGroupPresentCapabilitiesKHR(fn):
             ,pDeviceGroupPresentCapabilities=None
             ,):
 
+        custom_return = True
         if not pDeviceGroupPresentCapabilities:
             pDeviceGroupPresentCapabilities = ffi.new('VkDeviceGroupPresentCapabilitiesKHR*')
+            custom_return = False
 
         result = _callApi(fn, device,pDeviceGroupPresentCapabilities)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pDeviceGroupPresentCapabilities
 
         return pDeviceGroupPresentCapabilities[0]
 
@@ -8028,12 +8425,17 @@ def _wrap_vkGetDeviceGroupSurfacePresentModesKHR(fn):
             ,pModes=None
             ,):
 
+        custom_return = True
         if not pModes:
             pModes = ffi.new('VkDeviceGroupPresentModeFlagsKHR*')
+            custom_return = False
 
         result = _callApi(fn, device,surface,pModes)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pModes
 
         return pModes[0]
 
@@ -8105,12 +8507,17 @@ def _wrap_vkCreateDescriptorUpdateTemplate(fn):
             ,pDescriptorUpdateTemplate=None
             ,):
 
+        custom_return = True
         if not pDescriptorUpdateTemplate:
             pDescriptorUpdateTemplate = ffi.new('VkDescriptorUpdateTemplate*')
+            custom_return = False
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pDescriptorUpdateTemplate)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pDescriptorUpdateTemplate
 
         return pDescriptorUpdateTemplate[0]
 
@@ -8167,12 +8574,17 @@ def _wrap_vkGetSwapchainStatusKHR(fn):
             ,swapchain=None
             ,):
 
+        custom_return = True
         if not swapchain:
             swapchain = ffi.new('VkSwapchainKHR*')
+            custom_return = False
 
         result = _callApi(fn, device,swapchain)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return swapchain
 
         return swapchain[0]
 
@@ -8186,12 +8598,17 @@ def _wrap_vkGetRefreshCycleDurationGOOGLE(fn):
             ,pDisplayTimingProperties=None
             ,):
 
+        custom_return = True
         if not pDisplayTimingProperties:
             pDisplayTimingProperties = ffi.new('VkRefreshCycleDurationGOOGLE*')
+            custom_return = False
 
         result = _callApi(fn, device,swapchain,pDisplayTimingProperties)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pDisplayTimingProperties
 
         return pDisplayTimingProperties[0]
 
@@ -8228,12 +8645,17 @@ def _wrap_vkCreateIOSSurfaceMVK(fn):
             ,pSurface=None
             ,):
 
+        custom_return = True
         if not pSurface:
             pSurface = ffi.new('VkSurfaceKHR*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurface
 
         return pSurface[0]
 
@@ -8248,12 +8670,17 @@ def _wrap_vkCreateMacOSSurfaceMVK(fn):
             ,pSurface=None
             ,):
 
+        custom_return = True
         if not pSurface:
             pSurface = ffi.new('VkSurfaceKHR*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pSurface)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurface
 
         return pSurface[0]
 
@@ -8298,10 +8725,15 @@ def _wrap_vkGetPhysicalDeviceMultisamplePropertiesEXT(fn):
             ,pMultisampleProperties=None
             ,):
 
+        custom_return = True
         if not pMultisampleProperties:
             pMultisampleProperties = ffi.new('VkMultisamplePropertiesEXT*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,samples,pMultisampleProperties)
+
+        if custom_return:
+            return pMultisampleProperties
 
         return pMultisampleProperties[0]
 
@@ -8315,12 +8747,17 @@ def _wrap_vkGetPhysicalDeviceSurfaceCapabilities2KHR(fn):
             ,pSurfaceCapabilities=None
             ,):
 
+        custom_return = True
         if not pSurfaceCapabilities:
             pSurfaceCapabilities = ffi.new('VkSurfaceCapabilities2KHR*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,pSurfaceInfo,pSurfaceCapabilities)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pSurfaceCapabilities
 
         return pSurfaceCapabilities[0]
 
@@ -8420,12 +8857,17 @@ def _wrap_vkGetDisplayPlaneCapabilities2KHR(fn):
             ,pCapabilities=None
             ,):
 
+        custom_return = True
         if not pCapabilities:
             pCapabilities = ffi.new('VkDisplayPlaneCapabilities2KHR*')
+            custom_return = False
 
         result = _callApi(fn, physicalDevice,pDisplayPlaneInfo,pCapabilities)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pCapabilities
 
         return pCapabilities[0]
 
@@ -8439,10 +8881,15 @@ def _wrap_vkGetBufferMemoryRequirements2(fn):
             ,pMemoryRequirements=None
             ,):
 
+        custom_return = True
         if not pMemoryRequirements:
             pMemoryRequirements = ffi.new('VkMemoryRequirements2*')
+            custom_return = False
 
         result = _callApi(fn, device,pInfo,pMemoryRequirements)
+
+        if custom_return:
+            return pMemoryRequirements
 
         return pMemoryRequirements[0]
 
@@ -8456,10 +8903,15 @@ def _wrap_vkGetImageMemoryRequirements2(fn):
             ,pMemoryRequirements=None
             ,):
 
+        custom_return = True
         if not pMemoryRequirements:
             pMemoryRequirements = ffi.new('VkMemoryRequirements2*')
+            custom_return = False
 
         result = _callApi(fn, device,pInfo,pMemoryRequirements)
+
+        if custom_return:
+            return pMemoryRequirements
 
         return pMemoryRequirements[0]
 
@@ -8492,12 +8944,17 @@ def _wrap_vkCreateSamplerYcbcrConversion(fn):
             ,pYcbcrConversion=None
             ,):
 
+        custom_return = True
         if not pYcbcrConversion:
             pYcbcrConversion = ffi.new('VkSamplerYcbcrConversion*')
+            custom_return = False
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pYcbcrConversion)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pYcbcrConversion
 
         return pYcbcrConversion[0]
 
@@ -8520,10 +8977,15 @@ device
         ,pQueue=None
         ,):
 
+    custom_return = True
     if not pQueue:
         pQueue = ffi.new('VkQueue*')
+        custom_return = False
 
     result = _callApi(lib.vkGetDeviceQueue2, device,pQueueInfo,pQueue)
+
+    if custom_return:
+        return pQueue
 
     return pQueue[0]
 
@@ -8537,12 +8999,17 @@ def _wrap_vkCreateValidationCacheEXT(fn):
             ,pValidationCache=None
             ,):
 
+        custom_return = True
         if not pValidationCache:
             pValidationCache = ffi.new('VkValidationCacheEXT*')
+            custom_return = False
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pValidationCache)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pValidationCache
 
         return pValidationCache[0]
 
@@ -8567,12 +9034,17 @@ def _wrap_vkGetValidationCacheDataEXT(fn):
             ,pData=None
             ,):
 
+        custom_return = True
         if not pData:
             pData = ffi.new('void*')
+            custom_return = False
 
         result = _callApi(fn, device,validationCache,pDataSize,pData)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pData
 
         return pData[0]
 
@@ -8599,10 +9071,15 @@ def _wrap_vkGetDescriptorSetLayoutSupport(fn):
             ,pSupport=None
             ,):
 
+        custom_return = True
         if not pSupport:
             pSupport = ffi.new('VkDescriptorSetLayoutSupport*')
+            custom_return = False
 
         result = _callApi(fn, device,pCreateInfo,pSupport)
+
+        if custom_return:
+            return pSupport
 
         return pSupport[0]
 
@@ -8617,12 +9094,17 @@ def _wrap_vkGetSwapchainGrallocUsageANDROID(fn):
             ,grallocUsage=None
             ,):
 
+        custom_return = True
         if not grallocUsage:
             grallocUsage = ffi.new('int*')
+            custom_return = False
 
         result = _callApi(fn, device,format,imageUsage,grallocUsage)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return grallocUsage
 
         return grallocUsage[0]
 
@@ -8638,12 +9120,17 @@ def _wrap_vkAcquireImageANDROID(fn):
             ,fence=None
             ,):
 
+        custom_return = True
         if not fence:
             fence = ffi.new('VkFence*')
+            custom_return = False
 
         result = _callApi(fn, device,image,nativeFenceFd,semaphore,fence)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return fence
 
         return fence[0]
 
@@ -8674,12 +9161,17 @@ def _wrap_vkGetShaderInfoAMD(fn):
             ,pInfo=None
             ,):
 
+        custom_return = True
         if not pInfo:
             pInfo = ffi.new('void*')
+            custom_return = False
 
         result = _callApi(fn, device,pipeline,shaderStage,infoType,pInfoSize,pInfo)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pInfo
 
         return pInfo[0]
 
@@ -8716,12 +9208,17 @@ def _wrap_vkGetCalibratedTimestampsEXT(fn):
             ,pMaxDeviation=None
             ,):
 
+        custom_return = True
         if not pMaxDeviation:
             pMaxDeviation = ffi.new('uint64_t*')
+            custom_return = False
 
         result = _callApi(fn, device,timestampCount,pTimestampInfos,pTimestamps,pMaxDeviation)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pMaxDeviation
 
         return pMaxDeviation[0]
 
@@ -8810,12 +9307,17 @@ def _wrap_vkCreateDebugUtilsMessengerEXT(fn):
             ,pMessenger=None
             ,):
 
+        custom_return = True
         if not pMessenger:
             pMessenger = ffi.new('VkDebugUtilsMessengerEXT*')
+            custom_return = False
 
         result = _callApi(fn, instance,pCreateInfo,pAllocator,pMessenger)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pMessenger
 
         return pMessenger[0]
 
@@ -8851,12 +9353,17 @@ def _wrap_vkGetMemoryHostPointerPropertiesEXT(fn):
             ,pMemoryHostPointerProperties=None
             ,):
 
+        custom_return = True
         if not pMemoryHostPointerProperties:
             pMemoryHostPointerProperties = ffi.new('VkMemoryHostPointerPropertiesEXT*')
+            custom_return = False
 
         result = _callApi(fn, device,handleType,pHostPointer,pMemoryHostPointerProperties)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pMemoryHostPointerProperties
 
         return pMemoryHostPointerProperties[0]
 
@@ -8883,12 +9390,17 @@ def _wrap_vkCreateRenderPass2KHR(fn):
             ,pRenderPass=None
             ,):
 
+        custom_return = True
         if not pRenderPass:
             pRenderPass = ffi.new('VkRenderPass*')
+            custom_return = False
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pRenderPass)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pRenderPass
 
         return pRenderPass[0]
 
@@ -8931,12 +9443,17 @@ def _wrap_vkGetAndroidHardwareBufferPropertiesANDROID(fn):
             ,pProperties=None
             ,):
 
+        custom_return = True
         if not pProperties:
             pProperties = ffi.new('VkAndroidHardwareBufferPropertiesANDROID*')
+            custom_return = False
 
         result = _callApi(fn, device,buffer,pProperties)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pProperties
 
         return pProperties[0]
 
@@ -8950,12 +9467,17 @@ def _wrap_vkGetMemoryAndroidHardwareBufferANDROID(fn):
             ,pBuffer=None
             ,):
 
+        custom_return = True
         if not pBuffer:
             pBuffer = ffi.new('AHardwareBuffer*')
+            custom_return = False
 
         result = _callApi(fn, device,pInfo,pBuffer)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pBuffer
 
         return pBuffer[0]
 
@@ -9189,12 +9711,17 @@ def _wrap_vkCreateAccelerationStructureNV(fn):
             ,pAccelerationStructure=None
             ,):
 
+        custom_return = True
         if not pAccelerationStructure:
             pAccelerationStructure = ffi.new('VkAccelerationStructureNV*')
+            custom_return = False
 
         result = _callApi(fn, device,pCreateInfo,pAllocator,pAccelerationStructure)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pAccelerationStructure
 
         return pAccelerationStructure[0]
 
@@ -9218,10 +9745,15 @@ def _wrap_vkGetAccelerationStructureMemoryRequirementsNV(fn):
             ,pMemoryRequirements=None
             ,):
 
+        custom_return = True
         if not pMemoryRequirements:
             pMemoryRequirements = ffi.new('VkMemoryRequirements2KHR*')
+            custom_return = False
 
         result = _callApi(fn, device,pInfo,pMemoryRequirements)
+
+        if custom_return:
+            return pMemoryRequirements
 
         return pMemoryRequirements[0]
 
@@ -9312,12 +9844,17 @@ def _wrap_vkGetRayTracingShaderGroupHandlesNV(fn):
             ,pData=None
             ,):
 
+        custom_return = True
         if not pData:
             pData = ffi.new('uint64_t*')
+            custom_return = False
 
         result = _callApi(fn, device,pipeline,firstGroup,groupCount,dataSize,pData)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pData
 
         return pData[0]
 
@@ -9332,12 +9869,17 @@ def _wrap_vkGetAccelerationStructureHandleNV(fn):
             ,pData=None
             ,):
 
+        custom_return = True
         if not pData:
             pData = ffi.new('uint64_t*')
+            custom_return = False
 
         result = _callApi(fn, device,accelerationStructure,dataSize,pData)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pData
 
         return pData[0]
 
@@ -9354,12 +9896,17 @@ def _wrap_vkCreateRayTracingPipelinesNV(fn):
             ,pPipelines=None
             ,):
 
+        custom_return = True
         if not pPipelines:
             pPipelines = ffi.new('VkPipeline*')
+            custom_return = False
 
         result = _callApi(fn, device,pipelineCache,createInfoCount,pCreateInfos,pAllocator,pPipelines)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pPipelines
 
         return pPipelines[0]
 
@@ -9373,12 +9920,17 @@ def _wrap_vkGetImageDrmFormatModifierPropertiesEXT(fn):
             ,pProperties=None
             ,):
 
+        custom_return = True
         if not pProperties:
             pProperties = ffi.new('VkImageDrmFormatModifierPropertiesEXT*')
+            custom_return = False
 
         result = _callApi(fn, device,image,pProperties)
         if result != VK_SUCCESS:
             raise exception_codes[result]
+
+        if custom_return:
+            return pProperties
 
         return pProperties[0]
 
@@ -9391,10 +9943,15 @@ def _wrap_vkGetBufferDeviceAddressEXT(fn):
             ,pInfo=None
             ,):
 
+        custom_return = True
         if not pInfo:
             pInfo = ffi.new('VkBufferDeviceAddressInfoEXT*')
+            custom_return = False
 
         result = _callApi(fn, device,pInfo)
+
+        if custom_return:
+            return pInfo
 
         return pInfo[0]
 
