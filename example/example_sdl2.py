@@ -669,6 +669,9 @@ def draw_frame():
     present_create.pImageIndices[0] = image_index
     vkQueuePresentKHR(presentation_queue, present_create)
 
+    # Fix #55 but downgrade performance -1000FPS)
+    vkQueueWaitIdle(presentation_queue)
+
 
 # Main loop
 running = True
