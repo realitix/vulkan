@@ -331,6 +331,7 @@ def _callApi(fn, *args):
 def {{f.name}}({{params_def(f)}}):
     {% set rmember = f.return_member %}
 
+    custom_return = True
     if not {{rmember.name}}:
         {% if rmember.static_count %}
         {% set sc = rmember.static_count %}
@@ -338,12 +339,16 @@ def {{f.name}}({{params_def(f)}}):
         {% else %}
         {{rmember.name}} = ffi.new('{{rmember.type}}*')
         {% endif %}
+        custom_return = False
 
     result = _callApi({{fn_call}}, {{params_call(f)}})
     {% if f.return_result %}
     if result != VK_SUCCESS:
         raise exception_codes[result]
     {% endif %}
+
+    if custom_return:
+        return {{rmember.name}}
 
     {% if not rmember.static_count and not rmember.has_str %}
     return {{rmember.name}}[0]
