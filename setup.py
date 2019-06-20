@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='vulkan',
-    version='1.1.99.0',
+    version='1.1.99.1',
     description='Ultimate Python binding for Vulkan API',
     author='realitix',
     author_email='realitix@gmail.com',
