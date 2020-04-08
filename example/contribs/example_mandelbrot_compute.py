@@ -475,7 +475,11 @@ class ComputeApplication(object):
         )
 
         # Now, we finally create the compute pipeline.
-        self.__pipeline = vkCreateComputePipelines(self.__device, VK_NULL_HANDLE, 1, pipelineCreateInfo, None)
+        pipelines = vkCreateComputePipelines(self.__device, VK_NULL_HANDLE, 1, pipelineCreateInfo, None)
+        if len(pipelines) == 1:
+            self.__pipeline = pipelines[0]
+        else:
+            raise Exception("Could not create compute pipeline")
 
     def createCommandBuffer(self):
         # We are getting closer to the end. In order to send commands to the device(GPU),
