@@ -4,7 +4,6 @@
 # glfw version: https://github.com/FlorianRhiem/pyGLFW
 # tested with python 2 and 3 on Windows 10
 
-import ctypes
 import os
 
 from vulkan import *
@@ -220,11 +219,9 @@ class HelloTriangleApplication(object):
             raise Exception("failed to set up debug callback!")
 
     def __createSurface(self):
-        surface = ctypes.c_void_p(0)
-        # instance = ctypes.cast(int(ffi.cast('intptr_t', self.__instance)), ctypes.c_void_p)
-        instance = ctypes.cast(int(ffi.cast('uintptr_t', self.__instance)), ctypes.c_void_p)
-        glfw.create_window_surface(instance, self.__window, None, ctypes.byref(surface))
-        self.__surface = ffi.cast('VkSurfaceKHR', surface.value)
+        surface_ptr = ffi.new('VkSurfaceKHR[1]')
+        glfw.create_window_surface(self.__instance, self.__window, None, surface_ptr)
+        self.__surface = surface_ptr[0]
         if self.__surface is None:
             raise Exception("failed to create window surface!")
 
@@ -482,7 +479,7 @@ class HelloTriangleApplication(object):
             subpass=0
         )
 
-        self.__graphicsPipeline = vkCreateGraphicsPipelines(self.__device, VK_NULL_HANDLE, 1, pipelineInfo, None)
+        self.__graphicsPipeline = vkCreateGraphicsPipelines(self.__device, VK_NULL_HANDLE, 1, pipelineInfo, None)[0]
 
         vkDestroyShaderModule(self.__device, vertShaderModule, None)
         vkDestroyShaderModule(self.__device, fragShaderModule, None)
