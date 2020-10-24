@@ -1,6 +1,10 @@
 from setuptools import setup
 
 
+with open("README.md") as file:
+    long_description = file.read()
+
+
 setup(
     name='vulkan',
     version='1.1.99.1',
@@ -8,6 +12,8 @@ setup(
     author='realitix',
     author_email='realitix@gmail.com',
     packages=['vulkan'],
+    long_descripiton=long_description,
+    long_description_content_type="text/markdown",
     include_package_data=True,
     install_requires=['cffi>=1.10'],
     setup_requires=['cffi>=1.10'],
