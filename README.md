@@ -76,6 +76,8 @@ Known errors :
 
 `vulkan.VkErrorExtensionNotPresent` means your have installed the Vulkan SDK but your driver doesn't support it.
 
+`pip install vulkan` fails on Windows 10: Try `pip install --upgrade pip setuptools wheel` before installing `vulkan`.
+
 
 ### API
 
