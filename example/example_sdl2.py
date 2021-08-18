@@ -51,7 +51,10 @@ layers = vkEnumerateInstanceLayerProperties()
 layers = [l.layerName for l in layers]
 print("availables layers: %s\n" % layers)
 
-layers = ['VK_LAYER_LUNARG_standard_validation']
+if 'VK_LAYER_KHRONOS_validation' in layers:
+    layers = ['VK_LAYER_KHRONOS_validation']
+else:
+    layers = ['VK_LAYER_LUNARG_standard_validation']
 extensions = ['VK_KHR_surface', 'VK_EXT_debug_report']
 
 if wm_info.subsystem == sdl2.SDL_SYSWM_WINDOWS:
