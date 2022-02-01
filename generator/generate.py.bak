@@ -554,7 +554,7 @@ def generate_cdef():
 
     command = ['cpp',
                '-std=c99',
-               '-P',
+               '-Path',
                '-nostdinc',
                '-I' + include_libc_path,
                '-I' + include_vulkan_path,
