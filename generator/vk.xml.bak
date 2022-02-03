@@ -6732,25 +6732,25 @@ typedef void <name>CAMetalLayer</name>;
         <enum type="uint32_t" value="256"       name="VK_MAX_DESCRIPTION_SIZE"/>
         <enum type="uint32_t" value="32"        name="VK_MAX_MEMORY_TYPES"/>
         <enum type="uint32_t" value="16"        name="VK_MAX_MEMORY_HEAPS" comment="The maximum number of unique memory heaps, each of which supporting 1 or more memory types"/>
-        <enum type="float"    value="1000.0"    name="VK_LOD_CLAMP_NONE"/>
-        <enum type="uint32_t" value="(0)"       name="VK_REMAINING_MIP_LEVELS"/>
-        <enum type="uint32_t" value="(0)"       name="VK_REMAINING_ARRAY_LAYERS"/>
-        <enum type="uint64_t" value="(0 )"      name="VK_WHOLE_SIZE"/>
-        <enum type="uint32_t" value="(0)"       name="VK_ATTACHMENT_UNUSED"/>
+        <enum type="float"    value="1000.0f"   name="VK_LOD_CLAMP_NONE"/>
+        <enum type="uint32_t" value="(~0U)"     name="VK_REMAINING_MIP_LEVELS"/>
+        <enum type="uint32_t" value="(~0U)"     name="VK_REMAINING_ARRAY_LAYERS"/>
+        <enum type="uint64_t" value="(~0ULL)"   name="VK_WHOLE_SIZE"/>
+        <enum type="uint32_t" value="(~0U)"     name="VK_ATTACHMENT_UNUSED"/>
         <enum type="uint32_t" value="1"         name="VK_TRUE"/>
         <enum type="uint32_t" value="0"         name="VK_FALSE"/>
-        <enum type="uint32_t" value="(0)"       name="VK_QUEUE_FAMILY_IGNORED"/>
-        <enum type="uint32_t" value="(1)"       name="VK_QUEUE_FAMILY_EXTERNAL"/>
+        <enum type="uint32_t" value="(~0U)"     name="VK_QUEUE_FAMILY_IGNORED"/>
+        <enum type="uint32_t" value="(~0U-1)"   name="VK_QUEUE_FAMILY_EXTERNAL"/>
         <enum                                   name="VK_QUEUE_FAMILY_EXTERNAL_KHR" alias="VK_QUEUE_FAMILY_EXTERNAL"/>
-        <enum type="uint32_t" value="(2)"       name="VK_QUEUE_FAMILY_FOREIGN_EXT"/>
-        <enum type="uint32_t" value="(0)"       name="VK_SUBPASS_EXTERNAL"/>
+        <enum type="uint32_t" value="(~0U-2)"   name="VK_QUEUE_FAMILY_FOREIGN_EXT"/>
+        <enum type="uint32_t" value="(~0U)"     name="VK_SUBPASS_EXTERNAL"/>
         <enum type="uint32_t" value="32"        name="VK_MAX_DEVICE_GROUP_SIZE"/>
         <enum                                   name="VK_MAX_DEVICE_GROUP_SIZE_KHR" alias="VK_MAX_DEVICE_GROUP_SIZE"/>
         <enum type="uint32_t" value="256"       name="VK_MAX_DRIVER_NAME_SIZE"/>
         <enum                                   name="VK_MAX_DRIVER_NAME_SIZE_KHR" alias="VK_MAX_DRIVER_NAME_SIZE"/>
         <enum type="uint32_t" value="256"       name="VK_MAX_DRIVER_INFO_SIZE"/>
         <enum                                   name="VK_MAX_DRIVER_INFO_SIZE_KHR" alias="VK_MAX_DRIVER_INFO_SIZE"/>
-        <enum type="uint32_t" value="(0)"     name="VK_SHADER_UNUSED_KHR"/>
+        <enum type="uint32_t" value="(~0U)"     name="VK_SHADER_UNUSED_KHR"/>
         <enum                                   name="VK_SHADER_UNUSED_NV" alias="VK_SHADER_UNUSED_KHR"/>
         <enum type="uint32_t" value="16"        name="VK_MAX_GLOBAL_PRIORITY_SIZE_KHR"/>
         <enum                                   name="VK_MAX_GLOBAL_PRIORITY_SIZE_EXT" alias="VK_MAX_GLOBAL_PRIORITY_SIZE_KHR"/>
