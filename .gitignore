@@ -90,4 +90,4 @@ ENV/
 vulkan/_vulkancache.py
 
 # Python bak file
-generate/*.bak
+generator/*.bak
