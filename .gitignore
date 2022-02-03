@@ -88,3 +88,6 @@ ENV/
 # Rope project settings
 .ropeproject
 vulkan/_vulkancache.py
+
+# Python bak file
+generate/*.bak
