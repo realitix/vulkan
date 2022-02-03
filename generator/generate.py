@@ -4,6 +4,7 @@ import subprocess
 import inflection
 import jinja2
 import xmltodict
+import json
 
 
 HERE = path.dirname(path.abspath(__file__))
@@ -175,12 +176,17 @@ def model_enums(vk, model):
             if not 'enum' in require:
                 continue
             for enum in require['enum']:
-                if not '@extnumber' in enum:
+                if "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_FEATURES" in str(enum):
+                    print("enum " + json.dumps(enum, indent=4))
+                if '@extnumber' in enum:
+                    n1 = int(enum['@extnumber'])
+                    n2 = int(enum['@offset'])
+                    extend = enum['@extends']
+                    val = ext_base + (n1 - 1) * ext_blocksize + n2
+                elif '@value' in enum:
+                    val = int(enum['@value'])
+                else:
                     continue
-                n1 = int(enum['@extnumber'])
-                n2 = int(enum['@offset'])
-                extend = enum['@extends']
-                val = ext_base + (n1 - 1) * ext_blocksize + n2
                 model['enums'][extend][enum['@name']] = val
 
 
@@ -202,7 +208,6 @@ def model_macros(vk, model):
                       '(~0U-1)': 0xfffffffe,
                       '(~0U-2)': 0xfffffffd}
 
-    import json
     for macro in macros[0]['enum']:
         if '@name' not in macro or '@value' not in macro:
             continue
@@ -344,9 +349,11 @@ def model_functions(vk, model):
                 for command in req['command']:
                     cn = command['@name']
                     names.add(cn)
+                    if "vkCmdDrawIndirectCount" in cn:
+                        print(cn)
                     
                     # add alias command too
-                    for alias, n in model['alias'].items():
+                    for n, alias in model['alias'].items():
                         if n == cn:
                             names.add(alias)
         return names
@@ -416,7 +423,11 @@ def model_functions(vk, model):
     model['extension_functions'] = []
     functions = [f for f in vk['registry']['commands']['command']]
     extension_function_names = get_vk_extension_functions()
-
+    for i in vk['registry']:
+        if "feature" in i:
+            print(json.dumps(i, indent = 4))
+    feature_functions = [f for f in ['command']]
+    
     for function in functions:
         if '@alias' in function:
             continue
@@ -469,7 +480,8 @@ def model_ext_functions(vk, model):
     model['ext_functions'] = {'instance': {}, 'device': {}}
 
     # invert the alias to better lookup
-    alias = {v: k for k, v in model['alias'].items()}
+    #alias = {v: k for k, v in model['alias'].items()}
+    alias = model['alias']
 
     for extension in get_extensions_filtered(vk):
         for req in extension['require']:
@@ -492,19 +504,25 @@ def model_alias(vk, model):
     # types
     for s in vk['registry']['types']['type']:
         if s.get('@category', None) == 'handle' and s.get('@alias'):
-            model['alias'][s['@alias']] = s['@name'] 
+            model['alias'][s['@name']] = s['@alias'] 
               
     # commands
     for c in vk['registry']['commands']['command']:
         if c.get('@alias'):
-            model['alias'][c['@alias']] = c['@name']
+            # multiple functions may map to the same alias
+            model['alias'][c['@name']] = c['@alias']
+                
 
 
-def init():
+def readXML():
     with open(path.join(HERE, 'vk.xml')) as f:
         xml = f.read()
-
-    return xmltodict.parse(xml, force_list=('enum', 'command', 'member'))
+    asdict = xmltodict.parse(xml, force_list=('enum', 'command', 'feature', 'member'))
+    
+    # Dictionary is easier to debug in json form
+    with open(path.join(HERE, 'vk.json'), 'w+') as f:
+        f.write(json.dumps(asdict, indent=4))
+    return asdict
 
 
 def get_extensions_filtered(vk):
@@ -526,7 +544,7 @@ def generate_py():
     """Generate the python output file"""
     model = {}
 
-    vk = init()
+    vk = readXML()
     format_vk(vk)
     model_alias(vk, model)
     model_typedefs(vk, model)

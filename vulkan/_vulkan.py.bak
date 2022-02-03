@@ -8,6 +8,11 @@ from vulkan._vulkancache import ffi
 _weakkey_dict = _weakref.WeakKeyDictionary()
 PY3 = sys.version_info >= (3, 0)
 
+def _wrap_vkCmdDrawIndirectCountKHR(fn):
+    return _wrap_vkCmdDrawIndirectCount(fn
+    
+def _wrap_vkCmdDrawIndexedIndirectCountKHR(fn):
+    return vkCmdDrawIndexedIndirectCount(fn)
 
 class ProcedureNotFoundError(Exception):
     pass
@@ -15942,8 +15947,8 @@ _instance_ext_funcs = {
     'vkCmdWriteAccelerationStructuresPropertiesNV':_wrap_vkCmdWriteAccelerationStructuresPropertiesNV,
     'vkCompileDeferredNV':_wrap_vkCompileDeferredNV,
     'vkGetDescriptorSetLayoutSupportKHR':_wrap_vkGetDescriptorSetLayoutSupport,
-    'vkCmdDrawIndirectCountKHR':_wrap_vkCmdDrawIndirectCount,
-    'vkCmdDrawIndexedIndirectCountKHR':_wrap_vkCmdDrawIndexedIndirectCount,
+    'vkCmdDrawIndirectCountKHR':_wrap_vkCmdDrawIndirectCountKHR,
+    'vkCmdDrawIndexedIndirectCountKHR':_wrap_vkCmdDrawIndexedIndirectCountKHR,
     'vkGetMemoryHostPointerPropertiesEXT':_wrap_vkGetMemoryHostPointerPropertiesEXT,
     'vkCmdWriteBufferMarkerAMD':_wrap_vkCmdWriteBufferMarkerAMD,
     'vkGetPhysicalDeviceCalibrateableTimeDomainsEXT':_wrap_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT,
@@ -15978,7 +15983,7 @@ _instance_ext_funcs = {
     'vkAcquireFullScreenExclusiveModeEXT':_wrap_vkAcquireFullScreenExclusiveModeEXT,
     'vkReleaseFullScreenExclusiveModeEXT':_wrap_vkReleaseFullScreenExclusiveModeEXT,
     'vkGetDeviceGroupSurfacePresentModes2EXT':_wrap_vkGetDeviceGroupSurfacePresentModes2EXT,
-    'vkGetBufferDeviceAddressKHR':_wrap_vkGetBufferDeviceAddress,
+    'vkGetBufferDeviceAddressKHR':_wrap_vkGetBufferDeviceAddressKHR,
     'vkGetBufferOpaqueCaptureAddressKHR':_wrap_vkGetBufferOpaqueCaptureAddress,
     'vkGetDeviceMemoryOpaqueCaptureAddressKHR':_wrap_vkGetDeviceMemoryOpaqueCaptureAddress,
     'vkCmdSetLineStippleEXT':_wrap_vkCmdSetLineStippleEXT,
@@ -16208,8 +16213,8 @@ _device_ext_funcs = {
     'vkCmdWriteAccelerationStructuresPropertiesNV':_wrap_vkCmdWriteAccelerationStructuresPropertiesNV,
     'vkCompileDeferredNV':_wrap_vkCompileDeferredNV,
     'vkGetDescriptorSetLayoutSupportKHR':_wrap_vkGetDescriptorSetLayoutSupport,
-    'vkCmdDrawIndirectCountKHR':_wrap_vkCmdDrawIndirectCount,
-    'vkCmdDrawIndexedIndirectCountKHR':_wrap_vkCmdDrawIndexedIndirectCount,
+    'vkCmdDrawIndirectCountKHR':_wrap_vkCmdDrawIndirectCountKHR,
+    'vkCmdDrawIndexedIndirectCountKHR':_wrap_vkCmdDrawIndexedIndirectCountKHR,
     'vkGetMemoryHostPointerPropertiesEXT':_wrap_vkGetMemoryHostPointerPropertiesEXT,
     'vkCmdWriteBufferMarkerAMD':_wrap_vkCmdWriteBufferMarkerAMD,
     'vkGetPhysicalDeviceCalibrateableTimeDomainsEXT':_wrap_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT,
@@ -16244,7 +16249,7 @@ _device_ext_funcs = {
     'vkAcquireFullScreenExclusiveModeEXT':_wrap_vkAcquireFullScreenExclusiveModeEXT,
     'vkReleaseFullScreenExclusiveModeEXT':_wrap_vkReleaseFullScreenExclusiveModeEXT,
     'vkGetDeviceGroupSurfacePresentModes2EXT':_wrap_vkGetDeviceGroupSurfacePresentModes2EXT,
-    'vkGetBufferDeviceAddressKHR':_wrap_vkGetBufferDeviceAddress,
+    'vkGetBufferDeviceAddressKHR':_wrap_vkGetBufferDeviceAddressKHR,
     'vkGetBufferOpaqueCaptureAddressKHR':_wrap_vkGetBufferOpaqueCaptureAddress,
     'vkGetDeviceMemoryOpaqueCaptureAddressKHR':_wrap_vkGetDeviceMemoryOpaqueCaptureAddress,
     'vkCmdSetLineStippleEXT':_wrap_vkCmdSetLineStippleEXT,
@@ -16356,86 +16361,83 @@ def vkMapMemory(device, memory, offset, size, flags):
     return ffi.buffer(ppData[0], size)
 
 
-#VkDescriptorUpdateTemplate = VkDescriptorUpdateTemplateKHR
-#VkSamplerYcbcrConversion = VkSamplerYcbcrConversionKHR
-#VkPrivateDataSlot = VkPrivateDataSlotEXT
-#vkResetQueryPool = vkResetQueryPoolEXT
-#vkGetPhysicalDeviceFeatures2 = vkGetPhysicalDeviceFeatures2KHR
-#vkGetPhysicalDeviceProperties2 = vkGetPhysicalDeviceProperties2KHR
-#vkGetPhysicalDeviceFormatProperties2 = vkGetPhysicalDeviceFormatProperties2KHR
-#vkGetPhysicalDeviceImageFormatProperties2 = vkGetPhysicalDeviceImageFormatProperties2KHR
-#vkGetPhysicalDeviceQueueFamilyProperties2 = vkGetPhysicalDeviceQueueFamilyProperties2KHR
-#vkGetPhysicalDeviceMemoryProperties2 = vkGetPhysicalDeviceMemoryProperties2KHR
-#vkGetPhysicalDeviceSparseImageFormatProperties2 = vkGetPhysicalDeviceSparseImageFormatProperties2KHR
-#vkTrimCommandPool = vkTrimCommandPoolKHR
-#vkGetPhysicalDeviceExternalBufferProperties = vkGetPhysicalDeviceExternalBufferPropertiesKHR
-#vkGetPhysicalDeviceExternalSemaphoreProperties = vkGetPhysicalDeviceExternalSemaphorePropertiesKHR
-#vkGetPhysicalDeviceExternalFenceProperties = vkGetPhysicalDeviceExternalFencePropertiesKHR
-#vkEnumeratePhysicalDeviceGroups = vkEnumeratePhysicalDeviceGroupsKHR
-#vkGetDeviceGroupPeerMemoryFeatures = vkGetDeviceGroupPeerMemoryFeaturesKHR
-#vkBindBufferMemory2 = vkBindBufferMemory2KHR
-#vkBindImageMemory2 = vkBindImageMemory2KHR
-#vkCmdSetDeviceMask = vkCmdSetDeviceMaskKHR
-#vkCmdDispatchBase = vkCmdDispatchBaseKHR
-#vkCreateDescriptorUpdateTemplate = vkCreateDescriptorUpdateTemplateKHR
-#vkDestroyDescriptorUpdateTemplate = vkDestroyDescriptorUpdateTemplateKHR
-#vkUpdateDescriptorSetWithTemplate = vkUpdateDescriptorSetWithTemplateKHR
-#vkGetBufferMemoryRequirements2 = vkGetBufferMemoryRequirements2KHR
-#vkGetImageMemoryRequirements2 = vkGetImageMemoryRequirements2KHR
-#vkGetImageSparseMemoryRequirements2 = vkGetImageSparseMemoryRequirements2KHR
-#vkGetDeviceBufferMemoryRequirements = vkGetDeviceBufferMemoryRequirementsKHR
-#vkGetDeviceImageMemoryRequirements = vkGetDeviceImageMemoryRequirementsKHR
-#vkGetDeviceImageSparseMemoryRequirements = vkGetDeviceImageSparseMemoryRequirementsKHR
-#vkCreateSamplerYcbcrConversion = vkCreateSamplerYcbcrConversionKHR
-#vkDestroySamplerYcbcrConversion = vkDestroySamplerYcbcrConversionKHR
-#vkGetDescriptorSetLayoutSupport = vkGetDescriptorSetLayoutSupportKHR
-#vkCreateRenderPass2 = vkCreateRenderPass2KHR
-#vkCmdBeginRenderPass2 = vkCmdBeginRenderPass2KHR
-#vkCmdNextSubpass2 = vkCmdNextSubpass2KHR
-#vkCmdEndRenderPass2 = vkCmdEndRenderPass2KHR
-#vkGetSemaphoreCounterValue = vkGetSemaphoreCounterValueKHR
-#vkWaitSemaphores = vkWaitSemaphoresKHR
-#vkSignalSemaphore = vkSignalSemaphoreKHR
-#vkCmdDrawIndirectCount = vkCmdDrawIndirectCountKHR
-#vkCmdDrawIndirectCount = vkCmdDrawIndirectCountAMD
-#vkCmdDrawIndexedIndirectCount = vkCmdDrawIndexedIndirectCountKHR
-#vkCmdDrawIndexedIndirectCount = vkCmdDrawIndexedIndirectCountAMD
-#vkGetRayTracingShaderGroupHandlesKHR = vkGetRayTracingShaderGroupHandlesNV
-#vkGetBufferOpaqueCaptureAddress = vkGetBufferOpaqueCaptureAddressKHR
-#vkGetBufferDeviceAddress = vkGetBufferDeviceAddressKHR
-#vkGetBufferDeviceAddress = vkGetBufferDeviceAddressEXT
-#vkGetDeviceMemoryOpaqueCaptureAddress = vkGetDeviceMemoryOpaqueCaptureAddressKHR
-#vkGetPhysicalDeviceToolProperties = vkGetPhysicalDeviceToolPropertiesEXT
-#vkCmdSetCullMode = vkCmdSetCullModeEXT
-#vkCmdSetFrontFace = vkCmdSetFrontFaceEXT
-#vkCmdSetPrimitiveTopology = vkCmdSetPrimitiveTopologyEXT
-#vkCmdSetViewportWithCount = vkCmdSetViewportWithCountEXT
-#vkCmdSetScissorWithCount = vkCmdSetScissorWithCountEXT
-#vkCmdBindVertexBuffers2 = vkCmdBindVertexBuffers2EXT
-#vkCmdSetDepthTestEnable = vkCmdSetDepthTestEnableEXT
-#vkCmdSetDepthWriteEnable = vkCmdSetDepthWriteEnableEXT
-#vkCmdSetDepthCompareOp = vkCmdSetDepthCompareOpEXT
-#vkCmdSetDepthBoundsTestEnable = vkCmdSetDepthBoundsTestEnableEXT
-#vkCmdSetStencilTestEnable = vkCmdSetStencilTestEnableEXT
-#vkCmdSetStencilOp = vkCmdSetStencilOpEXT
-#vkCmdSetRasterizerDiscardEnable = vkCmdSetRasterizerDiscardEnableEXT
-#vkCmdSetDepthBiasEnable = vkCmdSetDepthBiasEnableEXT
-#vkCmdSetPrimitiveRestartEnable = vkCmdSetPrimitiveRestartEnableEXT
-#vkCreatePrivateDataSlot = vkCreatePrivateDataSlotEXT
-#vkDestroyPrivateDataSlot = vkDestroyPrivateDataSlotEXT
-#vkSetPrivateData = vkSetPrivateDataEXT
-#vkGetPrivateData = vkGetPrivateDataEXT
-#vkCmdCopyBuffer2 = vkCmdCopyBuffer2KHR
-#vkCmdCopyImage2 = vkCmdCopyImage2KHR
-#vkCmdBlitImage2 = vkCmdBlitImage2KHR
-#vkCmdCopyBufferToImage2 = vkCmdCopyBufferToImage2KHR
-#vkCmdCopyImageToBuffer2 = vkCmdCopyImageToBuffer2KHR
-#vkCmdResolveImage2 = vkCmdResolveImage2KHR
-#vkCmdSetEvent2 = vkCmdSetEvent2KHR
-#vkCmdResetEvent2 = vkCmdResetEvent2KHR
-#vkCmdWaitEvents2 = vkCmdWaitEvents2KHR
-#vkCmdPipelineBarrier2 = vkCmdPipelineBarrier2KHR
-#vkQueueSubmit2 = vkQueueSubmit2KHR
-#vkCmdWriteTimestamp2 = vkCmdWriteTimestamp2KHR
-#vkCmdBeginRendering = vkCmdBeginRenderingKHR
-#vkCmdEndRendering = vkCmdEndRenderingKHR
+#VkDescriptorUpdateTemplateKHR = VkDescriptorUpdateTemplate
+#VkSamplerYcbcrConversionKHR = VkSamplerYcbcrConversion
+#VkPrivateDataSlotEXT = VkPrivateDataSlot
+#vkResetQueryPoolEXT = vkResetQueryPool
+#vkGetPhysicalDeviceFeatures2KHR = vkGetPhysicalDeviceFeatures2
+#vkGetPhysicalDeviceProperties2KHR = vkGetPhysicalDeviceProperties2
+#vkGetPhysicalDeviceFormatProperties2KHR = vkGetPhysicalDeviceFormatProperties2
+#vkGetPhysicalDeviceImageFormatProperties2KHR = vkGetPhysicalDeviceImageFormatProperties2
+#vkGetPhysicalDeviceQueueFamilyProperties2KHR = vkGetPhysicalDeviceQueueFamilyProperties2
+#vkGetPhysicalDeviceMemoryProperties2KHR = vkGetPhysicalDeviceMemoryProperties2
+#vkGetPhysicalDeviceSparseImageFormatProperties2KHR = vkGetPhysicalDeviceSparseImageFormatProperties2
+#vkTrimCommandPoolKHR = vkTrimCommandPool
+#vkGetPhysicalDeviceExternalBufferPropertiesKHR = vkGetPhysicalDeviceExternalBufferProperties
+#vkGetPhysicalDeviceExternalSemaphorePropertiesKHR = vkGetPhysicalDeviceExternalSemaphoreProperties
+#vkGetPhysicalDeviceExternalFencePropertiesKHR = vkGetPhysicalDeviceExternalFenceProperties
+#vkEnumeratePhysicalDeviceGroupsKHR = vkEnumeratePhysicalDeviceGroups
+#vkGetDeviceGroupPeerMemoryFeaturesKHR = vkGetDeviceGroupPeerMemoryFeatures
+#vkBindBufferMemory2KHR = vkBindBufferMemory2
+#vkBindImageMemory2KHR = vkBindImageMemory2
+#vkCmdSetDeviceMaskKHR = vkCmdSetDeviceMask
+#vkCmdDispatchBaseKHR = vkCmdDispatchBase
+#vkCreateDescriptorUpdateTemplateKHR = vkCreateDescriptorUpdateTemplate
+#vkDestroyDescriptorUpdateTemplateKHR = vkDestroyDescriptorUpdateTemplate
+#vkUpdateDescriptorSetWithTemplateKHR = vkUpdateDescriptorSetWithTemplate
+#vkGetBufferMemoryRequirements2KHR = vkGetBufferMemoryRequirements2
+#vkGetImageMemoryRequirements2KHR = vkGetImageMemoryRequirements2
+#vkGetImageSparseMemoryRequirements2KHR = vkGetImageSparseMemoryRequirements2
+#vkGetDeviceBufferMemoryRequirementsKHR = vkGetDeviceBufferMemoryRequirements
+#vkGetDeviceImageMemoryRequirementsKHR = vkGetDeviceImageMemoryRequirements
+#vkGetDeviceImageSparseMemoryRequirementsKHR = vkGetDeviceImageSparseMemoryRequirements
+#vkCreateSamplerYcbcrConversionKHR = vkCreateSamplerYcbcrConversion
+#vkDestroySamplerYcbcrConversionKHR = vkDestroySamplerYcbcrConversion
+#vkGetDescriptorSetLayoutSupportKHR = vkGetDescriptorSetLayoutSupport
+#vkCreateRenderPass2KHR = vkCreateRenderPass2
+#vkCmdBeginRenderPass2KHR = vkCmdBeginRenderPass2
+#vkCmdNextSubpass2KHR = vkCmdNextSubpass2
+#vkCmdEndRenderPass2KHR = vkCmdEndRenderPass2
+#vkGetSemaphoreCounterValueKHR = vkGetSemaphoreCounterValue
+#vkWaitSemaphoresKHR = vkWaitSemaphores
+#vkSignalSemaphoreKHR = vkSignalSemaphore
+#vkCmdDrawIndirectCountAMD = vkCmdDrawIndirectCount
+#vkCmdDrawIndexedIndirectCountAMD = vkCmdDrawIndexedIndirectCount
+#vkGetRayTracingShaderGroupHandlesNV = vkGetRayTracingShaderGroupHandlesKHR
+#vkGetBufferOpaqueCaptureAddressKHR = vkGetBufferOpaqueCaptureAddress
+#vkGetBufferDeviceAddressEXT = vkGetBufferDeviceAddress
+#vkGetDeviceMemoryOpaqueCaptureAddressKHR = vkGetDeviceMemoryOpaqueCaptureAddress
+#vkGetPhysicalDeviceToolPropertiesEXT = vkGetPhysicalDeviceToolProperties
+#vkCmdSetCullModeEXT = vkCmdSetCullMode
+#vkCmdSetFrontFaceEXT = vkCmdSetFrontFace
+#vkCmdSetPrimitiveTopologyEXT = vkCmdSetPrimitiveTopology
+#vkCmdSetViewportWithCountEXT = vkCmdSetViewportWithCount
+#vkCmdSetScissorWithCountEXT = vkCmdSetScissorWithCount
+#vkCmdBindVertexBuffers2EXT = vkCmdBindVertexBuffers2
+#vkCmdSetDepthTestEnableEXT = vkCmdSetDepthTestEnable
+#vkCmdSetDepthWriteEnableEXT = vkCmdSetDepthWriteEnable
+#vkCmdSetDepthCompareOpEXT = vkCmdSetDepthCompareOp
+#vkCmdSetDepthBoundsTestEnableEXT = vkCmdSetDepthBoundsTestEnable
+#vkCmdSetStencilTestEnableEXT = vkCmdSetStencilTestEnable
+#vkCmdSetStencilOpEXT = vkCmdSetStencilOp
+#vkCmdSetRasterizerDiscardEnableEXT = vkCmdSetRasterizerDiscardEnable
+#vkCmdSetDepthBiasEnableEXT = vkCmdSetDepthBiasEnable
+#vkCmdSetPrimitiveRestartEnableEXT = vkCmdSetPrimitiveRestartEnable
+#vkCreatePrivateDataSlotEXT = vkCreatePrivateDataSlot
+#vkDestroyPrivateDataSlotEXT = vkDestroyPrivateDataSlot
+#vkSetPrivateDataEXT = vkSetPrivateData
+#vkGetPrivateDataEXT = vkGetPrivateData
+#vkCmdCopyBuffer2KHR = vkCmdCopyBuffer2
+#vkCmdCopyImage2KHR = vkCmdCopyImage2
+#vkCmdBlitImage2KHR = vkCmdBlitImage2
+#vkCmdCopyBufferToImage2KHR = vkCmdCopyBufferToImage2
+#vkCmdCopyImageToBuffer2KHR = vkCmdCopyImageToBuffer2
+#vkCmdResolveImage2KHR = vkCmdResolveImage2
+#vkCmdSetEvent2KHR = vkCmdSetEvent2
+#vkCmdResetEvent2KHR = vkCmdResetEvent2
+#vkCmdWaitEvents2KHR = vkCmdWaitEvents2
+#vkCmdPipelineBarrier2KHR = vkCmdPipelineBarrier2
+#vkQueueSubmit2KHR = vkQueueSubmit2
+#vkCmdWriteTimestamp2KHR = vkCmdWriteTimestamp2
+#vkCmdBeginRenderingKHR = vkCmdBeginRendering
+#vkCmdEndRenderingKHR = vkCmdEndRendering
