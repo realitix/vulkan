@@ -202,6 +202,7 @@ def model_macros(vk, model):
                       '(~0U-1)': 0xfffffffe,
                       '(~0U-2)': 0xfffffffd}
 
+    import json
     for macro in macros[0]['enum']:
         if '@name' not in macro or '@value' not in macro:
             continue
@@ -218,6 +219,10 @@ def model_macros(vk, model):
     for ext in get_extensions_filtered(vk):
         model['macros'][ext['@name']] = 1
         for req in ext['require']:
+            if 'enum' not in req.keys():
+                print("failure")
+                print(json.dumps(req, indent=4))
+                continue
             for enum in req['enum']:
                 ename = enum['@name']
                 evalue = parse_constant(enum, int(ext['@number']))
