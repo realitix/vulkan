@@ -36,6 +36,10 @@ It's a complete Vulkan wrapper, it keeps the original Vulkan API and try to limi
 *vulkan* is compatible with Python 2 and Python 3.
 
 ## How to install
+### julianfl0w dev branch
+Usage:  
+conda env create -f environment.yml  
+pip install .  
 
 ### Pip
 
