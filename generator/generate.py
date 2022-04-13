@@ -8,7 +8,7 @@ import json
 import sys
 
 HERE = path.dirname(path.abspath(__file__))
-HERE = "generator/"
+HERE = os.path.join(HERE, "generator/")
 VENDOR_EXTENSIONS = ['KHR', 'EXT', 'NV']
 
 CUSTOM_FUNCTIONS = ('vkGetInstanceProcAddr', 'vkGetDeviceProcAddr',
@@ -426,7 +426,6 @@ def model_functions(vk, model):
     for i in vk['registry']:
         if "feature" in i:
             print(json.dumps(i, indent = 4))
-    feature_functions = [f for f in ['command']]
     
     for function in functions:
         if '@alias' in function:
