@@ -6,9 +6,10 @@ import jinja2
 import xmltodict
 import json
 import sys
+import os 
 
 HERE = path.dirname(path.abspath(__file__))
-HERE = os.path.join(HERE, "generator/")
+#HERE = os.path.join(HERE, "generator/")
 VENDOR_EXTENSIONS = ['KHR', 'EXT', 'NV']
 
 CUSTOM_FUNCTIONS = ('vkGetInstanceProcAddr', 'vkGetDeviceProcAddr',
