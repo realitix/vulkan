@@ -5,7 +5,7 @@ import inflection
 import jinja2
 import xmltodict
 import json
-
+import sys
 
 HERE = path.dirname(path.abspath(__file__))
 HERE = "generator/"
@@ -571,7 +571,12 @@ def generate_py():
 def generate_cdef():
     """Generate the cdef output file"""
     include_libc_path = path.join(HERE, 'fake_libc_include')
-    include_vulkan_path = path.join(HERE, 'vulkan_include')
+    if "linux" in sys.platform.lower():
+        include_vulkan_path = path.join(HERE, 'vulkan_include_linux')  
+    else:
+        include_vulkan_path = path.join(HERE, 'vulkan_include_windows')
+    print(include_vulkan_path)
+
     out_file = path.join(HERE, path.pardir, 'vulkan', 'vulkan.cdef.h')
     header = path.join(include_vulkan_path, 'vulkan.h')
 
