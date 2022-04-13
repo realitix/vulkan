@@ -36,10 +36,6 @@ It's a complete Vulkan wrapper, it keeps the original Vulkan API and try to limi
 *vulkan* is compatible with Python 2 and Python 3.
 
 ## How to install
-### julianfl0w dev branch
-Usage:  
-conda env create -f environment.yml  
-pip install .  
 
 ### Pip
 
@@ -49,7 +45,7 @@ You can install directly *vulkan* with pip:
 pip install vulkan
 ```
 
-### Manual install
+### Linux Manual install 
 
 You can install it manually if you want the latest version:
 
@@ -57,6 +53,17 @@ You can install it manually if you want the latest version:
 git clone https://github.com/realitix/vulkan
 cd vulkan
 python setup.py install
+```
+
+### Windows Manual install 
+
+For now, Windows Install is based on Conda Environment:
+
+```
+git clone https://github.com/realitix/vulkan
+cd vulkan
+conda env create -f environment.yml  
+pip install .  
 ```
 
 
