@@ -572,40 +572,46 @@ def generate_py():
         out.write(env.get_template('vulkan.template.py').render(model=model))
 
 
-def generate_cdef():
+def generate_cdef(targetPlatform):
     """Generate the cdef output file"""
     include_libc_path = path.join(HERE, 'fake_libc_include')
-    if "linux" in sys.platform.lower():
-        include_vulkan_path = path.join(HERE, 'vulkan_include_linux')  
-    else:
-        include_vulkan_path = path.join(HERE, 'vulkan_include_windows')
-    print(include_vulkan_path)
 
-    out_file = path.join(HERE, path.pardir, 'vulkan', 'vulkan.cdef.h')
-    header = path.join(include_vulkan_path, 'vulkan.h')
+    for platform in ["windows", "linux"]:
+        include_vulkan_path = path.join(HERE, 'vulkan_include_' + platform)
+        print(include_vulkan_path)
+        
+        if platform == "linux":
+            out_file = path.join(HERE, path.pardir, 'vulkan', 'vulkan.cdef.h')
+        else:
+            out_file = path.join(HERE, path.pardir, 'vulkan', 'vulkan.cdef_windows.h')
 
-    command = ['cpp',
-               '-std=c99',
-               '-P',
-               '-nostdinc',
-               '-I' + include_libc_path,
-               '-I' + include_vulkan_path,
-               '-o' + out_file,
-               '-DVK_USE_PLATFORM_XCB_KHR',
-               '-DVK_USE_PLATFORM_WAYLAND_KHR',
-               '-DVK_USE_PLATFORM_ANDROID_KHR',
-               '-DVK_USE_PLATFORM_WIN32_KHR',
-               '-DVK_USE_PLATFORM_XLIB_KHR',
-               header]
-    print(" ".join(command))
-    subprocess.run(command, check=True)
+        header = path.join(include_vulkan_path, 'vulkan.h')
+        
+        command = ['cpp',
+                   '-std=c99',
+                   '-P',
+                   '-nostdinc',
+                   '-I' + include_libc_path,
+                   '-I' + include_vulkan_path,
+                   '-o' + out_file,
+                   '-DVK_USE_PLATFORM_XCB_KHR',
+                   '-DVK_USE_PLATFORM_WAYLAND_KHR',
+                   '-DVK_USE_PLATFORM_ANDROID_KHR',
+                   '-DVK_USE_PLATFORM_WIN32_KHR',
+                   '-DVK_USE_PLATFORM_XLIB_KHR',
+                   header]
+        print(" ".join(command))
+        subprocess.run(command, check=True)
 
 
-def main():
+def main(targetPlatform):
     """Main function to generate files"""
-    generate_cdef()
+    generate_cdef(targetPlatform)
     generate_py()
 
 
 if __name__ == '__main__':
-    main()
+    targetPlatform = "linux"
+    if len(sys.argv) > 1:
+        targetPlatform = sys.argv[1]
+    main(targetPlatform)
