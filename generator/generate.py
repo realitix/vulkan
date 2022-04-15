@@ -354,7 +354,7 @@ def model_functions(vk, model):
                         print(cn)
                     
                     # add alias command too
-                    for n, alias in model['alias'].items():
+                    for n, alias in model['name2alias'].items():
                         if n == cn:
                             names.add(alias)
         return names
@@ -480,8 +480,8 @@ def model_ext_functions(vk, model):
     model['ext_functions'] = {'instance': {}, 'device': {}}
 
     # invert the alias to better lookup
-    #alias = {v: k for k, v in model['alias'].items()}
-    alias = model['alias']
+    #alias = {v: k for k, v in model['name2alias'].items()}
+    alias = model['name2alias']
 
     for extension in get_extensions_filtered(vk):
         for req in extension['require']:
@@ -499,18 +499,18 @@ def model_ext_functions(vk, model):
 
 def model_alias(vk, model):
     """Fill the model with alias since V1"""
-    model['alias'] = {}
+    model['name2alias'] = {}
 
     # types
     for s in vk['registry']['types']['type']:
         if s.get('@category', None) == 'handle' and s.get('@alias'):
-            model['alias'][s['@name']] = s['@alias'] 
+            model['name2alias'][s['@name']] = s['@alias'] 
               
     # commands
     for c in vk['registry']['commands']['command']:
         if c.get('@alias'):
             # multiple functions may map to the same alias
-            model['alias'][c['@name']] = c['@alias']
+            model['name2alias'][c['@name']] = c['@alias']
                 
 
 
@@ -562,7 +562,11 @@ def generate_py():
         lstrip_blocks=True,
         loader=jinja2.FileSystemLoader(HERE)
     )
-
+		
+    out_file = path.join(HERE, 'model.json')
+    with open(out_file, 'w') as out:
+        out.write(json.dumps(model, indent=2))
+		
     out_file = path.join(HERE, path.pardir, 'vulkan', '_vulkan.py')
     with open(out_file, 'w') as out:
         out.write(env.get_template('vulkan.template.py').render(model=model))
