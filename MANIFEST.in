@@ -1,2 +1,4 @@
 include *.md
 recursive-include vulkan *.h
+recursive-include vulkan *.dll
+recursive-include vulkan *.so

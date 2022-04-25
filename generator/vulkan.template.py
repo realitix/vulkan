@@ -1,6 +1,7 @@
 import collections as _collections
 import weakref as _weakref
 import sys
+import os
 
 from vulkan._vulkancache import ffi
 
@@ -94,17 +95,25 @@ _cast_ptr = _cast_ptr3 if PY3 else _cast_ptr2
 
 
 # Load SDK
-_lib_names = ('libvulkan.so.1', 'vulkan-1.dll', 'libvulkan.dylib')
-for name in _lib_names:
-    try:
-        lib = ffi.dlopen(name)
-        break
-    except OSError:
-        pass
+here = os.path.dirname(os.path.abspath(__file__))
+if "nt" in os.name.lower() or "win" in os.platform.lower():
+	name = os.path.join(here, "vulkan-1.dll")
 else:
-    raise OSError('Cannot find Vulkan SDK version. Please ensure that it is '
-                  'installed and that the <sdk_root>/<version>/lib/ folder is '
-                  'in the library path')
+	name = os.path.join(here, "vulkan-1.so")
+	
+lib = ffi.dlopen(name)
+    
+#_lib_names = ('libvulkan.so.1', 'vulkan-1.dll', 'libvulkan.dylib')
+#for name in _lib_names:
+#    try:
+#        lib = ffi.dlopen(name)
+#        break
+#    except OSError:
+#        pass
+#else:
+#    raise OSError('Cannot find Vulkan SDK version. Please ensure that it is '
+#                  'installed and that the <sdk_root>/<version>/lib/ folder is '
+#                  'in the library path')
 
 
 {# Add enums #}

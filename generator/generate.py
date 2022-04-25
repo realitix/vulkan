@@ -437,6 +437,8 @@ def model_functions(vk, model):
 
         if fname in CUSTOM_FUNCTIONS:
             continue
+        if "vkGetBufferDeviceAddress" in fname: 
+            print(fname)
 
         if type(function['param']) is not list:
             function['param'] = [function['param']]
