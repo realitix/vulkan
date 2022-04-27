@@ -96,10 +96,10 @@ _cast_ptr = _cast_ptr3 if PY3 else _cast_ptr2
 
 # Load SDK
 here = os.path.dirname(os.path.abspath(__file__))
-if "nt" in os.name.lower() or "win" in os.platform.lower():
+if "nt" in os.name.lower() or "win" in os.name.lower():
 	name = os.path.join(here, "vulkan-1.dll")
 else:
-	name = os.path.join(here, "vulkan-1.so")
+	name = os.path.join(here, "libvulkan.so")
 	
 lib = ffi.dlopen(name)
     
