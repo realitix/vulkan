@@ -2,7 +2,7 @@ import collections as _collections
 import weakref as _weakref
 import sys
 import os
-
+import platform 
 from vulkan._vulkancache import ffi
 
 
@@ -96,7 +96,7 @@ _cast_ptr = _cast_ptr3 if PY3 else _cast_ptr2
 
 # Load SDK
 here = os.path.dirname(os.path.abspath(__file__))
-if "nt" in os.name.lower() or "win" in os.name.lower():
+if "nt" in platform.platform().lower() or "win" in platform.platform().lower():
 	name = os.path.join(here, "vulkan-1.dll")
 else:
 	name = os.path.join(here, "libvulkan.so")
