@@ -617,6 +617,9 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV = 1000300001,
     VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV = 1000314008,
     VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV = 1000314009,
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT = 1000320000,
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT = 1000320001,
+    VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT = 1000320002,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR = 1000323000,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV = 1000326000,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV = 1000326001,
@@ -667,13 +670,18 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_SCREEN_SURFACE_CREATE_INFO_QNX = 1000378000,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT = 1000381000,
     VK_STRUCTURE_TYPE_PIPELINE_COLOR_WRITE_CREATE_INFO_EXT = 1000381001,
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT = 1000382000,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT = 1000391000,
     VK_STRUCTURE_TYPE_IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT = 1000391001,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT = 1000392000,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT = 1000392001,
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT = 1000393000,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT = 1000411000,
     VK_STRUCTURE_TYPE_SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT = 1000411001,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT = 1000412000,
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE = 1000420000,
+    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_BINDING_REFERENCE_VALVE = 1000420001,
+    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE = 1000420002,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_QCOM = 1000425000,
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_QCOM = 1000425001,
     VK_STRUCTURE_TYPE_SUBPASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_QCOM = 1000425002,
@@ -1290,6 +1298,7 @@ typedef enum VkQueryType {
     VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR = 1000150001,
     VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV = 1000165000,
     VK_QUERY_TYPE_PERFORMANCE_QUERY_INTEL = 1000210000,
+    VK_QUERY_TYPE_PRIMITIVES_GENERATED_EXT = 1000382000,
     VK_QUERY_TYPE_MAX_ENUM = 0x7FFFFFFF
 } VkQueryType;
 typedef enum VkSharingMode {
@@ -1658,14 +1667,15 @@ typedef enum VkImageAspectFlagBits {
     VK_IMAGE_ASPECT_PLANE_0_BIT = 0x00000010,
     VK_IMAGE_ASPECT_PLANE_1_BIT = 0x00000020,
     VK_IMAGE_ASPECT_PLANE_2_BIT = 0x00000040,
+    VK_IMAGE_ASPECT_NONE = 0,
     VK_IMAGE_ASPECT_MEMORY_PLANE_0_BIT_EXT = 0x00000080,
     VK_IMAGE_ASPECT_MEMORY_PLANE_1_BIT_EXT = 0x00000100,
     VK_IMAGE_ASPECT_MEMORY_PLANE_2_BIT_EXT = 0x00000200,
     VK_IMAGE_ASPECT_MEMORY_PLANE_3_BIT_EXT = 0x00000400,
-    VK_IMAGE_ASPECT_NONE_KHR = 0,
     VK_IMAGE_ASPECT_PLANE_0_BIT_KHR = VK_IMAGE_ASPECT_PLANE_0_BIT,
     VK_IMAGE_ASPECT_PLANE_1_BIT_KHR = VK_IMAGE_ASPECT_PLANE_1_BIT,
     VK_IMAGE_ASPECT_PLANE_2_BIT_KHR = VK_IMAGE_ASPECT_PLANE_2_BIT,
+    VK_IMAGE_ASPECT_NONE_KHR = VK_IMAGE_ASPECT_NONE,
     VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM = 0x7FFFFFFF
 } VkImageAspectFlagBits;
 typedef VkFlags VkImageAspectFlags;
@@ -1727,6 +1737,7 @@ typedef enum VkImageCreateFlagBits {
     VK_IMAGE_CREATE_CORNER_SAMPLED_BIT_NV = 0x00002000,
     VK_IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT = 0x00001000,
     VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT = 0x00004000,
+    VK_IMAGE_CREATE_2D_VIEW_COMPATIBLE_BIT_EXT = 0x00020000,
     VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM = 0x00008000,
     VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR = VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT,
     VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT_KHR = VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT,
@@ -1764,6 +1775,10 @@ typedef enum VkImageUsageFlagBits {
     VK_IMAGE_USAGE_FLAG_BITS_MAX_ENUM = 0x7FFFFFFF
 } VkImageUsageFlagBits;
 typedef VkFlags VkImageUsageFlags;
+typedef enum VkInstanceCreateFlagBits {
+    VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR = 0x00000001,
+    VK_INSTANCE_CREATE_FLAG_BITS_MAX_ENUM = 0x7FFFFFFF
+} VkInstanceCreateFlagBits;
 typedef VkFlags VkInstanceCreateFlags;
 typedef enum VkMemoryHeapFlagBits {
     VK_MEMORY_HEAP_DEVICE_LOCAL_BIT = 0x00000001,
@@ -1962,6 +1977,8 @@ typedef enum VkPipelineCreateFlagBits {
     VK_PIPELINE_CREATE_CAPTURE_INTERNAL_REPRESENTATIONS_BIT_KHR = 0x00000080,
     VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV = 0x00040000,
     VK_PIPELINE_CREATE_LIBRARY_BIT_KHR = 0x00000800,
+    VK_PIPELINE_CREATE_RETAIN_LINK_TIME_OPTIMIZATION_INFO_BIT_EXT = 0x00800000,
+    VK_PIPELINE_CREATE_LINK_TIME_OPTIMIZATION_BIT_EXT = 0x00000400,
     VK_PIPELINE_CREATE_RAY_TRACING_ALLOW_MOTION_BIT_NV = 0x00100000,
     VK_PIPELINE_CREATE_DISPATCH_BASE = VK_PIPELINE_CREATE_DISPATCH_BASE_BIT,
     VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR = VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR,
@@ -2033,6 +2050,10 @@ typedef enum VkPipelineColorBlendStateCreateFlagBits {
 } VkPipelineColorBlendStateCreateFlagBits;
 typedef VkFlags VkPipelineColorBlendStateCreateFlags;
 typedef VkFlags VkPipelineDynamicStateCreateFlags;
+typedef enum VkPipelineLayoutCreateFlagBits {
+    VK_PIPELINE_LAYOUT_CREATE_INDEPENDENT_SETS_BIT_EXT = 0x00000002,
+    VK_PIPELINE_LAYOUT_CREATE_FLAG_BITS_MAX_ENUM = 0x7FFFFFFF
+} VkPipelineLayoutCreateFlagBits;
 typedef VkFlags VkPipelineLayoutCreateFlags;
 typedef VkFlags VkShaderStageFlags;
 typedef enum VkSamplerCreateFlagBits {
@@ -5373,9 +5394,6 @@ typedef enum VkToolPurposeFlagBits {
     VK_TOOL_PURPOSE_FLAG_BITS_MAX_ENUM = 0x7FFFFFFF
 } VkToolPurposeFlagBits;
 typedef VkFlags VkToolPurposeFlags;
-typedef enum VkPrivateDataSlotCreateFlagBits {
-    VK_PRIVATE_DATA_SLOT_CREATE_FLAG_BITS_MAX_ENUM = 0x7FFFFFFF
-} VkPrivateDataSlotCreateFlagBits;
 typedef VkFlags VkPrivateDataSlotCreateFlags;
 typedef VkFlags64 VkPipelineStageFlags2;
 typedef VkFlags64 VkPipelineStageFlagBits2;
@@ -10120,7 +10138,6 @@ typedef struct VkPhysicalDeviceCustomBorderColorFeaturesEXT {
 } VkPhysicalDeviceCustomBorderColorFeaturesEXT;
 typedef VkPrivateDataSlot VkPrivateDataSlotEXT;
 typedef VkPrivateDataSlotCreateFlags VkPrivateDataSlotCreateFlagsEXT;
-typedef VkPrivateDataSlotCreateFlagBits VkPrivateDataSlotCreateFlagBitsEXT;
 typedef VkPhysicalDevicePrivateDataFeatures VkPhysicalDevicePrivateDataFeaturesEXT;
 typedef VkDevicePrivateDataCreateInfo VkDevicePrivateDataCreateInfoEXT;
 typedef VkPrivateDataSlotCreateInfo VkPrivateDataSlotCreateInfoEXT;
@@ -10167,6 +10184,30 @@ typedef struct VkDeviceDiagnosticsConfigCreateInfoNV {
     const void* pNext;
     VkDeviceDiagnosticsConfigFlagsNV flags;
 } VkDeviceDiagnosticsConfigCreateInfoNV;
+typedef enum VkGraphicsPipelineLibraryFlagBitsEXT {
+    VK_GRAPHICS_PIPELINE_LIBRARY_VERTEX_INPUT_INTERFACE_BIT_EXT = 0x00000001,
+    VK_GRAPHICS_PIPELINE_LIBRARY_PRE_RASTERIZATION_SHADERS_BIT_EXT = 0x00000002,
+    VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT = 0x00000004,
+    VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT = 0x00000008,
+    VK_GRAPHICS_PIPELINE_LIBRARY_FLAG_BITS_MAX_ENUM_EXT = 0x7FFFFFFF
+} VkGraphicsPipelineLibraryFlagBitsEXT;
+typedef VkFlags VkGraphicsPipelineLibraryFlagsEXT;
+typedef struct VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT {
+    VkStructureType sType;
+    void* pNext;
+    VkBool32 graphicsPipelineLibrary;
+} VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT;
+typedef struct VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT {
+    VkStructureType sType;
+    void* pNext;
+    VkBool32 graphicsPipelineLibraryFastLinking;
+    VkBool32 graphicsPipelineLibraryIndependentInterpolationDecoration;
+} VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT;
+typedef struct VkGraphicsPipelineLibraryCreateInfoEXT {
+    VkStructureType sType;
+    void* pNext;
+    VkGraphicsPipelineLibraryFlagsEXT flags;
+} VkGraphicsPipelineLibraryCreateInfoEXT;
 typedef enum VkFragmentShadingRateTypeNV {
     VK_FRAGMENT_SHADING_RATE_TYPE_FRAGMENT_SIZE_NV = 0,
     VK_FRAGMENT_SHADING_RATE_TYPE_ENUMS_NV = 1,
@@ -10318,7 +10359,7 @@ typedef struct VkPhysicalDevice4444FormatsFeaturesEXT {
 } VkPhysicalDevice4444FormatsFeaturesEXT;
 typedef struct VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM {
     VkStructureType sType;
-    const void* pNext;
+    void* pNext;
     VkBool32 rasterizationOrderColorAttachmentAccess;
     VkBool32 rasterizationOrderDepthAttachmentAccess;
     VkBool32 rasterizationOrderStencilAttachmentAccess;
@@ -10500,6 +10541,13 @@ typedef void ( *PFN_vkCmdSetColorWriteEnableEXT)(VkCommandBuffer commandBuffer, 
     VkCommandBuffer commandBuffer,
     uint32_t attachmentCount,
     const VkBool32* pColorWriteEnables);
+typedef struct VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT {
+    VkStructureType sType;
+    void* pNext;
+    VkBool32 primitivesGeneratedQuery;
+    VkBool32 primitivesGeneratedQueryWithRasterizerDiscard;
+    VkBool32 primitivesGeneratedQueryWithNonZeroStreams;
+} VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT;
 typedef VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT;
 typedef VkQueueFamilyGlobalPriorityPropertiesKHR VkQueueFamilyGlobalPriorityPropertiesEXT;
 typedef struct VkPhysicalDeviceImageViewMinLodFeaturesEXT {
@@ -10548,6 +10596,12 @@ typedef void ( *PFN_vkCmdDrawMultiIndexedEXT)(VkCommandBuffer commandBuffer, uin
     uint32_t firstInstance,
     uint32_t stride,
     const int32_t* pVertexOffset);
+typedef struct VkPhysicalDeviceImage2DViewOf3DFeaturesEXT {
+    VkStructureType sType;
+    void* pNext;
+    VkBool32 image2DViewOf3D;
+    VkBool32 sampler2DViewOf3D;
+} VkPhysicalDeviceImage2DViewOf3DFeaturesEXT;
 typedef struct VkPhysicalDeviceBorderColorSwizzleFeaturesEXT {
     VkStructureType sType;
     void* pNext;
@@ -10570,6 +10624,33 @@ typedef void ( *PFN_vkSetDeviceMemoryPriorityEXT)(VkDevice device, VkDeviceMemor
     VkDevice device,
     VkDeviceMemory memory,
     float priority);
+typedef struct VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE {
+    VkStructureType sType;
+    void* pNext;
+    VkBool32 descriptorSetHostMapping;
+} VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE;
+typedef struct VkDescriptorSetBindingReferenceVALVE {
+    VkStructureType sType;
+    const void* pNext;
+    VkDescriptorSetLayout descriptorSetLayout;
+    uint32_t binding;
+} VkDescriptorSetBindingReferenceVALVE;
+typedef struct VkDescriptorSetLayoutHostMappingInfoVALVE {
+    VkStructureType sType;
+    void* pNext;
+    size_t descriptorOffset;
+    uint32_t descriptorSize;
+} VkDescriptorSetLayoutHostMappingInfoVALVE;
+typedef void ( *PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE)(VkDevice device, const VkDescriptorSetBindingReferenceVALVE* pBindingReference, VkDescriptorSetLayoutHostMappingInfoVALVE* pHostMapping);
+typedef void ( *PFN_vkGetDescriptorSetHostMappingVALVE)(VkDevice device, VkDescriptorSet descriptorSet, void** ppData);
+ void vkGetDescriptorSetLayoutHostMappingInfoVALVE(
+    VkDevice device,
+    const VkDescriptorSetBindingReferenceVALVE* pBindingReference,
+    VkDescriptorSetLayoutHostMappingInfoVALVE* pHostMapping);
+ void vkGetDescriptorSetHostMappingVALVE(
+    VkDevice device,
+    VkDescriptorSet descriptorSet,
+    void** ppData);
 typedef struct VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM {
     VkStructureType sType;
     void* pNext;
