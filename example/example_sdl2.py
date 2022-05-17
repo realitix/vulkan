@@ -53,8 +53,10 @@ print("availables layers: %s\n" % layers)
 
 if 'VK_LAYER_KHRONOS_validation' in layers:
     layers = ['VK_LAYER_KHRONOS_validation']
-else:
+elif 'VK_LAYER_LUNARG_standard_validation' in layers:
     layers = ['VK_LAYER_LUNARG_standard_validation']
+else:
+    layers = []
 extensions = ['VK_KHR_surface', 'VK_EXT_debug_report']
 
 if wm_info.subsystem == sdl2.SDL_SYSWM_WINDOWS:
