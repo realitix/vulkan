@@ -57,7 +57,7 @@ python setup.py install
 
 ### Windows Manual install 
 
-For now, Windows Install is based on Conda Environment:
+Windows Install is based on Conda Environment:
 
 ```
 git clone https://github.com/realitix/vulkan

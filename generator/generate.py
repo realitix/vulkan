@@ -9,7 +9,6 @@ import sys
 import os 
 
 HERE = path.dirname(path.abspath(__file__))
-#HERE = os.path.join(HERE, "generator/")
 VENDOR_EXTENSIONS = ['KHR', 'EXT', 'NV']
 
 CUSTOM_FUNCTIONS = ('vkGetInstanceProcAddr', 'vkGetDeviceProcAddr',
@@ -350,8 +349,6 @@ def model_functions(vk, model):
                 for command in req['command']:
                     cn = command['@name']
                     names.add(cn)
-                    if "vkCmdDrawIndirectCount" in cn:
-                        print(cn)
                     
                     # add alias command too
                     for n, alias in model['name2alias'].items():
@@ -424,10 +421,7 @@ def model_functions(vk, model):
     model['extension_functions'] = []
     functions = [f for f in vk['registry']['commands']['command']]
     extension_function_names = get_vk_extension_functions()
-    for i in vk['registry']:
-        if "feature" in i:
-            print(json.dumps(i, indent = 4))
-    
+
     for function in functions:
         if '@alias' in function:
             continue
@@ -437,8 +431,6 @@ def model_functions(vk, model):
 
         if fname in CUSTOM_FUNCTIONS:
             continue
-        if "vkGetBufferDeviceAddress" in fname: 
-            print(fname)
 
         if type(function['param']) is not list:
             function['param'] = [function['param']]
@@ -482,7 +474,6 @@ def model_ext_functions(vk, model):
     model['ext_functions'] = {'instance': {}, 'device': {}}
 
     # invert the alias to better lookup
-    #alias = {v: k for k, v in model['name2alias'].items()}
     alias = model['name2alias']
 
     for extension in get_extensions_filtered(vk):
@@ -516,7 +507,7 @@ def model_alias(vk, model):
                 
 
 
-def readXML():
+def read_XML():
     with open(path.join(HERE, 'vk.xml')) as f:
         xml = f.read()
     asdict = xmltodict.parse(xml, force_list=('enum', 'command', 'feature', 'member'))
@@ -546,7 +537,7 @@ def generate_py():
     """Generate the python output file"""
     model = {}
 
-    vk = readXML()
+    vk = read_XML()
     format_vk(vk)
     model_alias(vk, model)
     model_typedefs(vk, model)
@@ -574,7 +565,7 @@ def generate_py():
         out.write(env.get_template('vulkan.template.py').render(model=model))
 
 
-def generate_cdef(targetPlatform):
+def generate_cdef(target_platform):
     """Generate the cdef output file"""
     include_libc_path = path.join(HERE, 'fake_libc_include')
 
@@ -606,14 +597,14 @@ def generate_cdef(targetPlatform):
         subprocess.run(command, check=True)
 
 
-def main(targetPlatform):
+def main(target_platform):
     """Main function to generate files"""
-    generate_cdef(targetPlatform)
+    generate_cdef(target_platform)
     generate_py()
 
 
 if __name__ == '__main__':
-    targetPlatform = "linux"
+    target_platform = "linux"
     if len(sys.argv) > 1:
-        targetPlatform = sys.argv[1]
-    main(targetPlatform)
+        target_platform = sys.argv[1]
+    main(target_platform)

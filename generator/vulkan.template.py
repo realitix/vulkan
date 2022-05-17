@@ -103,19 +103,6 @@ else:
 	
 lib = ffi.dlopen(name)
     
-#_lib_names = ('libvulkan.so.1', 'vulkan-1.dll', 'libvulkan.dylib')
-#for name in _lib_names:
-#    try:
-#        lib = ffi.dlopen(name)
-#        break
-#    except OSError:
-#        pass
-#else:
-#    raise OSError('Cannot find Vulkan SDK version. Please ensure that it is '
-#                  'installed and that the <sdk_root>/<version>/lib/ folder is '
-#                  'in the library path')
-
-
 {# Add enums #}
 {% for _, enums in model.enums.items() %}
 {% for name, value in enums.items() %}
