@@ -7,7 +7,7 @@ import xmltodict
 
 
 HERE = path.dirname(path.abspath(__file__))
-VENDOR_EXTENSIONS = ['KHR', 'EXT', 'NV']
+VENDOR_EXTENSIONS = ['KHR', 'EXT', 'NV', 'AMD']
 
 CUSTOM_FUNCTIONS = ('vkGetInstanceProcAddr', 'vkGetDeviceProcAddr',
                     'vkMapMemory', 'vkGetPipelineCacheData')
@@ -174,13 +174,17 @@ def model_enums(vk, model):
             if not 'enum' in require:
                 continue
             for enum in require['enum']:
-                if not '@extnumber' in enum:
-                    continue
-                n1 = int(enum['@extnumber'])
-                n2 = int(enum['@offset'])
-                extend = enum['@extends']
-                val = ext_base + (n1 - 1) * ext_blocksize + n2
-                model['enums'][extend][enum['@name']] = val
+                # If extension enum
+                if '@extnumber' in enum:
+                    n1 = int(enum['@extnumber'])
+                    n2 = int(enum['@offset'])
+                    extend = enum['@extends']
+                    val = ext_base + (n1 - 1) * ext_blocksize + n2
+                    model['enums'][extend][enum['@name']] = val
+                # If reference enum
+                elif '@extends' in enum and '@value' in enum:
+                    extend = enum['@extends']
+                    model['enums'][extend][enum['@name']] = int(enum['@value'])
 
 
 def model_macros(vk, model):
@@ -196,10 +200,13 @@ def model_macros(vk, model):
 
     # TODO: Check theses values
     special_values = {'1000.0f': '1000.0',
+                      '1000.0F': '1000.0',
                       '(~0U)': 0xffffffff,
                       '(~0ULL)': -1,
                       '(~0U-1)': 0xfffffffe,
-                      '(~0U-2)': 0xfffffffd}
+                      '(~1U)': 0xfffffffe,
+                      '(~0U-2)': 0xfffffffd,
+                      '(~2U)': 0xfffffffd}
 
     for macro in macros[0]['enum']:
         if '@name' not in macro or '@value' not in macro:
@@ -217,6 +224,8 @@ def model_macros(vk, model):
     for ext in get_extensions_filtered(vk):
         model['macros'][ext['@name']] = 1
         for req in ext['require']:
+            if not 'enum' in req.keys():
+                continue
             for enum in req['enum']:
                 ename = enum['@name']
                 evalue = parse_constant(enum, int(ext['@number']))
@@ -340,8 +349,8 @@ def model_functions(vk, model):
                     names.add(cn)
                     
                     # add alias command too
-                    for alias, n in model['alias'].items():
-                        if n == cn:
+                    for n, alias in model['alias'].items():
+                        if cn == n:
                             names.add(alias)
         return names
 
@@ -382,6 +391,9 @@ def model_functions(vk, model):
             static_count = member['@len']
             if '::' in static_count:
                 lens = member['@len'].split('::')
+                static_count = lens[0]+'.'+lens[1]
+            elif '->' in static_count:
+                lens = member['@len'].split('->')
                 static_count = lens[0]+'.'+lens[1]
 
         # see vkGetRayTracingShaderGroupHandlesNV for exemple
@@ -462,9 +474,6 @@ def model_ext_functions(vk, model):
     """Fill the model with extensions functions"""
     model['ext_functions'] = {'instance': {}, 'device': {}}
 
-    # invert the alias to better lookup
-    alias = {v: k for k, v in model['alias'].items()}
-
     for extension in get_extensions_filtered(vk):
         for req in extension['require']:
             if not req.get('command'):
@@ -473,8 +482,8 @@ def model_ext_functions(vk, model):
             ext_type = extension['@type']
             for x in req['command']:
                 name = x['@name']
-                if name in alias.keys():
-                    model['ext_functions'][ext_type][name] = alias[name]
+                if name in model['alias']:
+                    model['ext_functions'][ext_type][name] = model['alias'][name]
                 else:
                     model['ext_functions'][ext_type][name] = name
 
@@ -486,12 +495,12 @@ def model_alias(vk, model):
     # types
     for s in vk['registry']['types']['type']:
         if s.get('@category', None) == 'handle' and s.get('@alias'):
-            model['alias'][s['@alias']] = s['@name'] 
-              
+            model['alias'][s['@name']] = s['@alias']
+
     # commands
     for c in vk['registry']['commands']['command']:
         if c.get('@alias'):
-            model['alias'][c['@alias']] = c['@name']
+            model['alias'][c['@name']] = c['@alias']
 
 
 def init():
@@ -561,7 +570,7 @@ def generate_cdef():
                '-DVK_USE_PLATFORM_XCB_KHR',
                '-DVK_USE_PLATFORM_WAYLAND_KHR',
                '-DVK_USE_PLATFORM_ANDROID_KHR',
-               '-DVK_USE_PLATFORM_WIN32_KHR',
+               #'-DVK_USE_PLATFORM_WIN32_KHR',
                '-DVK_USE_PLATFORM_XLIB_KHR',
                header]
     subprocess.run(command, check=True)
