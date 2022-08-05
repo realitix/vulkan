@@ -1,4 +1,4 @@
-import collections as _collections
+import _collections_abc as _collections
 import weakref as _weakref
 import sys
 
