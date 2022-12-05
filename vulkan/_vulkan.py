@@ -95,25 +95,17 @@ _cast_ptr = _cast_ptr3 if PY3 else _cast_ptr2
 
 
 # Load SDK
-here = os.path.dirname(os.path.abspath(__file__))
-if "nt" in platform.platform().lower() or "win" in platform.platform().lower():
-	name = os.path.join(here, "vulkan-1.dll")
+_lib_names = ('libvulkan.so.1', 'vulkan-1.dll', 'libvulkan.dylib')
+for name in _lib_names:
+    try:
+        lib = ffi.dlopen(name)
+        break
+    except OSError:
+        pass
 else:
-	name = os.path.join(here, "libvulkan.so")
-	
-lib = ffi.dlopen(name)
-    
-#_lib_names = ('libvulkan.so.1', 'vulkan-1.dll', 'libvulkan.dylib')
-#for name in _lib_names:
-#    try:
-#        lib = ffi.dlopen(name)
-#        break
-#    except OSError:
-#        pass
-#else:
-#    raise OSError('Cannot find Vulkan SDK version. Please ensure that it is '
-#                  'installed and that the <sdk_root>/<version>/lib/ folder is '
-#                  'in the library path')
+    raise OSError('Cannot find Vulkan SDK version. Please ensure that it is '
+                  'installed and that the <sdk_root>/<version>/lib/ folder is '
+                  'in the library path')
 
 
 VK_ATTACHMENT_LOAD_OP_LOAD = 0
