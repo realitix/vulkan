@@ -7,11 +7,14 @@ import xmltodict
 
 
 HERE = path.dirname(path.abspath(__file__))
-VENDOR_EXTENSIONS = ['KHR', 'EXT', 'NV']
+VENDOR_EXTENSIONS = ['KHR', 'EXT', 'NV', 'AMD']
 
 CUSTOM_FUNCTIONS = ('vkGetInstanceProcAddr', 'vkGetDeviceProcAddr',
                     'vkMapMemory', 'vkGetPipelineCacheData')
 NULL_MEMBERS = ('pNext', 'pAllocator', 'pUserData')
+
+# vulkansc API is not supported
+VKSC_PFN = ('PFN_vkFaultCallbackFunction',)
 
 
 def get_enum_names(vk):
@@ -174,13 +177,24 @@ def model_enums(vk, model):
             if not 'enum' in require:
                 continue
             for enum in require['enum']:
-                if not '@extnumber' in enum:
-                    continue
-                n1 = int(enum['@extnumber'])
-                n2 = int(enum['@offset'])
-                extend = enum['@extends']
-                val = ext_base + (n1 - 1) * ext_blocksize + n2
-                model['enums'][extend][enum['@name']] = val
+                #if not '@extnumber' in enum:
+                #    continue
+                #n1 = int(enum['@extnumber'])
+                #n2 = int(enum['@offset'])
+                #extend = enum['@extends']
+                #val = ext_base + (n1 - 1) * ext_blocksize + n2
+                #model['enums'][extend][enum['@name']] = val
+                # If extension enum
+                if '@extnumber' in enum:
+                    n1 = int(enum['@extnumber'])
+                    n2 = int(enum['@offset'])
+                    extend = enum['@extends']
+                    val = ext_base + (n1 - 1) * ext_blocksize + n2
+                    model['enums'][extend][enum['@name']] = val
+                # If reference enum
+                elif '@extends' in enum and '@value' in enum:
+                    extend = enum['@extends']
+                    model['enums'][extend][enum['@name']] = int(enum['@value'])
 
 
 def model_macros(vk, model):
@@ -195,11 +209,16 @@ def model_macros(vk, model):
               if x.get('@type') not in ('bitmask', 'enum')]
 
     # TODO: Check theses values
-    special_values = {'1000.0f': '1000.0',
-                      '(~0U)': 0xffffffff,
-                      '(~0ULL)': -1,
-                      '(~0U-1)': 0xfffffffe,
-                      '(~0U-2)': 0xfffffffd}
+    special_values = {
+        '1000.0f': '1000.0',
+        '1000.0F': '1000.0',
+        '(~0U)': 0xffffffff,
+        '(~0ULL)': -1,
+        '(~0U-1)': 0xfffffffe,
+        '(~0U-2)': 0xfffffffd,
+        '(~1U)': 0xfffffffe,
+        '(~2U)': 0xfffffffd,
+    }
 
     for macro in macros[0]['enum']:
         if '@name' not in macro or '@value' not in macro:
@@ -217,6 +236,9 @@ def model_macros(vk, model):
     for ext in get_extensions_filtered(vk):
         model['macros'][ext['@name']] = 1
         for req in ext['require']:
+            if not 'enum' in req.keys():
+                continue
+
             for enum in req['enum']:
                 ename = enum['@name']
                 evalue = parse_constant(enum, int(ext['@number']))
@@ -245,6 +267,9 @@ def model_funcpointers(vk, model):
 
     for f in funcs:
         pfn_name = f['name']
+        if pfn_name in VKSC_PFN:
+            continue
+
         for s in structs:
             if 'member' not in s:
                 continue
@@ -317,12 +342,16 @@ def model_constructors(vk, model):
 
         model['constructors'].append({
             'name': struct['@name'],
-            'members': [{
-                'name': x['name'],
-                'type': x['type'],
-                'default': x.get('@values'),
-                'len': parse_len(x)
-            } for x in struct['member']]
+            'members': [
+                {
+                    'name': x['name'],
+                    'type': x['type'],
+                    'default': x.get('@values'),
+                    'len': parse_len(x)
+                }
+                for x in struct['member']
+                if x.get('@api') != 'vulkansc'  # ignore vulkansc api (duplicates the args)
+            ]
         })
 
 
@@ -383,6 +412,9 @@ def model_functions(vk, model):
             if '::' in static_count:
                 lens = member['@len'].split('::')
                 static_count = lens[0]+'.'+lens[1]
+            elif '->' in static_count:
+                lens = member['@len'].split('->')
+                static_count = lens[0]+'.'+lens[1]
 
         # see vkGetRayTracingShaderGroupHandlesNV for exemple
         if '@len' in member and 'dataSize' in member['@len']:
@@ -437,6 +469,8 @@ def model_functions(vk, model):
         for member in function['param']:
             members.append(format_member(member))
 
+        members = [format_member(param) for param in function['param'] if param.get('@api') != 'vulkansc']
+
         return_member = None
         if is_allocate:
             return_member = format_return_member(function['param'][-1])
@@ -466,6 +500,10 @@ def model_ext_functions(vk, model):
     alias = {v: k for k, v in model['alias'].items()}
 
     for extension in get_extensions_filtered(vk):
+        # we ignore promotedto extensions because it means the functionality is
+        # available with core function
+        if extension.get('@promotedto') is not None:
+            continue
         for req in extension['require']:
             if not req.get('command'):
                 continue
@@ -547,7 +585,8 @@ def generate_py():
 def generate_cdef():
     """Generate the cdef output file"""
     include_libc_path = path.join(HERE, 'fake_libc_include')
-    include_vulkan_path = path.join(HERE, 'vulkan_include')
+    include_vulkan_path = path.join(HERE, 'vulkan_include', 'vulkan')
+    include_vkvideo = path.join(HERE, 'vulkan_include')
     out_file = path.join(HERE, path.pardir, 'vulkan', 'vulkan.cdef.h')
     header = path.join(include_vulkan_path, 'vulkan.h')
 
@@ -557,6 +596,7 @@ def generate_cdef():
                '-nostdinc',
                '-I' + include_libc_path,
                '-I' + include_vulkan_path,
+               '-I' + include_vkvideo,
                '-o' + out_file,
                '-DVK_USE_PLATFORM_XCB_KHR',
                '-DVK_USE_PLATFORM_WAYLAND_KHR',
