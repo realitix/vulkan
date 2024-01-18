@@ -66,7 +66,7 @@ To try this wrapper, execute the following commands (on linux):
 git clone https://github.com/realitix/vulkan.git
 cd vulkan
 python setup.py install
-pip install pysdl2
+pip install -r requirements.txt
 python example/example_sdl2.py
 ```
 
@@ -77,6 +77,8 @@ Known errors :
 `vulkan.VkErrorExtensionNotPresent` means your have installed the Vulkan SDK but your driver doesn't support it.
 
 `pip install vulkan` fails on Windows 10: Try `pip install --upgrade pip setuptools wheel` before installing `vulkan`.
+
+`Platform not supported` error: It's probably because your pysdl2 wrapper is using SDL3. To fix it, install `pysdl2-dll` in your venv.
 
 
 ### API
