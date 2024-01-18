@@ -33,6 +33,7 @@ typedef void *PVOID;
 typedef PVOID HANDLE;
 typedef HANDLE HINSTANCE;
 typedef HANDLE HWND;
+typedef HANDLE HMONITOR;
 typedef unsigned long DWORD;
 typedef void *LPVOID;
 typedef wchar_t WCHAR;
