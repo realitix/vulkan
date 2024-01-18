@@ -1,4 +1,4 @@
-import collections as _collections
+from collections.abc import Iterable
 import weakref as _weakref
 import sys
 
@@ -74,7 +74,7 @@ def _cast_ptr2(x, _type):
             return ffi.addressof(x), x
         return x, x
 
-    if isinstance(x, _collections.abc.Iterable):
+    if isinstance(x, Iterable):
         if _type.item.kind == 'pointer':
             ptrs = [_cast_ptr(i, _type.item) for i in x]
             ret = ffi.new(_type.item.cname+'[]', [i for i, _ in ptrs])
