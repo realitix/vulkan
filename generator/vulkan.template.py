@@ -1,4 +1,4 @@
-import collections as _collections
+from collections.abc import Iterable
 import weakref as _weakref
 import sys
 
@@ -26,7 +26,10 @@ def _cstr(x):
         return x
 
     if PY3:
-        return ffi.string(x).decode('ascii')
+        try:
+            return ffi.string(x).decode('ascii')
+        except UnicodeDecodeError:
+            return ffi.string(x).decode('utf-8')
     else:
         return ffi.string(x)
 
@@ -71,7 +74,7 @@ def _cast_ptr2(x, _type):
             return ffi.addressof(x), x
         return x, x
 
-    if isinstance(x, _collections.abc.Iterable):
+    if isinstance(x, Iterable):
         if _type.item.kind == 'pointer':
             ptrs = [_cast_ptr(i, _type.item) for i in x]
             ret = ffi.new(_type.item.cname+'[]', [i for i, _ in ptrs])
@@ -86,7 +89,10 @@ def _cast_ptr2(x, _type):
 
 def _cast_ptr3(x, _type):
     if isinstance(x, str):
-        x = x.encode('ascii')
+        try:
+            x = x.encode('ascii')
+        except UnicodeEncodeError:
+            x = x.encode('utf-8')
     return _cast_ptr2(x, _type)
 
 
