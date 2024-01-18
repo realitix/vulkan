@@ -7,7 +7,7 @@ with open("README.md") as file:
 
 setup(
     name='vulkan',
-    version='1.1.99.1',
+    version='1.3.275.0',
     description='Ultimate Python binding for Vulkan API',
     author='realitix',
     author_email='realitix@gmail.com',
