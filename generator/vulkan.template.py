@@ -481,5 +481,5 @@ def vkMapMemory(device, memory, offset, size, flags):
 
 {# Alias #}
 {% for name, alias in model.alias.items() %}
-#{{alias}} = {{name}}
+#{{name}} = {{alias}}
 {% endfor %}
