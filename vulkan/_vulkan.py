@@ -11805,6 +11805,15 @@ device
         raise exception_codes[result]
 
 
+def vkResetQueryPool(
+device
+        ,queryPool
+        ,firstQuery
+        ,queryCount
+        ,):
+    result = _callApi(lib.vkResetQueryPool, device,queryPool,firstQuery,queryCount)
+
+
 def _wrap_vkResetQueryPool(fn):
     def vkResetQueryPool(
     device
@@ -14050,6 +14059,25 @@ def _wrap_vkDestroyIndirectCommandsLayoutNV(fn):
 
 
     return vkDestroyIndirectCommandsLayoutNV
+def vkGetPhysicalDeviceFeatures2(
+physicalDevice
+        ,pFeatures=None
+        ,):
+
+    custom_return = True
+    if not pFeatures:
+        pFeatures = ffi.new('VkPhysicalDeviceFeatures2*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetPhysicalDeviceFeatures2, physicalDevice,pFeatures)
+
+    if custom_return:
+        return pFeatures
+
+    return pFeatures[0]
+
+
+
 def _wrap_vkGetPhysicalDeviceFeatures2(fn):
     def vkGetPhysicalDeviceFeatures2(
     physicalDevice
@@ -14071,6 +14099,25 @@ def _wrap_vkGetPhysicalDeviceFeatures2(fn):
 
 
     return vkGetPhysicalDeviceFeatures2
+def vkGetPhysicalDeviceProperties2(
+physicalDevice
+        ,pProperties=None
+        ,):
+
+    custom_return = True
+    if not pProperties:
+        pProperties = ffi.new('VkPhysicalDeviceProperties2*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetPhysicalDeviceProperties2, physicalDevice,pProperties)
+
+    if custom_return:
+        return pProperties
+
+    return pProperties[0]
+
+
+
 def _wrap_vkGetPhysicalDeviceProperties2(fn):
     def vkGetPhysicalDeviceProperties2(
     physicalDevice
@@ -14092,6 +14139,26 @@ def _wrap_vkGetPhysicalDeviceProperties2(fn):
 
 
     return vkGetPhysicalDeviceProperties2
+def vkGetPhysicalDeviceFormatProperties2(
+physicalDevice
+        ,format
+        ,pFormatProperties=None
+        ,):
+
+    custom_return = True
+    if not pFormatProperties:
+        pFormatProperties = ffi.new('VkFormatProperties2*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetPhysicalDeviceFormatProperties2, physicalDevice,format,pFormatProperties)
+
+    if custom_return:
+        return pFormatProperties
+
+    return pFormatProperties[0]
+
+
+
 def _wrap_vkGetPhysicalDeviceFormatProperties2(fn):
     def vkGetPhysicalDeviceFormatProperties2(
     physicalDevice
@@ -14114,6 +14181,28 @@ def _wrap_vkGetPhysicalDeviceFormatProperties2(fn):
 
 
     return vkGetPhysicalDeviceFormatProperties2
+def vkGetPhysicalDeviceImageFormatProperties2(
+physicalDevice
+        ,pImageFormatInfo
+        ,pImageFormatProperties=None
+        ,):
+
+    custom_return = True
+    if not pImageFormatProperties:
+        pImageFormatProperties = ffi.new('VkImageFormatProperties2*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetPhysicalDeviceImageFormatProperties2, physicalDevice,pImageFormatInfo,pImageFormatProperties)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+    if custom_return:
+        return pImageFormatProperties
+
+    return pImageFormatProperties[0]
+
+
+
 def _wrap_vkGetPhysicalDeviceImageFormatProperties2(fn):
     def vkGetPhysicalDeviceImageFormatProperties2(
     physicalDevice
@@ -14138,6 +14227,21 @@ def _wrap_vkGetPhysicalDeviceImageFormatProperties2(fn):
 
 
     return vkGetPhysicalDeviceImageFormatProperties2
+def vkGetPhysicalDeviceQueueFamilyProperties2(
+physicalDevice
+        ,):
+
+    pQueueFamilyPropertyCount = ffi.new('uint32_t*')
+    pQueueFamilyProperties = ffi.NULL
+
+    result = _callApi(lib.vkGetPhysicalDeviceQueueFamilyProperties2, physicalDevice,pQueueFamilyPropertyCount,pQueueFamilyProperties)
+
+    pQueueFamilyProperties = ffi.new('VkQueueFamilyProperties2[]', pQueueFamilyPropertyCount[0])
+    result = _callApi(lib.vkGetPhysicalDeviceQueueFamilyProperties2, physicalDevice,pQueueFamilyPropertyCount,pQueueFamilyProperties)
+
+    return pQueueFamilyProperties
+
+
 def _wrap_vkGetPhysicalDeviceQueueFamilyProperties2(fn):
     def vkGetPhysicalDeviceQueueFamilyProperties2(
     physicalDevice
@@ -14155,6 +14259,25 @@ def _wrap_vkGetPhysicalDeviceQueueFamilyProperties2(fn):
 
 
     return vkGetPhysicalDeviceQueueFamilyProperties2
+def vkGetPhysicalDeviceMemoryProperties2(
+physicalDevice
+        ,pMemoryProperties=None
+        ,):
+
+    custom_return = True
+    if not pMemoryProperties:
+        pMemoryProperties = ffi.new('VkPhysicalDeviceMemoryProperties2*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetPhysicalDeviceMemoryProperties2, physicalDevice,pMemoryProperties)
+
+    if custom_return:
+        return pMemoryProperties
+
+    return pMemoryProperties[0]
+
+
+
 def _wrap_vkGetPhysicalDeviceMemoryProperties2(fn):
     def vkGetPhysicalDeviceMemoryProperties2(
     physicalDevice
@@ -14176,6 +14299,22 @@ def _wrap_vkGetPhysicalDeviceMemoryProperties2(fn):
 
 
     return vkGetPhysicalDeviceMemoryProperties2
+def vkGetPhysicalDeviceSparseImageFormatProperties2(
+physicalDevice
+        ,pFormatInfo
+        ,):
+
+    pPropertyCount = ffi.new('uint32_t*')
+    pProperties = ffi.NULL
+
+    result = _callApi(lib.vkGetPhysicalDeviceSparseImageFormatProperties2, physicalDevice,pFormatInfo,pPropertyCount,pProperties)
+
+    pProperties = ffi.new('VkSparseImageFormatProperties2[]', pPropertyCount[0])
+    result = _callApi(lib.vkGetPhysicalDeviceSparseImageFormatProperties2, physicalDevice,pFormatInfo,pPropertyCount,pProperties)
+
+    return pProperties
+
+
 def _wrap_vkGetPhysicalDeviceSparseImageFormatProperties2(fn):
     def vkGetPhysicalDeviceSparseImageFormatProperties2(
     physicalDevice
@@ -14207,6 +14346,14 @@ def _wrap_vkCmdPushDescriptorSetKHR(fn):
 
 
     return vkCmdPushDescriptorSetKHR
+def vkTrimCommandPool(
+device
+        ,commandPool
+        ,flags
+        ,):
+    result = _callApi(lib.vkTrimCommandPool, device,commandPool,flags)
+
+
 def _wrap_vkTrimCommandPool(fn):
     def vkTrimCommandPool(
     device
@@ -14217,6 +14364,26 @@ def _wrap_vkTrimCommandPool(fn):
 
 
     return vkTrimCommandPool
+def vkGetPhysicalDeviceExternalBufferProperties(
+physicalDevice
+        ,pExternalBufferInfo
+        ,pExternalBufferProperties=None
+        ,):
+
+    custom_return = True
+    if not pExternalBufferProperties:
+        pExternalBufferProperties = ffi.new('VkExternalBufferProperties*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetPhysicalDeviceExternalBufferProperties, physicalDevice,pExternalBufferInfo,pExternalBufferProperties)
+
+    if custom_return:
+        return pExternalBufferProperties
+
+    return pExternalBufferProperties[0]
+
+
+
 def _wrap_vkGetPhysicalDeviceExternalBufferProperties(fn):
     def vkGetPhysicalDeviceExternalBufferProperties(
     physicalDevice
@@ -14482,6 +14649,26 @@ def _wrap_vkGetPhysicalDeviceSciBufAttributesNV(fn):
 
 
     return vkGetPhysicalDeviceSciBufAttributesNV
+def vkGetPhysicalDeviceExternalSemaphoreProperties(
+physicalDevice
+        ,pExternalSemaphoreInfo
+        ,pExternalSemaphoreProperties=None
+        ,):
+
+    custom_return = True
+    if not pExternalSemaphoreProperties:
+        pExternalSemaphoreProperties = ffi.new('VkExternalSemaphoreProperties*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetPhysicalDeviceExternalSemaphoreProperties, physicalDevice,pExternalSemaphoreInfo,pExternalSemaphoreProperties)
+
+    if custom_return:
+        return pExternalSemaphoreProperties
+
+    return pExternalSemaphoreProperties[0]
+
+
+
 def _wrap_vkGetPhysicalDeviceExternalSemaphoreProperties(fn):
     def vkGetPhysicalDeviceExternalSemaphoreProperties(
     physicalDevice
@@ -14609,6 +14796,26 @@ def _wrap_vkImportSemaphoreZirconHandleFUCHSIA(fn):
 
 
     return vkImportSemaphoreZirconHandleFUCHSIA
+def vkGetPhysicalDeviceExternalFenceProperties(
+physicalDevice
+        ,pExternalFenceInfo
+        ,pExternalFenceProperties=None
+        ,):
+
+    custom_return = True
+    if not pExternalFenceProperties:
+        pExternalFenceProperties = ffi.new('VkExternalFenceProperties*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetPhysicalDeviceExternalFenceProperties, physicalDevice,pExternalFenceInfo,pExternalFenceProperties)
+
+    if custom_return:
+        return pExternalFenceProperties
+
+    return pExternalFenceProperties[0]
+
+
+
 def _wrap_vkGetPhysicalDeviceExternalFenceProperties(fn):
     def vkGetPhysicalDeviceExternalFenceProperties(
     physicalDevice
@@ -15060,6 +15267,25 @@ def _wrap_vkGetPhysicalDeviceSurfaceCapabilities2EXT(fn):
 
 
     return vkGetPhysicalDeviceSurfaceCapabilities2EXT
+def vkEnumeratePhysicalDeviceGroups(
+instance
+        ,):
+
+    pPhysicalDeviceGroupCount = ffi.new('uint32_t*')
+    pPhysicalDeviceGroupProperties = ffi.NULL
+
+    result = _callApi(lib.vkEnumeratePhysicalDeviceGroups, instance,pPhysicalDeviceGroupCount,pPhysicalDeviceGroupProperties)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+    pPhysicalDeviceGroupProperties = ffi.new('VkPhysicalDeviceGroupProperties[]', pPhysicalDeviceGroupCount[0])
+    result = _callApi(lib.vkEnumeratePhysicalDeviceGroups, instance,pPhysicalDeviceGroupCount,pPhysicalDeviceGroupProperties)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+    return pPhysicalDeviceGroupProperties
+
+
 def _wrap_vkEnumeratePhysicalDeviceGroups(fn):
     def vkEnumeratePhysicalDeviceGroups(
     instance
@@ -15081,6 +15307,28 @@ def _wrap_vkEnumeratePhysicalDeviceGroups(fn):
 
 
     return vkEnumeratePhysicalDeviceGroups
+def vkGetDeviceGroupPeerMemoryFeatures(
+device
+        ,heapIndex
+        ,localDeviceIndex
+        ,remoteDeviceIndex
+        ,pPeerMemoryFeatures=None
+        ,):
+
+    custom_return = True
+    if not pPeerMemoryFeatures:
+        pPeerMemoryFeatures = ffi.new('VkPeerMemoryFeatureFlags*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetDeviceGroupPeerMemoryFeatures, device,heapIndex,localDeviceIndex,remoteDeviceIndex,pPeerMemoryFeatures)
+
+    if custom_return:
+        return pPeerMemoryFeatures
+
+    return pPeerMemoryFeatures[0]
+
+
+
 def _wrap_vkGetDeviceGroupPeerMemoryFeatures(fn):
     def vkGetDeviceGroupPeerMemoryFeatures(
     device
@@ -15105,6 +15353,16 @@ def _wrap_vkGetDeviceGroupPeerMemoryFeatures(fn):
 
 
     return vkGetDeviceGroupPeerMemoryFeatures
+def vkBindBufferMemory2(
+device
+        ,bindInfoCount
+        ,pBindInfos
+        ,):
+    result = _callApi(lib.vkBindBufferMemory2, device,bindInfoCount,pBindInfos)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+
 def _wrap_vkBindBufferMemory2(fn):
     def vkBindBufferMemory2(
     device
@@ -15117,6 +15375,16 @@ def _wrap_vkBindBufferMemory2(fn):
 
 
     return vkBindBufferMemory2
+def vkBindImageMemory2(
+device
+        ,bindInfoCount
+        ,pBindInfos
+        ,):
+    result = _callApi(lib.vkBindImageMemory2, device,bindInfoCount,pBindInfos)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+
 def _wrap_vkBindImageMemory2(fn):
     def vkBindImageMemory2(
     device
@@ -15129,6 +15397,13 @@ def _wrap_vkBindImageMemory2(fn):
 
 
     return vkBindImageMemory2
+def vkCmdSetDeviceMask(
+commandBuffer
+        ,deviceMask
+        ,):
+    result = _callApi(lib.vkCmdSetDeviceMask, commandBuffer,deviceMask)
+
+
 def _wrap_vkCmdSetDeviceMask(fn):
     def vkCmdSetDeviceMask(
     commandBuffer
@@ -15206,6 +15481,18 @@ def _wrap_vkAcquireNextImage2KHR(fn):
 
 
     return vkAcquireNextImage2KHR
+def vkCmdDispatchBase(
+commandBuffer
+        ,baseGroupX
+        ,baseGroupY
+        ,baseGroupZ
+        ,groupCountX
+        ,groupCountY
+        ,groupCountZ
+        ,):
+    result = _callApi(lib.vkCmdDispatchBase, commandBuffer,baseGroupX,baseGroupY,baseGroupZ,groupCountX,groupCountY,groupCountZ)
+
+
 def _wrap_vkCmdDispatchBase(fn):
     def vkCmdDispatchBase(
     commandBuffer
@@ -15242,6 +15529,29 @@ def _wrap_vkGetPhysicalDevicePresentRectanglesKHR(fn):
 
 
     return vkGetPhysicalDevicePresentRectanglesKHR
+def vkCreateDescriptorUpdateTemplate(
+device
+        ,pCreateInfo
+        ,pAllocator
+        ,pDescriptorUpdateTemplate=None
+        ,):
+
+    custom_return = True
+    if not pDescriptorUpdateTemplate:
+        pDescriptorUpdateTemplate = ffi.new('VkDescriptorUpdateTemplate*')
+        custom_return = False
+
+    result = _callApi(lib.vkCreateDescriptorUpdateTemplate, device,pCreateInfo,pAllocator,pDescriptorUpdateTemplate)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+    if custom_return:
+        return pDescriptorUpdateTemplate
+
+    return pDescriptorUpdateTemplate[0]
+
+
+
 def _wrap_vkCreateDescriptorUpdateTemplate(fn):
     def vkCreateDescriptorUpdateTemplate(
     device
@@ -15267,6 +15577,14 @@ def _wrap_vkCreateDescriptorUpdateTemplate(fn):
 
 
     return vkCreateDescriptorUpdateTemplate
+def vkDestroyDescriptorUpdateTemplate(
+device
+        ,descriptorUpdateTemplate
+        ,pAllocator
+        ,):
+    result = _callApi(lib.vkDestroyDescriptorUpdateTemplate, device,descriptorUpdateTemplate,pAllocator)
+
+
 def _wrap_vkDestroyDescriptorUpdateTemplate(fn):
     def vkDestroyDescriptorUpdateTemplate(
     device
@@ -15277,6 +15595,15 @@ def _wrap_vkDestroyDescriptorUpdateTemplate(fn):
 
 
     return vkDestroyDescriptorUpdateTemplate
+def vkUpdateDescriptorSetWithTemplate(
+device
+        ,descriptorSet
+        ,descriptorUpdateTemplate
+        ,pData
+        ,):
+    result = _callApi(lib.vkUpdateDescriptorSetWithTemplate, device,descriptorSet,descriptorUpdateTemplate,pData)
+
+
 def _wrap_vkUpdateDescriptorSetWithTemplate(fn):
     def vkUpdateDescriptorSetWithTemplate(
     device
@@ -15660,6 +15987,26 @@ def _wrap_vkGetDisplayPlaneCapabilities2KHR(fn):
 
 
     return vkGetDisplayPlaneCapabilities2KHR
+def vkGetBufferMemoryRequirements2(
+device
+        ,pInfo
+        ,pMemoryRequirements=None
+        ,):
+
+    custom_return = True
+    if not pMemoryRequirements:
+        pMemoryRequirements = ffi.new('VkMemoryRequirements2*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetBufferMemoryRequirements2, device,pInfo,pMemoryRequirements)
+
+    if custom_return:
+        return pMemoryRequirements
+
+    return pMemoryRequirements[0]
+
+
+
 def _wrap_vkGetBufferMemoryRequirements2(fn):
     def vkGetBufferMemoryRequirements2(
     device
@@ -15682,6 +16029,26 @@ def _wrap_vkGetBufferMemoryRequirements2(fn):
 
 
     return vkGetBufferMemoryRequirements2
+def vkGetImageMemoryRequirements2(
+device
+        ,pInfo
+        ,pMemoryRequirements=None
+        ,):
+
+    custom_return = True
+    if not pMemoryRequirements:
+        pMemoryRequirements = ffi.new('VkMemoryRequirements2*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetImageMemoryRequirements2, device,pInfo,pMemoryRequirements)
+
+    if custom_return:
+        return pMemoryRequirements
+
+    return pMemoryRequirements[0]
+
+
+
 def _wrap_vkGetImageMemoryRequirements2(fn):
     def vkGetImageMemoryRequirements2(
     device
@@ -15704,6 +16071,22 @@ def _wrap_vkGetImageMemoryRequirements2(fn):
 
 
     return vkGetImageMemoryRequirements2
+def vkGetImageSparseMemoryRequirements2(
+device
+        ,pInfo
+        ,):
+
+    pSparseMemoryRequirementCount = ffi.new('uint32_t*')
+    pSparseMemoryRequirements = ffi.NULL
+
+    result = _callApi(lib.vkGetImageSparseMemoryRequirements2, device,pInfo,pSparseMemoryRequirementCount,pSparseMemoryRequirements)
+
+    pSparseMemoryRequirements = ffi.new('VkSparseImageMemoryRequirements2[]', pSparseMemoryRequirementCount[0])
+    result = _callApi(lib.vkGetImageSparseMemoryRequirements2, device,pInfo,pSparseMemoryRequirementCount,pSparseMemoryRequirements)
+
+    return pSparseMemoryRequirements
+
+
 def _wrap_vkGetImageSparseMemoryRequirements2(fn):
     def vkGetImageSparseMemoryRequirements2(
     device
@@ -15722,6 +16105,26 @@ def _wrap_vkGetImageSparseMemoryRequirements2(fn):
 
 
     return vkGetImageSparseMemoryRequirements2
+def vkGetDeviceBufferMemoryRequirements(
+device
+        ,pInfo
+        ,pMemoryRequirements=None
+        ,):
+
+    custom_return = True
+    if not pMemoryRequirements:
+        pMemoryRequirements = ffi.new('VkMemoryRequirements2*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetDeviceBufferMemoryRequirements, device,pInfo,pMemoryRequirements)
+
+    if custom_return:
+        return pMemoryRequirements
+
+    return pMemoryRequirements[0]
+
+
+
 def _wrap_vkGetDeviceBufferMemoryRequirements(fn):
     def vkGetDeviceBufferMemoryRequirements(
     device
@@ -15744,6 +16147,26 @@ def _wrap_vkGetDeviceBufferMemoryRequirements(fn):
 
 
     return vkGetDeviceBufferMemoryRequirements
+def vkGetDeviceImageMemoryRequirements(
+device
+        ,pInfo
+        ,pMemoryRequirements=None
+        ,):
+
+    custom_return = True
+    if not pMemoryRequirements:
+        pMemoryRequirements = ffi.new('VkMemoryRequirements2*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetDeviceImageMemoryRequirements, device,pInfo,pMemoryRequirements)
+
+    if custom_return:
+        return pMemoryRequirements
+
+    return pMemoryRequirements[0]
+
+
+
 def _wrap_vkGetDeviceImageMemoryRequirements(fn):
     def vkGetDeviceImageMemoryRequirements(
     device
@@ -15766,6 +16189,22 @@ def _wrap_vkGetDeviceImageMemoryRequirements(fn):
 
 
     return vkGetDeviceImageMemoryRequirements
+def vkGetDeviceImageSparseMemoryRequirements(
+device
+        ,pInfo
+        ,):
+
+    pSparseMemoryRequirementCount = ffi.new('uint32_t*')
+    pSparseMemoryRequirements = ffi.NULL
+
+    result = _callApi(lib.vkGetDeviceImageSparseMemoryRequirements, device,pInfo,pSparseMemoryRequirementCount,pSparseMemoryRequirements)
+
+    pSparseMemoryRequirements = ffi.new('VkSparseImageMemoryRequirements2[]', pSparseMemoryRequirementCount[0])
+    result = _callApi(lib.vkGetDeviceImageSparseMemoryRequirements, device,pInfo,pSparseMemoryRequirementCount,pSparseMemoryRequirements)
+
+    return pSparseMemoryRequirements
+
+
 def _wrap_vkGetDeviceImageSparseMemoryRequirements(fn):
     def vkGetDeviceImageSparseMemoryRequirements(
     device
@@ -15784,6 +16223,29 @@ def _wrap_vkGetDeviceImageSparseMemoryRequirements(fn):
 
 
     return vkGetDeviceImageSparseMemoryRequirements
+def vkCreateSamplerYcbcrConversion(
+device
+        ,pCreateInfo
+        ,pAllocator
+        ,pYcbcrConversion=None
+        ,):
+
+    custom_return = True
+    if not pYcbcrConversion:
+        pYcbcrConversion = ffi.new('VkSamplerYcbcrConversion*')
+        custom_return = False
+
+    result = _callApi(lib.vkCreateSamplerYcbcrConversion, device,pCreateInfo,pAllocator,pYcbcrConversion)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+    if custom_return:
+        return pYcbcrConversion
+
+    return pYcbcrConversion[0]
+
+
+
 def _wrap_vkCreateSamplerYcbcrConversion(fn):
     def vkCreateSamplerYcbcrConversion(
     device
@@ -15809,6 +16271,14 @@ def _wrap_vkCreateSamplerYcbcrConversion(fn):
 
 
     return vkCreateSamplerYcbcrConversion
+def vkDestroySamplerYcbcrConversion(
+device
+        ,ycbcrConversion
+        ,pAllocator
+        ,):
+    result = _callApi(lib.vkDestroySamplerYcbcrConversion, device,ycbcrConversion,pAllocator)
+
+
 def _wrap_vkDestroySamplerYcbcrConversion(fn):
     def vkDestroySamplerYcbcrConversion(
     device
@@ -15912,6 +16382,26 @@ def _wrap_vkMergeValidationCachesEXT(fn):
 
 
     return vkMergeValidationCachesEXT
+def vkGetDescriptorSetLayoutSupport(
+device
+        ,pCreateInfo
+        ,pSupport=None
+        ,):
+
+    custom_return = True
+    if not pSupport:
+        pSupport = ffi.new('VkDescriptorSetLayoutSupport*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetDescriptorSetLayoutSupport, device,pCreateInfo,pSupport)
+
+    if custom_return:
+        return pSupport
+
+    return pSupport[0]
+
+
+
 def _wrap_vkGetDescriptorSetLayoutSupport(fn):
     def vkGetDescriptorSetLayoutSupport(
     device
@@ -16267,6 +16757,29 @@ def _wrap_vkCmdWriteBufferMarkerAMD(fn):
 
 
     return vkCmdWriteBufferMarkerAMD
+def vkCreateRenderPass2(
+device
+        ,pCreateInfo
+        ,pAllocator
+        ,pRenderPass=None
+        ,):
+
+    custom_return = True
+    if not pRenderPass:
+        pRenderPass = ffi.new('VkRenderPass*')
+        custom_return = False
+
+    result = _callApi(lib.vkCreateRenderPass2, device,pCreateInfo,pAllocator,pRenderPass)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+    if custom_return:
+        return pRenderPass
+
+    return pRenderPass[0]
+
+
+
 def _wrap_vkCreateRenderPass2(fn):
     def vkCreateRenderPass2(
     device
@@ -16292,6 +16805,14 @@ def _wrap_vkCreateRenderPass2(fn):
 
 
     return vkCreateRenderPass2
+def vkCmdBeginRenderPass2(
+commandBuffer
+        ,pRenderPassBegin
+        ,pSubpassBeginInfo
+        ,):
+    result = _callApi(lib.vkCmdBeginRenderPass2, commandBuffer,pRenderPassBegin,pSubpassBeginInfo)
+
+
 def _wrap_vkCmdBeginRenderPass2(fn):
     def vkCmdBeginRenderPass2(
     commandBuffer
@@ -16302,6 +16823,14 @@ def _wrap_vkCmdBeginRenderPass2(fn):
 
 
     return vkCmdBeginRenderPass2
+def vkCmdNextSubpass2(
+commandBuffer
+        ,pSubpassBeginInfo
+        ,pSubpassEndInfo
+        ,):
+    result = _callApi(lib.vkCmdNextSubpass2, commandBuffer,pSubpassBeginInfo,pSubpassEndInfo)
+
+
 def _wrap_vkCmdNextSubpass2(fn):
     def vkCmdNextSubpass2(
     commandBuffer
@@ -16312,6 +16841,13 @@ def _wrap_vkCmdNextSubpass2(fn):
 
 
     return vkCmdNextSubpass2
+def vkCmdEndRenderPass2(
+commandBuffer
+        ,pSubpassEndInfo
+        ,):
+    result = _callApi(lib.vkCmdEndRenderPass2, commandBuffer,pSubpassEndInfo)
+
+
 def _wrap_vkCmdEndRenderPass2(fn):
     def vkCmdEndRenderPass2(
     commandBuffer
@@ -16321,6 +16857,28 @@ def _wrap_vkCmdEndRenderPass2(fn):
 
 
     return vkCmdEndRenderPass2
+def vkGetSemaphoreCounterValue(
+device
+        ,semaphore
+        ,pValue=None
+        ,):
+
+    custom_return = True
+    if not pValue:
+        pValue = ffi.new('uint64_t*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetSemaphoreCounterValue, device,semaphore,pValue)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+    if custom_return:
+        return pValue
+
+    return pValue[0]
+
+
+
 def _wrap_vkGetSemaphoreCounterValue(fn):
     def vkGetSemaphoreCounterValue(
     device
@@ -16345,6 +16903,16 @@ def _wrap_vkGetSemaphoreCounterValue(fn):
 
 
     return vkGetSemaphoreCounterValue
+def vkWaitSemaphores(
+device
+        ,pWaitInfo
+        ,timeout
+        ,):
+    result = _callApi(lib.vkWaitSemaphores, device,pWaitInfo,timeout)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+
 def _wrap_vkWaitSemaphores(fn):
     def vkWaitSemaphores(
     device
@@ -16357,6 +16925,15 @@ def _wrap_vkWaitSemaphores(fn):
 
 
     return vkWaitSemaphores
+def vkSignalSemaphore(
+device
+        ,pSignalInfo
+        ,):
+    result = _callApi(lib.vkSignalSemaphore, device,pSignalInfo)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+
 def _wrap_vkSignalSemaphore(fn):
     def vkSignalSemaphore(
     device
@@ -16416,6 +16993,18 @@ def _wrap_vkGetMemoryAndroidHardwareBufferANDROID(fn):
 
 
     return vkGetMemoryAndroidHardwareBufferANDROID
+def vkCmdDrawIndirectCount(
+commandBuffer
+        ,buffer
+        ,offset
+        ,countBuffer
+        ,countBufferOffset
+        ,maxDrawCount
+        ,stride
+        ,):
+    result = _callApi(lib.vkCmdDrawIndirectCount, commandBuffer,buffer,offset,countBuffer,countBufferOffset,maxDrawCount,stride)
+
+
 def _wrap_vkCmdDrawIndirectCount(fn):
     def vkCmdDrawIndirectCount(
     commandBuffer
@@ -16430,6 +17019,18 @@ def _wrap_vkCmdDrawIndirectCount(fn):
 
 
     return vkCmdDrawIndirectCount
+def vkCmdDrawIndexedIndirectCount(
+commandBuffer
+        ,buffer
+        ,offset
+        ,countBuffer
+        ,countBufferOffset
+        ,maxDrawCount
+        ,stride
+        ,):
+    result = _callApi(lib.vkCmdDrawIndexedIndirectCount, commandBuffer,buffer,offset,countBuffer,countBufferOffset,maxDrawCount,stride)
+
+
 def _wrap_vkCmdDrawIndexedIndirectCount(fn):
     def vkCmdDrawIndexedIndirectCount(
     commandBuffer
@@ -17449,6 +18050,25 @@ def _wrap_vkGetImageDrmFormatModifierPropertiesEXT(fn):
 
 
     return vkGetImageDrmFormatModifierPropertiesEXT
+def vkGetBufferOpaqueCaptureAddress(
+device
+        ,pInfo=None
+        ,):
+
+    custom_return = True
+    if not pInfo:
+        pInfo = ffi.new('VkBufferDeviceAddressInfo*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetBufferOpaqueCaptureAddress, device,pInfo)
+
+    if custom_return:
+        return pInfo
+
+    return pInfo[0]
+
+
+
 def _wrap_vkGetBufferOpaqueCaptureAddress(fn):
     def vkGetBufferOpaqueCaptureAddress(
     device
@@ -17470,6 +18090,25 @@ def _wrap_vkGetBufferOpaqueCaptureAddress(fn):
 
 
     return vkGetBufferOpaqueCaptureAddress
+def vkGetBufferDeviceAddress(
+device
+        ,pInfo=None
+        ,):
+
+    custom_return = True
+    if not pInfo:
+        pInfo = ffi.new('VkBufferDeviceAddressInfo*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetBufferDeviceAddress, device,pInfo)
+
+    if custom_return:
+        return pInfo
+
+    return pInfo[0]
+
+
+
 def _wrap_vkGetBufferDeviceAddress(fn):
     def vkGetBufferDeviceAddress(
     device
@@ -17659,6 +18298,25 @@ def _wrap_vkGetPerformanceParameterINTEL(fn):
 
 
     return vkGetPerformanceParameterINTEL
+def vkGetDeviceMemoryOpaqueCaptureAddress(
+device
+        ,pInfo=None
+        ,):
+
+    custom_return = True
+    if not pInfo:
+        pInfo = ffi.new('VkDeviceMemoryOpaqueCaptureAddressInfo*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetDeviceMemoryOpaqueCaptureAddress, device,pInfo)
+
+    if custom_return:
+        return pInfo
+
+    return pInfo[0]
+
+
+
 def _wrap_vkGetDeviceMemoryOpaqueCaptureAddress(fn):
     def vkGetDeviceMemoryOpaqueCaptureAddress(
     device
@@ -17781,6 +18439,27 @@ device
         raise exception_codes[result]
 
     return pFaults
+
+
+def vkGetPhysicalDeviceToolProperties(
+physicalDevice
+        ,):
+
+    pToolCount = ffi.new('uint32_t*')
+    pToolProperties = ffi.NULL
+
+    result = _callApi(lib.vkGetPhysicalDeviceToolProperties, physicalDevice,pToolCount,pToolProperties)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+    pToolProperties = ffi.new('VkPhysicalDeviceToolProperties[]', pToolCount[0])
+    result = _callApi(lib.vkGetPhysicalDeviceToolProperties, physicalDevice,pToolCount,pToolProperties)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+    result = (StrWrap(x) for x in pToolProperties)
+    _weakkey_dict[result] = pToolProperties
+    return result
 
 
 def _wrap_vkGetPhysicalDeviceToolProperties(fn):
@@ -18022,6 +18701,13 @@ def _wrap_vkGetPipelineIndirectDeviceAddressNV(fn):
 
 
     return vkGetPipelineIndirectDeviceAddressNV
+def vkCmdSetCullMode(
+commandBuffer
+        ,cullMode
+        ,):
+    result = _callApi(lib.vkCmdSetCullMode, commandBuffer,cullMode)
+
+
 def _wrap_vkCmdSetCullMode(fn):
     def vkCmdSetCullMode(
     commandBuffer
@@ -18031,6 +18717,13 @@ def _wrap_vkCmdSetCullMode(fn):
 
 
     return vkCmdSetCullMode
+def vkCmdSetFrontFace(
+commandBuffer
+        ,frontFace
+        ,):
+    result = _callApi(lib.vkCmdSetFrontFace, commandBuffer,frontFace)
+
+
 def _wrap_vkCmdSetFrontFace(fn):
     def vkCmdSetFrontFace(
     commandBuffer
@@ -18040,6 +18733,13 @@ def _wrap_vkCmdSetFrontFace(fn):
 
 
     return vkCmdSetFrontFace
+def vkCmdSetPrimitiveTopology(
+commandBuffer
+        ,primitiveTopology
+        ,):
+    result = _callApi(lib.vkCmdSetPrimitiveTopology, commandBuffer,primitiveTopology)
+
+
 def _wrap_vkCmdSetPrimitiveTopology(fn):
     def vkCmdSetPrimitiveTopology(
     commandBuffer
@@ -18049,6 +18749,14 @@ def _wrap_vkCmdSetPrimitiveTopology(fn):
 
 
     return vkCmdSetPrimitiveTopology
+def vkCmdSetViewportWithCount(
+commandBuffer
+        ,viewportCount
+        ,pViewports
+        ,):
+    result = _callApi(lib.vkCmdSetViewportWithCount, commandBuffer,viewportCount,pViewports)
+
+
 def _wrap_vkCmdSetViewportWithCount(fn):
     def vkCmdSetViewportWithCount(
     commandBuffer
@@ -18059,6 +18767,14 @@ def _wrap_vkCmdSetViewportWithCount(fn):
 
 
     return vkCmdSetViewportWithCount
+def vkCmdSetScissorWithCount(
+commandBuffer
+        ,scissorCount
+        ,pScissors
+        ,):
+    result = _callApi(lib.vkCmdSetScissorWithCount, commandBuffer,scissorCount,pScissors)
+
+
 def _wrap_vkCmdSetScissorWithCount(fn):
     def vkCmdSetScissorWithCount(
     commandBuffer
@@ -18081,6 +18797,18 @@ def _wrap_vkCmdBindIndexBuffer2KHR(fn):
 
 
     return vkCmdBindIndexBuffer2KHR
+def vkCmdBindVertexBuffers2(
+commandBuffer
+        ,firstBinding
+        ,bindingCount
+        ,pBuffers
+        ,pOffsets
+        ,pSizes
+        ,pStrides
+        ,):
+    result = _callApi(lib.vkCmdBindVertexBuffers2, commandBuffer,firstBinding,bindingCount,pBuffers,pOffsets,pSizes,pStrides)
+
+
 def _wrap_vkCmdBindVertexBuffers2(fn):
     def vkCmdBindVertexBuffers2(
     commandBuffer
@@ -18095,6 +18823,13 @@ def _wrap_vkCmdBindVertexBuffers2(fn):
 
 
     return vkCmdBindVertexBuffers2
+def vkCmdSetDepthTestEnable(
+commandBuffer
+        ,depthTestEnable
+        ,):
+    result = _callApi(lib.vkCmdSetDepthTestEnable, commandBuffer,depthTestEnable)
+
+
 def _wrap_vkCmdSetDepthTestEnable(fn):
     def vkCmdSetDepthTestEnable(
     commandBuffer
@@ -18104,6 +18839,13 @@ def _wrap_vkCmdSetDepthTestEnable(fn):
 
 
     return vkCmdSetDepthTestEnable
+def vkCmdSetDepthWriteEnable(
+commandBuffer
+        ,depthWriteEnable
+        ,):
+    result = _callApi(lib.vkCmdSetDepthWriteEnable, commandBuffer,depthWriteEnable)
+
+
 def _wrap_vkCmdSetDepthWriteEnable(fn):
     def vkCmdSetDepthWriteEnable(
     commandBuffer
@@ -18113,6 +18855,13 @@ def _wrap_vkCmdSetDepthWriteEnable(fn):
 
 
     return vkCmdSetDepthWriteEnable
+def vkCmdSetDepthCompareOp(
+commandBuffer
+        ,depthCompareOp
+        ,):
+    result = _callApi(lib.vkCmdSetDepthCompareOp, commandBuffer,depthCompareOp)
+
+
 def _wrap_vkCmdSetDepthCompareOp(fn):
     def vkCmdSetDepthCompareOp(
     commandBuffer
@@ -18122,6 +18871,13 @@ def _wrap_vkCmdSetDepthCompareOp(fn):
 
 
     return vkCmdSetDepthCompareOp
+def vkCmdSetDepthBoundsTestEnable(
+commandBuffer
+        ,depthBoundsTestEnable
+        ,):
+    result = _callApi(lib.vkCmdSetDepthBoundsTestEnable, commandBuffer,depthBoundsTestEnable)
+
+
 def _wrap_vkCmdSetDepthBoundsTestEnable(fn):
     def vkCmdSetDepthBoundsTestEnable(
     commandBuffer
@@ -18131,6 +18887,13 @@ def _wrap_vkCmdSetDepthBoundsTestEnable(fn):
 
 
     return vkCmdSetDepthBoundsTestEnable
+def vkCmdSetStencilTestEnable(
+commandBuffer
+        ,stencilTestEnable
+        ,):
+    result = _callApi(lib.vkCmdSetStencilTestEnable, commandBuffer,stencilTestEnable)
+
+
 def _wrap_vkCmdSetStencilTestEnable(fn):
     def vkCmdSetStencilTestEnable(
     commandBuffer
@@ -18140,6 +18903,17 @@ def _wrap_vkCmdSetStencilTestEnable(fn):
 
 
     return vkCmdSetStencilTestEnable
+def vkCmdSetStencilOp(
+commandBuffer
+        ,faceMask
+        ,failOp
+        ,passOp
+        ,depthFailOp
+        ,compareOp
+        ,):
+    result = _callApi(lib.vkCmdSetStencilOp, commandBuffer,faceMask,failOp,passOp,depthFailOp,compareOp)
+
+
 def _wrap_vkCmdSetStencilOp(fn):
     def vkCmdSetStencilOp(
     commandBuffer
@@ -18162,6 +18936,13 @@ def _wrap_vkCmdSetPatchControlPointsEXT(fn):
 
 
     return vkCmdSetPatchControlPointsEXT
+def vkCmdSetRasterizerDiscardEnable(
+commandBuffer
+        ,rasterizerDiscardEnable
+        ,):
+    result = _callApi(lib.vkCmdSetRasterizerDiscardEnable, commandBuffer,rasterizerDiscardEnable)
+
+
 def _wrap_vkCmdSetRasterizerDiscardEnable(fn):
     def vkCmdSetRasterizerDiscardEnable(
     commandBuffer
@@ -18171,6 +18952,13 @@ def _wrap_vkCmdSetRasterizerDiscardEnable(fn):
 
 
     return vkCmdSetRasterizerDiscardEnable
+def vkCmdSetDepthBiasEnable(
+commandBuffer
+        ,depthBiasEnable
+        ,):
+    result = _callApi(lib.vkCmdSetDepthBiasEnable, commandBuffer,depthBiasEnable)
+
+
 def _wrap_vkCmdSetDepthBiasEnable(fn):
     def vkCmdSetDepthBiasEnable(
     commandBuffer
@@ -18189,6 +18977,13 @@ def _wrap_vkCmdSetLogicOpEXT(fn):
 
 
     return vkCmdSetLogicOpEXT
+def vkCmdSetPrimitiveRestartEnable(
+commandBuffer
+        ,primitiveRestartEnable
+        ,):
+    result = _callApi(lib.vkCmdSetPrimitiveRestartEnable, commandBuffer,primitiveRestartEnable)
+
+
 def _wrap_vkCmdSetPrimitiveRestartEnable(fn):
     def vkCmdSetPrimitiveRestartEnable(
     commandBuffer
@@ -18489,6 +19284,29 @@ def _wrap_vkCmdSetRepresentativeFragmentTestEnableNV(fn):
 
 
     return vkCmdSetRepresentativeFragmentTestEnableNV
+def vkCreatePrivateDataSlot(
+device
+        ,pCreateInfo
+        ,pAllocator
+        ,pPrivateDataSlot=None
+        ,):
+
+    custom_return = True
+    if not pPrivateDataSlot:
+        pPrivateDataSlot = ffi.new('VkPrivateDataSlot*')
+        custom_return = False
+
+    result = _callApi(lib.vkCreatePrivateDataSlot, device,pCreateInfo,pAllocator,pPrivateDataSlot)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+    if custom_return:
+        return pPrivateDataSlot
+
+    return pPrivateDataSlot[0]
+
+
+
 def _wrap_vkCreatePrivateDataSlot(fn):
     def vkCreatePrivateDataSlot(
     device
@@ -18514,6 +19332,14 @@ def _wrap_vkCreatePrivateDataSlot(fn):
 
 
     return vkCreatePrivateDataSlot
+def vkDestroyPrivateDataSlot(
+device
+        ,privateDataSlot
+        ,pAllocator
+        ,):
+    result = _callApi(lib.vkDestroyPrivateDataSlot, device,privateDataSlot,pAllocator)
+
+
 def _wrap_vkDestroyPrivateDataSlot(fn):
     def vkDestroyPrivateDataSlot(
     device
@@ -18524,6 +19350,18 @@ def _wrap_vkDestroyPrivateDataSlot(fn):
 
 
     return vkDestroyPrivateDataSlot
+def vkSetPrivateData(
+device
+        ,objectType
+        ,objectHandle
+        ,privateDataSlot
+        ,data
+        ,):
+    result = _callApi(lib.vkSetPrivateData, device,objectType,objectHandle,privateDataSlot,data)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+
 def _wrap_vkSetPrivateData(fn):
     def vkSetPrivateData(
     device
@@ -18538,6 +19376,28 @@ def _wrap_vkSetPrivateData(fn):
 
 
     return vkSetPrivateData
+def vkGetPrivateData(
+device
+        ,objectType
+        ,objectHandle
+        ,privateDataSlot
+        ,pData=None
+        ,):
+
+    custom_return = True
+    if not pData:
+        pData = ffi.new('uint64_t*')
+        custom_return = False
+
+    result = _callApi(lib.vkGetPrivateData, device,objectType,objectHandle,privateDataSlot,pData)
+
+    if custom_return:
+        return pData
+
+    return pData[0]
+
+
+
 def _wrap_vkGetPrivateData(fn):
     def vkGetPrivateData(
     device
@@ -18562,6 +19422,13 @@ def _wrap_vkGetPrivateData(fn):
 
 
     return vkGetPrivateData
+def vkCmdCopyBuffer2(
+commandBuffer
+        ,pCopyBufferInfo
+        ,):
+    result = _callApi(lib.vkCmdCopyBuffer2, commandBuffer,pCopyBufferInfo)
+
+
 def _wrap_vkCmdCopyBuffer2(fn):
     def vkCmdCopyBuffer2(
     commandBuffer
@@ -18571,6 +19438,13 @@ def _wrap_vkCmdCopyBuffer2(fn):
 
 
     return vkCmdCopyBuffer2
+def vkCmdCopyImage2(
+commandBuffer
+        ,pCopyImageInfo
+        ,):
+    result = _callApi(lib.vkCmdCopyImage2, commandBuffer,pCopyImageInfo)
+
+
 def _wrap_vkCmdCopyImage2(fn):
     def vkCmdCopyImage2(
     commandBuffer
@@ -18580,6 +19454,13 @@ def _wrap_vkCmdCopyImage2(fn):
 
 
     return vkCmdCopyImage2
+def vkCmdBlitImage2(
+commandBuffer
+        ,pBlitImageInfo
+        ,):
+    result = _callApi(lib.vkCmdBlitImage2, commandBuffer,pBlitImageInfo)
+
+
 def _wrap_vkCmdBlitImage2(fn):
     def vkCmdBlitImage2(
     commandBuffer
@@ -18589,6 +19470,13 @@ def _wrap_vkCmdBlitImage2(fn):
 
 
     return vkCmdBlitImage2
+def vkCmdCopyBufferToImage2(
+commandBuffer
+        ,pCopyBufferToImageInfo
+        ,):
+    result = _callApi(lib.vkCmdCopyBufferToImage2, commandBuffer,pCopyBufferToImageInfo)
+
+
 def _wrap_vkCmdCopyBufferToImage2(fn):
     def vkCmdCopyBufferToImage2(
     commandBuffer
@@ -18598,6 +19486,13 @@ def _wrap_vkCmdCopyBufferToImage2(fn):
 
 
     return vkCmdCopyBufferToImage2
+def vkCmdCopyImageToBuffer2(
+commandBuffer
+        ,pCopyImageToBufferInfo
+        ,):
+    result = _callApi(lib.vkCmdCopyImageToBuffer2, commandBuffer,pCopyImageToBufferInfo)
+
+
 def _wrap_vkCmdCopyImageToBuffer2(fn):
     def vkCmdCopyImageToBuffer2(
     commandBuffer
@@ -18607,6 +19502,13 @@ def _wrap_vkCmdCopyImageToBuffer2(fn):
 
 
     return vkCmdCopyImageToBuffer2
+def vkCmdResolveImage2(
+commandBuffer
+        ,pResolveImageInfo
+        ,):
+    result = _callApi(lib.vkCmdResolveImage2, commandBuffer,pResolveImageInfo)
+
+
 def _wrap_vkCmdResolveImage2(fn):
     def vkCmdResolveImage2(
     commandBuffer
@@ -18733,6 +19635,14 @@ def _wrap_vkCmdSetColorWriteEnableEXT(fn):
 
 
     return vkCmdSetColorWriteEnableEXT
+def vkCmdSetEvent2(
+commandBuffer
+        ,event
+        ,pDependencyInfo
+        ,):
+    result = _callApi(lib.vkCmdSetEvent2, commandBuffer,event,pDependencyInfo)
+
+
 def _wrap_vkCmdSetEvent2(fn):
     def vkCmdSetEvent2(
     commandBuffer
@@ -18743,6 +19653,14 @@ def _wrap_vkCmdSetEvent2(fn):
 
 
     return vkCmdSetEvent2
+def vkCmdResetEvent2(
+commandBuffer
+        ,event
+        ,stageMask
+        ,):
+    result = _callApi(lib.vkCmdResetEvent2, commandBuffer,event,stageMask)
+
+
 def _wrap_vkCmdResetEvent2(fn):
     def vkCmdResetEvent2(
     commandBuffer
@@ -18753,6 +19671,15 @@ def _wrap_vkCmdResetEvent2(fn):
 
 
     return vkCmdResetEvent2
+def vkCmdWaitEvents2(
+commandBuffer
+        ,eventCount
+        ,pEvents
+        ,pDependencyInfos
+        ,):
+    result = _callApi(lib.vkCmdWaitEvents2, commandBuffer,eventCount,pEvents,pDependencyInfos)
+
+
 def _wrap_vkCmdWaitEvents2(fn):
     def vkCmdWaitEvents2(
     commandBuffer
@@ -18764,6 +19691,13 @@ def _wrap_vkCmdWaitEvents2(fn):
 
 
     return vkCmdWaitEvents2
+def vkCmdPipelineBarrier2(
+commandBuffer
+        ,pDependencyInfo
+        ,):
+    result = _callApi(lib.vkCmdPipelineBarrier2, commandBuffer,pDependencyInfo)
+
+
 def _wrap_vkCmdPipelineBarrier2(fn):
     def vkCmdPipelineBarrier2(
     commandBuffer
@@ -18773,6 +19707,17 @@ def _wrap_vkCmdPipelineBarrier2(fn):
 
 
     return vkCmdPipelineBarrier2
+def vkQueueSubmit2(
+queue
+        ,submitCount
+        ,pSubmits
+        ,fence
+        ,):
+    result = _callApi(lib.vkQueueSubmit2, queue,submitCount,pSubmits,fence)
+    if result != VK_SUCCESS:
+        raise exception_codes[result]
+
+
 def _wrap_vkQueueSubmit2(fn):
     def vkQueueSubmit2(
     queue
@@ -18786,6 +19731,15 @@ def _wrap_vkQueueSubmit2(fn):
 
 
     return vkQueueSubmit2
+def vkCmdWriteTimestamp2(
+commandBuffer
+        ,stage
+        ,queryPool
+        ,query
+        ,):
+    result = _callApi(lib.vkCmdWriteTimestamp2, commandBuffer,stage,queryPool,query)
+
+
 def _wrap_vkCmdWriteTimestamp2(fn):
     def vkCmdWriteTimestamp2(
     commandBuffer
@@ -19732,6 +20686,13 @@ def _wrap_vkCmdCudaLaunchKernelNV(fn):
 
 
     return vkCmdCudaLaunchKernelNV
+def vkCmdBeginRendering(
+commandBuffer
+        ,pRenderingInfo
+        ,):
+    result = _callApi(lib.vkCmdBeginRendering, commandBuffer,pRenderingInfo)
+
+
 def _wrap_vkCmdBeginRendering(fn):
     def vkCmdBeginRendering(
     commandBuffer
@@ -19741,6 +20702,12 @@ def _wrap_vkCmdBeginRendering(fn):
 
 
     return vkCmdBeginRendering
+def vkCmdEndRendering(
+commandBuffer
+        ,):
+    result = _callApi(lib.vkCmdEndRendering, commandBuffer)
+
+
 def _wrap_vkCmdEndRendering(fn):
     def vkCmdEndRendering(
     commandBuffer
@@ -20692,11 +21659,22 @@ _instance_ext_funcs = {
     'vkDebugReportMessageEXT':_wrap_vkDebugReportMessageEXT,
     'vkCreateStreamDescriptorSurfaceGGP':_wrap_vkCreateStreamDescriptorSurfaceGGP,
     'vkGetPhysicalDeviceExternalImageFormatPropertiesNV':_wrap_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
+    'vkGetPhysicalDeviceFeatures2KHR':_wrap_vkGetPhysicalDeviceFeatures2,
+    'vkGetPhysicalDeviceProperties2KHR':_wrap_vkGetPhysicalDeviceProperties2,
+    'vkGetPhysicalDeviceFormatProperties2KHR':_wrap_vkGetPhysicalDeviceFormatProperties2,
+    'vkGetPhysicalDeviceImageFormatProperties2KHR':_wrap_vkGetPhysicalDeviceImageFormatProperties2,
+    'vkGetPhysicalDeviceQueueFamilyProperties2KHR':_wrap_vkGetPhysicalDeviceQueueFamilyProperties2,
+    'vkGetPhysicalDeviceMemoryProperties2KHR':_wrap_vkGetPhysicalDeviceMemoryProperties2,
+    'vkGetPhysicalDeviceSparseImageFormatProperties2KHR':_wrap_vkGetPhysicalDeviceSparseImageFormatProperties2,
     'vkCreateViSurfaceNN':_wrap_vkCreateViSurfaceNN,
+    'vkEnumeratePhysicalDeviceGroupsKHR':_wrap_vkEnumeratePhysicalDeviceGroups,
+    'vkGetPhysicalDeviceExternalBufferPropertiesKHR':_wrap_vkGetPhysicalDeviceExternalBufferProperties,
+    'vkGetPhysicalDeviceExternalSemaphorePropertiesKHR':_wrap_vkGetPhysicalDeviceExternalSemaphoreProperties,
     'vkReleaseDisplayEXT':_wrap_vkReleaseDisplayEXT,
     'vkAcquireXlibDisplayEXT':_wrap_vkAcquireXlibDisplayEXT,
     'vkGetRandROutputDisplayEXT':_wrap_vkGetRandROutputDisplayEXT,
     'vkGetPhysicalDeviceSurfaceCapabilities2EXT':_wrap_vkGetPhysicalDeviceSurfaceCapabilities2EXT,
+    'vkGetPhysicalDeviceExternalFencePropertiesKHR':_wrap_vkGetPhysicalDeviceExternalFenceProperties,
     'vkGetPhysicalDeviceSurfaceCapabilities2KHR':_wrap_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
     'vkGetPhysicalDeviceSurfaceFormats2KHR':_wrap_vkGetPhysicalDeviceSurfaceFormats2KHR,
     'vkGetPhysicalDeviceDisplayProperties2KHR':_wrap_vkGetPhysicalDeviceDisplayProperties2KHR,
@@ -20739,6 +21717,11 @@ _instance_ext_funcs = {
     'vkAcquireImageANDROID':_wrap_vkAcquireImageANDROID,
     'vkQueueSignalReleaseImageANDROID':_wrap_vkQueueSignalReleaseImageANDROID,
     'vkGetSwapchainGrallocUsage2ANDROID':_wrap_vkGetSwapchainGrallocUsage2ANDROID,
+    'vkDebugMarkerSetObjectTagEXT':_wrap_vkDebugMarkerSetObjectTagEXT,
+    'vkDebugMarkerSetObjectNameEXT':_wrap_vkDebugMarkerSetObjectNameEXT,
+    'vkCmdDebugMarkerBeginEXT':_wrap_vkCmdDebugMarkerBeginEXT,
+    'vkCmdDebugMarkerEndEXT':_wrap_vkCmdDebugMarkerEndEXT,
+    'vkCmdDebugMarkerInsertEXT':_wrap_vkCmdDebugMarkerInsertEXT,
     'vkGetPhysicalDeviceVideoCapabilitiesKHR':_wrap_vkGetPhysicalDeviceVideoCapabilitiesKHR,
     'vkGetPhysicalDeviceVideoFormatPropertiesKHR':_wrap_vkGetPhysicalDeviceVideoFormatPropertiesKHR,
     'vkCreateVideoSessionKHR':_wrap_vkCreateVideoSessionKHR,
@@ -20765,8 +21748,16 @@ _instance_ext_funcs = {
     'vkCmdCuLaunchKernelNVX':_wrap_vkCmdCuLaunchKernelNVX,
     'vkGetImageViewHandleNVX':_wrap_vkGetImageViewHandleNVX,
     'vkGetImageViewAddressNVX':_wrap_vkGetImageViewAddressNVX,
+    'vkCmdDrawIndirectCountAMD':_wrap_vkCmdDrawIndirectCount,
+    'vkCmdDrawIndexedIndirectCountAMD':_wrap_vkCmdDrawIndexedIndirectCount,
     'vkGetShaderInfoAMD':_wrap_vkGetShaderInfoAMD,
+    'vkCmdBeginRenderingKHR':_wrap_vkCmdBeginRendering,
+    'vkCmdEndRenderingKHR':_wrap_vkCmdEndRendering,
     'vkGetMemoryWin32HandleNV':_wrap_vkGetMemoryWin32HandleNV,
+    'vkGetDeviceGroupPeerMemoryFeaturesKHR':_wrap_vkGetDeviceGroupPeerMemoryFeatures,
+    'vkCmdSetDeviceMaskKHR':_wrap_vkCmdSetDeviceMask,
+    'vkCmdDispatchBaseKHR':_wrap_vkCmdDispatchBase,
+    'vkTrimCommandPoolKHR':_wrap_vkTrimCommandPool,
     'vkGetMemoryWin32HandleKHR':_wrap_vkGetMemoryWin32HandleKHR,
     'vkGetMemoryWin32HandlePropertiesKHR':_wrap_vkGetMemoryWin32HandlePropertiesKHR,
     'vkGetMemoryFdKHR':_wrap_vkGetMemoryFdKHR,
@@ -20779,6 +21770,9 @@ _instance_ext_funcs = {
     'vkCmdPushDescriptorSetWithTemplateKHR':_wrap_vkCmdPushDescriptorSetWithTemplateKHR,
     'vkCmdBeginConditionalRenderingEXT':_wrap_vkCmdBeginConditionalRenderingEXT,
     'vkCmdEndConditionalRenderingEXT':_wrap_vkCmdEndConditionalRenderingEXT,
+    'vkCreateDescriptorUpdateTemplateKHR':_wrap_vkCreateDescriptorUpdateTemplate,
+    'vkDestroyDescriptorUpdateTemplateKHR':_wrap_vkDestroyDescriptorUpdateTemplate,
+    'vkUpdateDescriptorSetWithTemplateKHR':_wrap_vkUpdateDescriptorSetWithTemplate,
     'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
     'vkDisplayPowerControlEXT':_wrap_vkDisplayPowerControlEXT,
     'vkRegisterDeviceEventEXT':_wrap_vkRegisterDeviceEventEXT,
@@ -20790,6 +21784,10 @@ _instance_ext_funcs = {
     'vkCmdSetDiscardRectangleEnableEXT':_wrap_vkCmdSetDiscardRectangleEnableEXT,
     'vkCmdSetDiscardRectangleModeEXT':_wrap_vkCmdSetDiscardRectangleModeEXT,
     'vkSetHdrMetadataEXT':_wrap_vkSetHdrMetadataEXT,
+    'vkCreateRenderPass2KHR':_wrap_vkCreateRenderPass2,
+    'vkCmdBeginRenderPass2KHR':_wrap_vkCmdBeginRenderPass2,
+    'vkCmdNextSubpass2KHR':_wrap_vkCmdNextSubpass2,
+    'vkCmdEndRenderPass2KHR':_wrap_vkCmdEndRenderPass2,
     'vkGetSwapchainStatusKHR':_wrap_vkGetSwapchainStatusKHR,
     'vkImportFenceWin32HandleKHR':_wrap_vkImportFenceWin32HandleKHR,
     'vkGetFenceWin32HandleKHR':_wrap_vkGetFenceWin32HandleKHR,
@@ -20810,6 +21808,9 @@ _instance_ext_funcs = {
     'vkCmdDispatchGraphIndirectCountAMDX':_wrap_vkCmdDispatchGraphIndirectCountAMDX,
     'vkCmdSetSampleLocationsEXT':_wrap_vkCmdSetSampleLocationsEXT,
     'vkGetPhysicalDeviceMultisamplePropertiesEXT':_wrap_vkGetPhysicalDeviceMultisamplePropertiesEXT,
+    'vkGetImageMemoryRequirements2KHR':_wrap_vkGetImageMemoryRequirements2,
+    'vkGetBufferMemoryRequirements2KHR':_wrap_vkGetBufferMemoryRequirements2,
+    'vkGetImageSparseMemoryRequirements2KHR':_wrap_vkGetImageSparseMemoryRequirements2,
     'vkCreateAccelerationStructureKHR':_wrap_vkCreateAccelerationStructureKHR,
     'vkDestroyAccelerationStructureKHR':_wrap_vkDestroyAccelerationStructureKHR,
     'vkCmdBuildAccelerationStructuresKHR':_wrap_vkCmdBuildAccelerationStructuresKHR,
@@ -20833,6 +21834,10 @@ _instance_ext_funcs = {
     'vkCmdTraceRaysIndirectKHR':_wrap_vkCmdTraceRaysIndirectKHR,
     'vkGetRayTracingShaderGroupStackSizeKHR':_wrap_vkGetRayTracingShaderGroupStackSizeKHR,
     'vkCmdSetRayTracingPipelineStackSizeKHR':_wrap_vkCmdSetRayTracingPipelineStackSizeKHR,
+    'vkCreateSamplerYcbcrConversionKHR':_wrap_vkCreateSamplerYcbcrConversion,
+    'vkDestroySamplerYcbcrConversionKHR':_wrap_vkDestroySamplerYcbcrConversion,
+    'vkBindBufferMemory2KHR':_wrap_vkBindBufferMemory2,
+    'vkBindImageMemory2KHR':_wrap_vkBindImageMemory2,
     'vkGetImageDrmFormatModifierPropertiesEXT':_wrap_vkGetImageDrmFormatModifierPropertiesEXT,
     'vkCreateValidationCacheEXT':_wrap_vkCreateValidationCacheEXT,
     'vkDestroyValidationCacheEXT':_wrap_vkDestroyValidationCacheEXT,
@@ -20853,8 +21858,13 @@ _instance_ext_funcs = {
     'vkGetAccelerationStructureHandleNV':_wrap_vkGetAccelerationStructureHandleNV,
     'vkCmdWriteAccelerationStructuresPropertiesNV':_wrap_vkCmdWriteAccelerationStructuresPropertiesNV,
     'vkCompileDeferredNV':_wrap_vkCompileDeferredNV,
+    'vkGetDescriptorSetLayoutSupportKHR':_wrap_vkGetDescriptorSetLayoutSupport,
+    'vkCmdDrawIndirectCountKHR':_wrap_vkCmdDrawIndirectCount,
+    'vkCmdDrawIndexedIndirectCountKHR':_wrap_vkCmdDrawIndexedIndirectCount,
     'vkGetMemoryHostPointerPropertiesEXT':_wrap_vkGetMemoryHostPointerPropertiesEXT,
     'vkCmdWriteBufferMarkerAMD':_wrap_vkCmdWriteBufferMarkerAMD,
+    'vkGetPhysicalDeviceCalibrateableTimeDomainsEXT':_wrap_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,
+    'vkGetCalibratedTimestampsEXT':_wrap_vkGetCalibratedTimestampsKHR,
     'vkCmdDrawMeshTasksNV':_wrap_vkCmdDrawMeshTasksNV,
     'vkCmdDrawMeshTasksIndirectNV':_wrap_vkCmdDrawMeshTasksIndirectNV,
     'vkCmdDrawMeshTasksIndirectCountNV':_wrap_vkCmdDrawMeshTasksIndirectCountNV,
@@ -20862,6 +21872,9 @@ _instance_ext_funcs = {
     'vkCmdSetExclusiveScissorNV':_wrap_vkCmdSetExclusiveScissorNV,
     'vkCmdSetCheckpointNV':_wrap_vkCmdSetCheckpointNV,
     'vkGetQueueCheckpointDataNV':_wrap_vkGetQueueCheckpointDataNV,
+    'vkGetSemaphoreCounterValueKHR':_wrap_vkGetSemaphoreCounterValue,
+    'vkWaitSemaphoresKHR':_wrap_vkWaitSemaphores,
+    'vkSignalSemaphoreKHR':_wrap_vkSignalSemaphore,
     'vkInitializePerformanceApiINTEL':_wrap_vkInitializePerformanceApiINTEL,
     'vkUninitializePerformanceApiINTEL':_wrap_vkUninitializePerformanceApiINTEL,
     'vkCmdSetPerformanceMarkerINTEL':_wrap_vkCmdSetPerformanceMarkerINTEL,
@@ -20875,6 +21888,7 @@ _instance_ext_funcs = {
     'vkGetPhysicalDeviceFragmentShadingRatesKHR':_wrap_vkGetPhysicalDeviceFragmentShadingRatesKHR,
     'vkCmdSetFragmentShadingRateKHR':_wrap_vkCmdSetFragmentShadingRateKHR,
     'vkGetBufferDeviceAddressEXT':_wrap_vkGetBufferDeviceAddress,
+    'vkGetPhysicalDeviceToolPropertiesEXT':_wrap_vkGetPhysicalDeviceToolProperties,
     'vkWaitForPresentKHR':_wrap_vkWaitForPresentKHR,
     'vkGetPhysicalDeviceCooperativeMatrixPropertiesNV':_wrap_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV,
     'vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV':_wrap_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV,
@@ -20882,7 +21896,23 @@ _instance_ext_funcs = {
     'vkAcquireFullScreenExclusiveModeEXT':_wrap_vkAcquireFullScreenExclusiveModeEXT,
     'vkReleaseFullScreenExclusiveModeEXT':_wrap_vkReleaseFullScreenExclusiveModeEXT,
     'vkGetDeviceGroupSurfacePresentModes2EXT':_wrap_vkGetDeviceGroupSurfacePresentModes2EXT,
+    'vkGetBufferDeviceAddressKHR':_wrap_vkGetBufferDeviceAddress,
+    'vkGetBufferOpaqueCaptureAddressKHR':_wrap_vkGetBufferOpaqueCaptureAddress,
+    'vkGetDeviceMemoryOpaqueCaptureAddressKHR':_wrap_vkGetDeviceMemoryOpaqueCaptureAddress,
     'vkCmdSetLineStippleEXT':_wrap_vkCmdSetLineStippleEXT,
+    'vkResetQueryPoolEXT':_wrap_vkResetQueryPool,
+    'vkCmdSetCullModeEXT':_wrap_vkCmdSetCullMode,
+    'vkCmdSetFrontFaceEXT':_wrap_vkCmdSetFrontFace,
+    'vkCmdSetPrimitiveTopologyEXT':_wrap_vkCmdSetPrimitiveTopology,
+    'vkCmdSetViewportWithCountEXT':_wrap_vkCmdSetViewportWithCount,
+    'vkCmdSetScissorWithCountEXT':_wrap_vkCmdSetScissorWithCount,
+    'vkCmdBindVertexBuffers2EXT':_wrap_vkCmdBindVertexBuffers2,
+    'vkCmdSetDepthTestEnableEXT':_wrap_vkCmdSetDepthTestEnable,
+    'vkCmdSetDepthWriteEnableEXT':_wrap_vkCmdSetDepthWriteEnable,
+    'vkCmdSetDepthCompareOpEXT':_wrap_vkCmdSetDepthCompareOp,
+    'vkCmdSetDepthBoundsTestEnableEXT':_wrap_vkCmdSetDepthBoundsTestEnable,
+    'vkCmdSetStencilTestEnableEXT':_wrap_vkCmdSetStencilTestEnable,
+    'vkCmdSetStencilOpEXT':_wrap_vkCmdSetStencilOp,
     'vkCreateDeferredOperationKHR':_wrap_vkCreateDeferredOperationKHR,
     'vkDestroyDeferredOperationKHR':_wrap_vkDestroyDeferredOperationKHR,
     'vkGetDeferredOperationMaxConcurrencyKHR':_wrap_vkGetDeferredOperationMaxConcurrencyKHR,
@@ -20906,6 +21936,10 @@ _instance_ext_funcs = {
     'vkCreateIndirectCommandsLayoutNV':_wrap_vkCreateIndirectCommandsLayoutNV,
     'vkDestroyIndirectCommandsLayoutNV':_wrap_vkDestroyIndirectCommandsLayoutNV,
     'vkCmdSetDepthBias2EXT':_wrap_vkCmdSetDepthBias2EXT,
+    'vkCreatePrivateDataSlotEXT':_wrap_vkCreatePrivateDataSlot,
+    'vkDestroyPrivateDataSlotEXT':_wrap_vkDestroyPrivateDataSlot,
+    'vkSetPrivateDataEXT':_wrap_vkSetPrivateData,
+    'vkGetPrivateDataEXT':_wrap_vkGetPrivateData,
     'vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR':_wrap_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR,
     'vkGetEncodedVideoSessionParametersKHR':_wrap_vkGetEncodedVideoSessionParametersKHR,
     'vkCmdEncodeVideoKHR':_wrap_vkCmdEncodeVideoKHR,
@@ -20918,6 +21952,14 @@ _instance_ext_funcs = {
     'vkCmdRefreshObjectsKHR':_wrap_vkCmdRefreshObjectsKHR,
     'vkGetPhysicalDeviceRefreshableObjectTypesKHR':_wrap_vkGetPhysicalDeviceRefreshableObjectTypesKHR,
     'vkExportMetalObjectsEXT':_wrap_vkExportMetalObjectsEXT,
+    'vkCmdSetEvent2KHR':_wrap_vkCmdSetEvent2,
+    'vkCmdResetEvent2KHR':_wrap_vkCmdResetEvent2,
+    'vkCmdWaitEvents2KHR':_wrap_vkCmdWaitEvents2,
+    'vkCmdPipelineBarrier2KHR':_wrap_vkCmdPipelineBarrier2,
+    'vkCmdWriteTimestamp2KHR':_wrap_vkCmdWriteTimestamp2,
+    'vkQueueSubmit2KHR':_wrap_vkQueueSubmit2,
+    'vkCmdWriteBufferMarker2AMD':_wrap_vkCmdWriteBufferMarker2AMD,
+    'vkGetQueueCheckpointData2NV':_wrap_vkGetQueueCheckpointData2NV,
     'vkGetDescriptorSetLayoutSizeEXT':_wrap_vkGetDescriptorSetLayoutSizeEXT,
     'vkGetDescriptorSetLayoutBindingOffsetEXT':_wrap_vkGetDescriptorSetLayoutBindingOffsetEXT,
     'vkGetDescriptorEXT':_wrap_vkGetDescriptorEXT,
@@ -20933,6 +21975,12 @@ _instance_ext_funcs = {
     'vkCmdDrawMeshTasksEXT':_wrap_vkCmdDrawMeshTasksEXT,
     'vkCmdDrawMeshTasksIndirectEXT':_wrap_vkCmdDrawMeshTasksIndirectEXT,
     'vkCmdDrawMeshTasksIndirectCountEXT':_wrap_vkCmdDrawMeshTasksIndirectCountEXT,
+    'vkCmdCopyBuffer2KHR':_wrap_vkCmdCopyBuffer2,
+    'vkCmdCopyImage2KHR':_wrap_vkCmdCopyImage2,
+    'vkCmdCopyBufferToImage2KHR':_wrap_vkCmdCopyBufferToImage2,
+    'vkCmdCopyImageToBuffer2KHR':_wrap_vkCmdCopyImageToBuffer2,
+    'vkCmdBlitImage2KHR':_wrap_vkCmdBlitImage2,
+    'vkCmdResolveImage2KHR':_wrap_vkCmdResolveImage2,
     'vkGetDeviceFaultInfoEXT':_wrap_vkGetDeviceFaultInfoEXT,
     'vkAcquireWinrtDisplayNV':_wrap_vkAcquireWinrtDisplayNV,
     'vkGetWinrtDisplayNV':_wrap_vkGetWinrtDisplayNV,
@@ -20961,6 +22009,11 @@ _instance_ext_funcs = {
     'vkGetMemorySciBufNV':_wrap_vkGetMemorySciBufNV,
     'vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV':_wrap_vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV,
     'vkGetPhysicalDeviceSciBufAttributesNV':_wrap_vkGetPhysicalDeviceSciBufAttributesNV,
+    'vkCmdSetPatchControlPointsEXT':_wrap_vkCmdSetPatchControlPointsEXT,
+    'vkCmdSetRasterizerDiscardEnableEXT':_wrap_vkCmdSetRasterizerDiscardEnable,
+    'vkCmdSetDepthBiasEnableEXT':_wrap_vkCmdSetDepthBiasEnable,
+    'vkCmdSetLogicOpEXT':_wrap_vkCmdSetLogicOpEXT,
+    'vkCmdSetPrimitiveRestartEnableEXT':_wrap_vkCmdSetPrimitiveRestartEnable,
     'vkCmdSetColorWriteEnableEXT':_wrap_vkCmdSetColorWriteEnableEXT,
     'vkCmdTraceRaysIndirect2KHR':_wrap_vkCmdTraceRaysIndirect2KHR,
     'vkCmdDrawMultiEXT':_wrap_vkCmdDrawMultiEXT,
@@ -20982,6 +22035,9 @@ _instance_ext_funcs = {
     'vkCmdDrawClusterHUAWEI':_wrap_vkCmdDrawClusterHUAWEI,
     'vkCmdDrawClusterIndirectHUAWEI':_wrap_vkCmdDrawClusterIndirectHUAWEI,
     'vkSetDeviceMemoryPriorityEXT':_wrap_vkSetDeviceMemoryPriorityEXT,
+    'vkGetDeviceBufferMemoryRequirementsKHR':_wrap_vkGetDeviceBufferMemoryRequirements,
+    'vkGetDeviceImageMemoryRequirementsKHR':_wrap_vkGetDeviceImageMemoryRequirements,
+    'vkGetDeviceImageSparseMemoryRequirementsKHR':_wrap_vkGetDeviceImageSparseMemoryRequirements,
     'vkGetDescriptorSetLayoutHostMappingInfoVALVE':_wrap_vkGetDescriptorSetLayoutHostMappingInfoVALVE,
     'vkGetDescriptorSetHostMappingVALVE':_wrap_vkGetDescriptorSetHostMappingVALVE,
     'vkCmdCopyMemoryIndirectNV':_wrap_vkCmdCopyMemoryIndirectNV,
@@ -21037,23 +22093,6 @@ _instance_ext_funcs = {
     'vkDestroyShaderEXT':_wrap_vkDestroyShaderEXT,
     'vkGetShaderBinaryDataEXT':_wrap_vkGetShaderBinaryDataEXT,
     'vkCmdBindShadersEXT':_wrap_vkCmdBindShadersEXT,
-    'vkCmdSetCullModeEXT':_wrap_vkCmdSetCullMode,
-    'vkCmdSetFrontFaceEXT':_wrap_vkCmdSetFrontFace,
-    'vkCmdSetPrimitiveTopologyEXT':_wrap_vkCmdSetPrimitiveTopology,
-    'vkCmdSetViewportWithCountEXT':_wrap_vkCmdSetViewportWithCount,
-    'vkCmdSetScissorWithCountEXT':_wrap_vkCmdSetScissorWithCount,
-    'vkCmdBindVertexBuffers2EXT':_wrap_vkCmdBindVertexBuffers2,
-    'vkCmdSetDepthTestEnableEXT':_wrap_vkCmdSetDepthTestEnable,
-    'vkCmdSetDepthWriteEnableEXT':_wrap_vkCmdSetDepthWriteEnable,
-    'vkCmdSetDepthCompareOpEXT':_wrap_vkCmdSetDepthCompareOp,
-    'vkCmdSetDepthBoundsTestEnableEXT':_wrap_vkCmdSetDepthBoundsTestEnable,
-    'vkCmdSetStencilTestEnableEXT':_wrap_vkCmdSetStencilTestEnable,
-    'vkCmdSetStencilOpEXT':_wrap_vkCmdSetStencilOp,
-    'vkCmdSetPatchControlPointsEXT':_wrap_vkCmdSetPatchControlPointsEXT,
-    'vkCmdSetRasterizerDiscardEnableEXT':_wrap_vkCmdSetRasterizerDiscardEnable,
-    'vkCmdSetDepthBiasEnableEXT':_wrap_vkCmdSetDepthBiasEnable,
-    'vkCmdSetLogicOpEXT':_wrap_vkCmdSetLogicOpEXT,
-    'vkCmdSetPrimitiveRestartEnableEXT':_wrap_vkCmdSetPrimitiveRestartEnable,
     'vkGetFramebufferTilePropertiesQCOM':_wrap_vkGetFramebufferTilePropertiesQCOM,
     'vkGetDynamicRenderingTilePropertiesQCOM':_wrap_vkGetDynamicRenderingTilePropertiesQCOM,
     'vkCreateSemaphoreSciSyncPoolNV':_wrap_vkCreateSemaphoreSciSyncPoolNV,
@@ -21092,6 +22131,11 @@ _device_ext_funcs = {
     'vkAcquireImageANDROID':_wrap_vkAcquireImageANDROID,
     'vkQueueSignalReleaseImageANDROID':_wrap_vkQueueSignalReleaseImageANDROID,
     'vkGetSwapchainGrallocUsage2ANDROID':_wrap_vkGetSwapchainGrallocUsage2ANDROID,
+    'vkDebugMarkerSetObjectTagEXT':_wrap_vkDebugMarkerSetObjectTagEXT,
+    'vkDebugMarkerSetObjectNameEXT':_wrap_vkDebugMarkerSetObjectNameEXT,
+    'vkCmdDebugMarkerBeginEXT':_wrap_vkCmdDebugMarkerBeginEXT,
+    'vkCmdDebugMarkerEndEXT':_wrap_vkCmdDebugMarkerEndEXT,
+    'vkCmdDebugMarkerInsertEXT':_wrap_vkCmdDebugMarkerInsertEXT,
     'vkGetPhysicalDeviceVideoCapabilitiesKHR':_wrap_vkGetPhysicalDeviceVideoCapabilitiesKHR,
     'vkGetPhysicalDeviceVideoFormatPropertiesKHR':_wrap_vkGetPhysicalDeviceVideoFormatPropertiesKHR,
     'vkCreateVideoSessionKHR':_wrap_vkCreateVideoSessionKHR,
@@ -21118,8 +22162,16 @@ _device_ext_funcs = {
     'vkCmdCuLaunchKernelNVX':_wrap_vkCmdCuLaunchKernelNVX,
     'vkGetImageViewHandleNVX':_wrap_vkGetImageViewHandleNVX,
     'vkGetImageViewAddressNVX':_wrap_vkGetImageViewAddressNVX,
+    'vkCmdDrawIndirectCountAMD':_wrap_vkCmdDrawIndirectCount,
+    'vkCmdDrawIndexedIndirectCountAMD':_wrap_vkCmdDrawIndexedIndirectCount,
     'vkGetShaderInfoAMD':_wrap_vkGetShaderInfoAMD,
+    'vkCmdBeginRenderingKHR':_wrap_vkCmdBeginRendering,
+    'vkCmdEndRenderingKHR':_wrap_vkCmdEndRendering,
     'vkGetMemoryWin32HandleNV':_wrap_vkGetMemoryWin32HandleNV,
+    'vkGetDeviceGroupPeerMemoryFeaturesKHR':_wrap_vkGetDeviceGroupPeerMemoryFeatures,
+    'vkCmdSetDeviceMaskKHR':_wrap_vkCmdSetDeviceMask,
+    'vkCmdDispatchBaseKHR':_wrap_vkCmdDispatchBase,
+    'vkTrimCommandPoolKHR':_wrap_vkTrimCommandPool,
     'vkGetMemoryWin32HandleKHR':_wrap_vkGetMemoryWin32HandleKHR,
     'vkGetMemoryWin32HandlePropertiesKHR':_wrap_vkGetMemoryWin32HandlePropertiesKHR,
     'vkGetMemoryFdKHR':_wrap_vkGetMemoryFdKHR,
@@ -21132,6 +22184,9 @@ _device_ext_funcs = {
     'vkCmdPushDescriptorSetWithTemplateKHR':_wrap_vkCmdPushDescriptorSetWithTemplateKHR,
     'vkCmdBeginConditionalRenderingEXT':_wrap_vkCmdBeginConditionalRenderingEXT,
     'vkCmdEndConditionalRenderingEXT':_wrap_vkCmdEndConditionalRenderingEXT,
+    'vkCreateDescriptorUpdateTemplateKHR':_wrap_vkCreateDescriptorUpdateTemplate,
+    'vkDestroyDescriptorUpdateTemplateKHR':_wrap_vkDestroyDescriptorUpdateTemplate,
+    'vkUpdateDescriptorSetWithTemplateKHR':_wrap_vkUpdateDescriptorSetWithTemplate,
     'vkCmdSetViewportWScalingNV':_wrap_vkCmdSetViewportWScalingNV,
     'vkDisplayPowerControlEXT':_wrap_vkDisplayPowerControlEXT,
     'vkRegisterDeviceEventEXT':_wrap_vkRegisterDeviceEventEXT,
@@ -21143,6 +22198,10 @@ _device_ext_funcs = {
     'vkCmdSetDiscardRectangleEnableEXT':_wrap_vkCmdSetDiscardRectangleEnableEXT,
     'vkCmdSetDiscardRectangleModeEXT':_wrap_vkCmdSetDiscardRectangleModeEXT,
     'vkSetHdrMetadataEXT':_wrap_vkSetHdrMetadataEXT,
+    'vkCreateRenderPass2KHR':_wrap_vkCreateRenderPass2,
+    'vkCmdBeginRenderPass2KHR':_wrap_vkCmdBeginRenderPass2,
+    'vkCmdNextSubpass2KHR':_wrap_vkCmdNextSubpass2,
+    'vkCmdEndRenderPass2KHR':_wrap_vkCmdEndRenderPass2,
     'vkGetSwapchainStatusKHR':_wrap_vkGetSwapchainStatusKHR,
     'vkImportFenceWin32HandleKHR':_wrap_vkImportFenceWin32HandleKHR,
     'vkGetFenceWin32HandleKHR':_wrap_vkGetFenceWin32HandleKHR,
@@ -21163,6 +22222,9 @@ _device_ext_funcs = {
     'vkCmdDispatchGraphIndirectCountAMDX':_wrap_vkCmdDispatchGraphIndirectCountAMDX,
     'vkCmdSetSampleLocationsEXT':_wrap_vkCmdSetSampleLocationsEXT,
     'vkGetPhysicalDeviceMultisamplePropertiesEXT':_wrap_vkGetPhysicalDeviceMultisamplePropertiesEXT,
+    'vkGetImageMemoryRequirements2KHR':_wrap_vkGetImageMemoryRequirements2,
+    'vkGetBufferMemoryRequirements2KHR':_wrap_vkGetBufferMemoryRequirements2,
+    'vkGetImageSparseMemoryRequirements2KHR':_wrap_vkGetImageSparseMemoryRequirements2,
     'vkCreateAccelerationStructureKHR':_wrap_vkCreateAccelerationStructureKHR,
     'vkDestroyAccelerationStructureKHR':_wrap_vkDestroyAccelerationStructureKHR,
     'vkCmdBuildAccelerationStructuresKHR':_wrap_vkCmdBuildAccelerationStructuresKHR,
@@ -21186,6 +22248,10 @@ _device_ext_funcs = {
     'vkCmdTraceRaysIndirectKHR':_wrap_vkCmdTraceRaysIndirectKHR,
     'vkGetRayTracingShaderGroupStackSizeKHR':_wrap_vkGetRayTracingShaderGroupStackSizeKHR,
     'vkCmdSetRayTracingPipelineStackSizeKHR':_wrap_vkCmdSetRayTracingPipelineStackSizeKHR,
+    'vkCreateSamplerYcbcrConversionKHR':_wrap_vkCreateSamplerYcbcrConversion,
+    'vkDestroySamplerYcbcrConversionKHR':_wrap_vkDestroySamplerYcbcrConversion,
+    'vkBindBufferMemory2KHR':_wrap_vkBindBufferMemory2,
+    'vkBindImageMemory2KHR':_wrap_vkBindImageMemory2,
     'vkGetImageDrmFormatModifierPropertiesEXT':_wrap_vkGetImageDrmFormatModifierPropertiesEXT,
     'vkCreateValidationCacheEXT':_wrap_vkCreateValidationCacheEXT,
     'vkDestroyValidationCacheEXT':_wrap_vkDestroyValidationCacheEXT,
@@ -21206,8 +22272,13 @@ _device_ext_funcs = {
     'vkGetAccelerationStructureHandleNV':_wrap_vkGetAccelerationStructureHandleNV,
     'vkCmdWriteAccelerationStructuresPropertiesNV':_wrap_vkCmdWriteAccelerationStructuresPropertiesNV,
     'vkCompileDeferredNV':_wrap_vkCompileDeferredNV,
+    'vkGetDescriptorSetLayoutSupportKHR':_wrap_vkGetDescriptorSetLayoutSupport,
+    'vkCmdDrawIndirectCountKHR':_wrap_vkCmdDrawIndirectCount,
+    'vkCmdDrawIndexedIndirectCountKHR':_wrap_vkCmdDrawIndexedIndirectCount,
     'vkGetMemoryHostPointerPropertiesEXT':_wrap_vkGetMemoryHostPointerPropertiesEXT,
     'vkCmdWriteBufferMarkerAMD':_wrap_vkCmdWriteBufferMarkerAMD,
+    'vkGetPhysicalDeviceCalibrateableTimeDomainsEXT':_wrap_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,
+    'vkGetCalibratedTimestampsEXT':_wrap_vkGetCalibratedTimestampsKHR,
     'vkCmdDrawMeshTasksNV':_wrap_vkCmdDrawMeshTasksNV,
     'vkCmdDrawMeshTasksIndirectNV':_wrap_vkCmdDrawMeshTasksIndirectNV,
     'vkCmdDrawMeshTasksIndirectCountNV':_wrap_vkCmdDrawMeshTasksIndirectCountNV,
@@ -21215,6 +22286,9 @@ _device_ext_funcs = {
     'vkCmdSetExclusiveScissorNV':_wrap_vkCmdSetExclusiveScissorNV,
     'vkCmdSetCheckpointNV':_wrap_vkCmdSetCheckpointNV,
     'vkGetQueueCheckpointDataNV':_wrap_vkGetQueueCheckpointDataNV,
+    'vkGetSemaphoreCounterValueKHR':_wrap_vkGetSemaphoreCounterValue,
+    'vkWaitSemaphoresKHR':_wrap_vkWaitSemaphores,
+    'vkSignalSemaphoreKHR':_wrap_vkSignalSemaphore,
     'vkInitializePerformanceApiINTEL':_wrap_vkInitializePerformanceApiINTEL,
     'vkUninitializePerformanceApiINTEL':_wrap_vkUninitializePerformanceApiINTEL,
     'vkCmdSetPerformanceMarkerINTEL':_wrap_vkCmdSetPerformanceMarkerINTEL,
@@ -21228,6 +22302,7 @@ _device_ext_funcs = {
     'vkGetPhysicalDeviceFragmentShadingRatesKHR':_wrap_vkGetPhysicalDeviceFragmentShadingRatesKHR,
     'vkCmdSetFragmentShadingRateKHR':_wrap_vkCmdSetFragmentShadingRateKHR,
     'vkGetBufferDeviceAddressEXT':_wrap_vkGetBufferDeviceAddress,
+    'vkGetPhysicalDeviceToolPropertiesEXT':_wrap_vkGetPhysicalDeviceToolProperties,
     'vkWaitForPresentKHR':_wrap_vkWaitForPresentKHR,
     'vkGetPhysicalDeviceCooperativeMatrixPropertiesNV':_wrap_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV,
     'vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV':_wrap_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV,
@@ -21235,7 +22310,23 @@ _device_ext_funcs = {
     'vkAcquireFullScreenExclusiveModeEXT':_wrap_vkAcquireFullScreenExclusiveModeEXT,
     'vkReleaseFullScreenExclusiveModeEXT':_wrap_vkReleaseFullScreenExclusiveModeEXT,
     'vkGetDeviceGroupSurfacePresentModes2EXT':_wrap_vkGetDeviceGroupSurfacePresentModes2EXT,
+    'vkGetBufferDeviceAddressKHR':_wrap_vkGetBufferDeviceAddress,
+    'vkGetBufferOpaqueCaptureAddressKHR':_wrap_vkGetBufferOpaqueCaptureAddress,
+    'vkGetDeviceMemoryOpaqueCaptureAddressKHR':_wrap_vkGetDeviceMemoryOpaqueCaptureAddress,
     'vkCmdSetLineStippleEXT':_wrap_vkCmdSetLineStippleEXT,
+    'vkResetQueryPoolEXT':_wrap_vkResetQueryPool,
+    'vkCmdSetCullModeEXT':_wrap_vkCmdSetCullMode,
+    'vkCmdSetFrontFaceEXT':_wrap_vkCmdSetFrontFace,
+    'vkCmdSetPrimitiveTopologyEXT':_wrap_vkCmdSetPrimitiveTopology,
+    'vkCmdSetViewportWithCountEXT':_wrap_vkCmdSetViewportWithCount,
+    'vkCmdSetScissorWithCountEXT':_wrap_vkCmdSetScissorWithCount,
+    'vkCmdBindVertexBuffers2EXT':_wrap_vkCmdBindVertexBuffers2,
+    'vkCmdSetDepthTestEnableEXT':_wrap_vkCmdSetDepthTestEnable,
+    'vkCmdSetDepthWriteEnableEXT':_wrap_vkCmdSetDepthWriteEnable,
+    'vkCmdSetDepthCompareOpEXT':_wrap_vkCmdSetDepthCompareOp,
+    'vkCmdSetDepthBoundsTestEnableEXT':_wrap_vkCmdSetDepthBoundsTestEnable,
+    'vkCmdSetStencilTestEnableEXT':_wrap_vkCmdSetStencilTestEnable,
+    'vkCmdSetStencilOpEXT':_wrap_vkCmdSetStencilOp,
     'vkCreateDeferredOperationKHR':_wrap_vkCreateDeferredOperationKHR,
     'vkDestroyDeferredOperationKHR':_wrap_vkDestroyDeferredOperationKHR,
     'vkGetDeferredOperationMaxConcurrencyKHR':_wrap_vkGetDeferredOperationMaxConcurrencyKHR,
@@ -21259,6 +22350,10 @@ _device_ext_funcs = {
     'vkCreateIndirectCommandsLayoutNV':_wrap_vkCreateIndirectCommandsLayoutNV,
     'vkDestroyIndirectCommandsLayoutNV':_wrap_vkDestroyIndirectCommandsLayoutNV,
     'vkCmdSetDepthBias2EXT':_wrap_vkCmdSetDepthBias2EXT,
+    'vkCreatePrivateDataSlotEXT':_wrap_vkCreatePrivateDataSlot,
+    'vkDestroyPrivateDataSlotEXT':_wrap_vkDestroyPrivateDataSlot,
+    'vkSetPrivateDataEXT':_wrap_vkSetPrivateData,
+    'vkGetPrivateDataEXT':_wrap_vkGetPrivateData,
     'vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR':_wrap_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR,
     'vkGetEncodedVideoSessionParametersKHR':_wrap_vkGetEncodedVideoSessionParametersKHR,
     'vkCmdEncodeVideoKHR':_wrap_vkCmdEncodeVideoKHR,
@@ -21271,6 +22366,14 @@ _device_ext_funcs = {
     'vkCmdRefreshObjectsKHR':_wrap_vkCmdRefreshObjectsKHR,
     'vkGetPhysicalDeviceRefreshableObjectTypesKHR':_wrap_vkGetPhysicalDeviceRefreshableObjectTypesKHR,
     'vkExportMetalObjectsEXT':_wrap_vkExportMetalObjectsEXT,
+    'vkCmdSetEvent2KHR':_wrap_vkCmdSetEvent2,
+    'vkCmdResetEvent2KHR':_wrap_vkCmdResetEvent2,
+    'vkCmdWaitEvents2KHR':_wrap_vkCmdWaitEvents2,
+    'vkCmdPipelineBarrier2KHR':_wrap_vkCmdPipelineBarrier2,
+    'vkCmdWriteTimestamp2KHR':_wrap_vkCmdWriteTimestamp2,
+    'vkQueueSubmit2KHR':_wrap_vkQueueSubmit2,
+    'vkCmdWriteBufferMarker2AMD':_wrap_vkCmdWriteBufferMarker2AMD,
+    'vkGetQueueCheckpointData2NV':_wrap_vkGetQueueCheckpointData2NV,
     'vkGetDescriptorSetLayoutSizeEXT':_wrap_vkGetDescriptorSetLayoutSizeEXT,
     'vkGetDescriptorSetLayoutBindingOffsetEXT':_wrap_vkGetDescriptorSetLayoutBindingOffsetEXT,
     'vkGetDescriptorEXT':_wrap_vkGetDescriptorEXT,
@@ -21286,6 +22389,12 @@ _device_ext_funcs = {
     'vkCmdDrawMeshTasksEXT':_wrap_vkCmdDrawMeshTasksEXT,
     'vkCmdDrawMeshTasksIndirectEXT':_wrap_vkCmdDrawMeshTasksIndirectEXT,
     'vkCmdDrawMeshTasksIndirectCountEXT':_wrap_vkCmdDrawMeshTasksIndirectCountEXT,
+    'vkCmdCopyBuffer2KHR':_wrap_vkCmdCopyBuffer2,
+    'vkCmdCopyImage2KHR':_wrap_vkCmdCopyImage2,
+    'vkCmdCopyBufferToImage2KHR':_wrap_vkCmdCopyBufferToImage2,
+    'vkCmdCopyImageToBuffer2KHR':_wrap_vkCmdCopyImageToBuffer2,
+    'vkCmdBlitImage2KHR':_wrap_vkCmdBlitImage2,
+    'vkCmdResolveImage2KHR':_wrap_vkCmdResolveImage2,
     'vkGetDeviceFaultInfoEXT':_wrap_vkGetDeviceFaultInfoEXT,
     'vkAcquireWinrtDisplayNV':_wrap_vkAcquireWinrtDisplayNV,
     'vkGetWinrtDisplayNV':_wrap_vkGetWinrtDisplayNV,
@@ -21314,6 +22423,11 @@ _device_ext_funcs = {
     'vkGetMemorySciBufNV':_wrap_vkGetMemorySciBufNV,
     'vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV':_wrap_vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV,
     'vkGetPhysicalDeviceSciBufAttributesNV':_wrap_vkGetPhysicalDeviceSciBufAttributesNV,
+    'vkCmdSetPatchControlPointsEXT':_wrap_vkCmdSetPatchControlPointsEXT,
+    'vkCmdSetRasterizerDiscardEnableEXT':_wrap_vkCmdSetRasterizerDiscardEnable,
+    'vkCmdSetDepthBiasEnableEXT':_wrap_vkCmdSetDepthBiasEnable,
+    'vkCmdSetLogicOpEXT':_wrap_vkCmdSetLogicOpEXT,
+    'vkCmdSetPrimitiveRestartEnableEXT':_wrap_vkCmdSetPrimitiveRestartEnable,
     'vkCmdSetColorWriteEnableEXT':_wrap_vkCmdSetColorWriteEnableEXT,
     'vkCmdTraceRaysIndirect2KHR':_wrap_vkCmdTraceRaysIndirect2KHR,
     'vkCmdDrawMultiEXT':_wrap_vkCmdDrawMultiEXT,
@@ -21335,6 +22449,9 @@ _device_ext_funcs = {
     'vkCmdDrawClusterHUAWEI':_wrap_vkCmdDrawClusterHUAWEI,
     'vkCmdDrawClusterIndirectHUAWEI':_wrap_vkCmdDrawClusterIndirectHUAWEI,
     'vkSetDeviceMemoryPriorityEXT':_wrap_vkSetDeviceMemoryPriorityEXT,
+    'vkGetDeviceBufferMemoryRequirementsKHR':_wrap_vkGetDeviceBufferMemoryRequirements,
+    'vkGetDeviceImageMemoryRequirementsKHR':_wrap_vkGetDeviceImageMemoryRequirements,
+    'vkGetDeviceImageSparseMemoryRequirementsKHR':_wrap_vkGetDeviceImageSparseMemoryRequirements,
     'vkGetDescriptorSetLayoutHostMappingInfoVALVE':_wrap_vkGetDescriptorSetLayoutHostMappingInfoVALVE,
     'vkGetDescriptorSetHostMappingVALVE':_wrap_vkGetDescriptorSetHostMappingVALVE,
     'vkCmdCopyMemoryIndirectNV':_wrap_vkCmdCopyMemoryIndirectNV,
@@ -21390,23 +22507,6 @@ _device_ext_funcs = {
     'vkDestroyShaderEXT':_wrap_vkDestroyShaderEXT,
     'vkGetShaderBinaryDataEXT':_wrap_vkGetShaderBinaryDataEXT,
     'vkCmdBindShadersEXT':_wrap_vkCmdBindShadersEXT,
-    'vkCmdSetCullModeEXT':_wrap_vkCmdSetCullMode,
-    'vkCmdSetFrontFaceEXT':_wrap_vkCmdSetFrontFace,
-    'vkCmdSetPrimitiveTopologyEXT':_wrap_vkCmdSetPrimitiveTopology,
-    'vkCmdSetViewportWithCountEXT':_wrap_vkCmdSetViewportWithCount,
-    'vkCmdSetScissorWithCountEXT':_wrap_vkCmdSetScissorWithCount,
-    'vkCmdBindVertexBuffers2EXT':_wrap_vkCmdBindVertexBuffers2,
-    'vkCmdSetDepthTestEnableEXT':_wrap_vkCmdSetDepthTestEnable,
-    'vkCmdSetDepthWriteEnableEXT':_wrap_vkCmdSetDepthWriteEnable,
-    'vkCmdSetDepthCompareOpEXT':_wrap_vkCmdSetDepthCompareOp,
-    'vkCmdSetDepthBoundsTestEnableEXT':_wrap_vkCmdSetDepthBoundsTestEnable,
-    'vkCmdSetStencilTestEnableEXT':_wrap_vkCmdSetStencilTestEnable,
-    'vkCmdSetStencilOpEXT':_wrap_vkCmdSetStencilOp,
-    'vkCmdSetPatchControlPointsEXT':_wrap_vkCmdSetPatchControlPointsEXT,
-    'vkCmdSetRasterizerDiscardEnableEXT':_wrap_vkCmdSetRasterizerDiscardEnable,
-    'vkCmdSetDepthBiasEnableEXT':_wrap_vkCmdSetDepthBiasEnable,
-    'vkCmdSetLogicOpEXT':_wrap_vkCmdSetLogicOpEXT,
-    'vkCmdSetPrimitiveRestartEnableEXT':_wrap_vkCmdSetPrimitiveRestartEnable,
     'vkGetFramebufferTilePropertiesQCOM':_wrap_vkGetFramebufferTilePropertiesQCOM,
     'vkGetDynamicRenderingTilePropertiesQCOM':_wrap_vkGetDynamicRenderingTilePropertiesQCOM,
     'vkCreateSemaphoreSciSyncPoolNV':_wrap_vkCreateSemaphoreSciSyncPoolNV,
@@ -21502,10 +22602,13 @@ def vkMapMemory(device, memory, offset, size, flags):
 #vkGetSemaphoreCounterValueKHR = vkGetSemaphoreCounterValue
 #vkWaitSemaphoresKHR = vkWaitSemaphores
 #vkSignalSemaphoreKHR = vkSignalSemaphore
+#vkCmdDrawIndirectCountKHR = vkCmdDrawIndirectCount
 #vkCmdDrawIndirectCountAMD = vkCmdDrawIndirectCount
+#vkCmdDrawIndexedIndirectCountKHR = vkCmdDrawIndexedIndirectCount
 #vkCmdDrawIndexedIndirectCountAMD = vkCmdDrawIndexedIndirectCount
 #vkGetRayTracingShaderGroupHandlesNV = vkGetRayTracingShaderGroupHandlesKHR
 #vkGetBufferOpaqueCaptureAddressKHR = vkGetBufferOpaqueCaptureAddress
+#vkGetBufferDeviceAddressKHR = vkGetBufferDeviceAddress
 #vkGetBufferDeviceAddressEXT = vkGetBufferDeviceAddress
 #vkGetDeviceMemoryOpaqueCaptureAddressKHR = vkGetDeviceMemoryOpaqueCaptureAddress
 #vkGetPhysicalDeviceToolPropertiesEXT = vkGetPhysicalDeviceToolProperties
