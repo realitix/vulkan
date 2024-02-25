@@ -370,9 +370,8 @@ def model_functions(vk, model):
                     cn = command['@name']
                     names.add(cn)
                     # add alias command too
-                    for alias, n in model['alias'].items():
-                        if n == cn:
-                            aliases.add(alias)
+                    if cn in model['alias']:
+                        aliases.add(model['alias'][cn])
 
         return names, aliases
 
@@ -498,9 +497,6 @@ def model_ext_functions(vk, model):
     """Fill the model with extensions functions"""
     model['ext_functions'] = {'instance': {}, 'device': {}}
 
-    # invert the alias to better lookup
-    alias = {v: k for k, v in model['alias'].items()}
-
     for extension in get_extensions_filtered(vk):
         for req in extension['require']:
             if not req.get('command'):
@@ -509,8 +505,8 @@ def model_ext_functions(vk, model):
             ext_type = extension['@type']
             for x in req['command']:
                 name = x['@name']
-                if name in alias.keys():
-                    model['ext_functions'][ext_type][name] = alias[name]
+                if name in model['alias']:
+                    model['ext_functions'][ext_type][name] = model['alias'][name]
                 else:
                     model['ext_functions'][ext_type][name] = name
 
@@ -522,12 +518,12 @@ def model_alias(vk, model):
     # types
     for s in vk['registry']['types']['type']:
         if s.get('@category', None) == 'handle' and s.get('@alias'):
-            model['alias'][s['@alias']] = s['@name'] 
+            model['alias'][s['@name']] = s['@alias']
               
     # commands
     for c in vk['registry']['commands']['command']:
         if c.get('@alias'):
-            model['alias'][c['@alias']] = c['@name']
+            model['alias'][c['@name']] = c['@alias']
 
 
 def init():
