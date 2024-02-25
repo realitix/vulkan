@@ -360,6 +360,8 @@ def model_functions(vk, model):
 
     def get_vk_extension_functions():
         names = set()
+        aliases = set()
+
         for extension in get_extensions_filtered(vk):
             for req in extension['require']:
                 if 'command' not in req:
@@ -367,12 +369,12 @@ def model_functions(vk, model):
                 for command in req['command']:
                     cn = command['@name']
                     names.add(cn)
-                    
                     # add alias command too
                     for alias, n in model['alias'].items():
                         if n == cn:
-                            names.add(alias)
-        return names
+                            aliases.add(alias)
+
+        return names, aliases
 
     def has_count_param(command):
         # check if a params type is uint32_t*
@@ -441,7 +443,7 @@ def model_functions(vk, model):
     model['functions'] = []
     model['extension_functions'] = []
     functions = [f for f in vk['registry']['commands']['command']]
-    extension_function_names = get_vk_extension_functions()
+    extension_function_names, extension_function_aliases = get_vk_extension_functions()
 
     for function in functions:
         if '@alias' in function:
@@ -486,11 +488,11 @@ def model_functions(vk, model):
             'return_boolean': True if ftype == 'VkBool32' else False,
             'return_result': True if ftype == 'VkResult' else False,
             'return_member': return_member,
-            'is_extension': fname in extension_function_names
         }
-
-        model['functions'].append(f)
-
+        if fname not in extension_function_names:
+            model['functions'].append({**f, 'is_extension': False})
+        if fname in extension_function_names or fname in extension_function_aliases:
+            model['functions'].append({**f, 'is_extension': True})
 
 def model_ext_functions(vk, model):
     """Fill the model with extensions functions"""
@@ -500,10 +502,6 @@ def model_ext_functions(vk, model):
     alias = {v: k for k, v in model['alias'].items()}
 
     for extension in get_extensions_filtered(vk):
-        # we ignore promotedto extensions because it means the functionality is
-        # available with core function
-        if extension.get('@promotedto') is not None:
-            continue
         for req in extension['require']:
             if not req.get('command'):
                 continue
