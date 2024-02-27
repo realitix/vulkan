@@ -230,16 +230,17 @@ Here the basic steps:
  - Pass the model to the `vulkan.template.py` file
  - The template engine generate the final Python file
 
+
+## How to update the package on PyPi (for maintainer only)
+
+- python setup.py sdist bdist_wheel
+- twine upload dist/* -u __token__ -p pypi-TOKENID
+
 ## Community
 
 You can checkout my blog, I speak about *vulkan*:
 [Blog](https://realitix.github.io)
 
-## Stay in touch
-
-You can contact me by opening issue (bug or interesting discussion about
-the project). If you want a fast and pleasant talk, join the irc channel:
-`##vulkan` (I'm realitix). I'm connected from 9AM to 6PM (France).
 
 ## History
 
