@@ -82,6 +82,14 @@ def _cast_ptr2(x, _type):
         else:
             ret = ffi.new(_type.item.cname+'[]', x)
 
+        if isinstance(x, list):
+            iterable_references = []
+            for item in x:
+                if item in _weakkey_dict:
+                    iterable_references.append(_weakkey_dict[item])
+            if iterable_references:
+                _weakkey_dict[ret] = iterable_references
+
         return ret, ret
 
     return ffi.cast(_type, x), x
