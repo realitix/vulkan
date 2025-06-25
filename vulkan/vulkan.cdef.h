@@ -3176,7 +3176,7 @@ typedef struct VkSpecializationInfo {
     uint32_t mapEntryCount;
     const VkSpecializationMapEntry* pMapEntries;
     size_t dataSize;
-    const void* pData;
+    const char* pData;
 } VkSpecializationInfo;
 typedef struct VkPipelineShaderStageCreateInfo {
     VkStructureType sType;
