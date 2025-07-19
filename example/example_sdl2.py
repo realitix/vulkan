@@ -625,32 +625,47 @@ for i, command_buffer in enumerate(command_buffers):
 semaphore_create = VkSemaphoreCreateInfo(
     sType=VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO,
     flags=0)
-semaphore_image_available = vkCreateSemaphore(logical_device, semaphore_create, None)
-semaphore_render_finished = vkCreateSemaphore(logical_device, semaphore_create, None)
+
+image_available_semaphores = []
+render_finished_semaphores = []
+recycled_semaphores = []
+queue_submit_fences = []
+
+for i in range(len(framebuffers)):
+    fence_info = VkFenceCreateInfo (
+        sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO,
+        flags = VK_FENCE_CREATE_SIGNALED_BIT)
+
+    fence = vkCreateFence(logical_device, fence_info, None)
+    queue_submit_fences.append(fence)
+
+    # We will create these as needed during the render loop
+    image_available_semaphores.append(VK_NULL_HANDLE)
+
+    semaphore = vkCreateSemaphore(logical_device, semaphore_create, None)
+    render_finished_semaphores.append(semaphore)
 
 vkAcquireNextImageKHR = vkGetInstanceProcAddr(instance, "vkAcquireNextImageKHR")
 vkQueuePresentKHR = vkGetInstanceProcAddr(instance, "vkQueuePresentKHR")
 
 
-
-wait_semaphores = [semaphore_image_available]
 wait_stages = [VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT]
-signal_semaphores = [semaphore_render_finished]
 
 submit_create = VkSubmitInfo(
     sType=VK_STRUCTURE_TYPE_SUBMIT_INFO,
-    waitSemaphoreCount=len(wait_semaphores),
-    pWaitSemaphores=wait_semaphores,
+    waitSemaphoreCount=1,
+    pWaitSemaphores=[VK_NULL_HANDLE],
     pWaitDstStageMask=wait_stages,
     commandBufferCount=1,
     pCommandBuffers=[command_buffers[0]],
-    signalSemaphoreCount=len(signal_semaphores),
-    pSignalSemaphores=signal_semaphores)
+    signalSemaphoreCount=1,
+    pSignalSemaphores=[VK_NULL_HANDLE]
+    )
 
 present_create = VkPresentInfoKHR(
     sType=VK_STRUCTURE_TYPE_PRESENT_INFO_KHR,
     waitSemaphoreCount=1,
-    pWaitSemaphores=signal_semaphores,
+    pWaitSemaphores=[VK_NULL_HANDLE],
     swapchainCount=1,
     pSwapchains=[swapchain],
     pImageIndices=[0],
@@ -658,24 +673,46 @@ present_create = VkPresentInfoKHR(
 
 
 # optimization to avoid creating a new array each time
-submit_list = ffi.new('VkSubmitInfo[1]', [submit_create])
+fence_array = ffi.new('VkFence[1]', [queue_submit_fences[0]])
 
 
 def draw_frame():
+    if not recycled_semaphores:
+        info = VkSemaphoreCreateInfo(sType=VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO)
+        image_available_semaphore = vkCreateSemaphore(logical_device, info, None)
+    else:
+        image_available_semaphore = recycled_semaphores.pop()
+
     try:
-        image_index = vkAcquireNextImageKHR(logical_device, swapchain, UINT64_MAX, semaphore_image_available, None)
-    except VkNotReady:
-        print('not ready')
+        image_index = vkAcquireNextImageKHR(logical_device, swapchain, UINT64_MAX, image_available_semaphore, None)
+    # In case result is not VK_SUCCESS
+    except Exception as e:
+        print(e)
+        recycled_semaphores.append(image_available_semaphore)
+        vkQueueWaitIdle(presentation_queue)
         return
 
+    fence_array[0] = queue_submit_fences[image_index]
+    vkWaitForFences(logical_device, 1, fence_array, True, UINT64_MAX)
+    vkResetFences(logical_device, 1, fence_array)
+
+    # Recycle the old semaphore
+    old_semaphore = image_available_semaphores[image_index]
+    if old_semaphore != VK_NULL_HANDLE:
+        recycled_semaphores.append(old_semaphore)
+    image_available_semaphores[image_index] = image_available_semaphore
+
     submit_create.pCommandBuffers[0] = command_buffers[image_index]
-    vkQueueSubmit(graphic_queue, 1, submit_list, None)
+
+    submit_create.pWaitSemaphores[0] = image_available_semaphores[image_index]
+    submit_create.pSignalSemaphores[0] = render_finished_semaphores[image_index]
+
+    vkQueueSubmit(graphic_queue, 1, submit_create, queue_submit_fences[image_index])
 
     present_create.pImageIndices[0] = image_index
+    present_create.pWaitSemaphores[0] = render_finished_semaphores[image_index]
     vkQueuePresentKHR(presentation_queue, present_create)
 
-    # Fix #55 but downgrade performance -1000FPS)
-    vkQueueWaitIdle(presentation_queue)
 
 
 # Main loop
@@ -705,8 +742,11 @@ while running:
 
 # ----------
 # Clean everything
-vkDestroySemaphore(logical_device, semaphore_image_available, None)
-vkDestroySemaphore(logical_device, semaphore_render_finished, None)
+for semaphore in set(image_available_semaphores + render_finished_semaphores + recycled_semaphores):
+    if semaphore != VK_NULL_HANDLE:
+        vkDestroySemaphore(logical_device, semaphore, None)
+for fence in queue_submit_fences:
+    vkDestroyFence(logical_device, fence, None)
 vkDestroyCommandPool(logical_device, command_pool, None)
 for f in framebuffers:
     vkDestroyFramebuffer(logical_device, f, None)
