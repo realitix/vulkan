@@ -8,35 +8,49 @@ import os
 import time
 from vulkan import *
 from pywayland.client import Display
-from pywayland.protocol.wayland import Compositor, Shell, Shm
+from pywayland.protocol.wayland import WlCompositor, WlShm
+from pywayland.protocol.xdg_shell.xdg_wm_base import XdgWmBase, XdgWmBaseProxy
+from pywayland.protocol.xdg_shell.xdg_toplevel import XdgToplevelProxy
+from pywayland.protocol.xdg_shell.xdg_surface import XdgSurfaceProxy
 
 
 WIDTH = 400
 HEIGHT = 400
 
 
-def shm_format_handler(shm, format_):
-    pass
+def shm_format_handler(shm, format_int):
+    format_enum = WlShm.format(format_int)
+    print(f"Available format: {format_enum.name}")
+
+def wm_base_ping_handler(xdg_wm_base: XdgWmBaseProxy, serial: int):
+    xdg_wm_base.pong(serial)
 
 def registry_global_handler(registry, id_, interface, version):
     window = registry.user_data
     if interface == 'wl_compositor':
-        window['compositor'] = registry.bind(id_, Compositor, version)
-    elif interface == 'wl_shell':
-        window['shell'] = registry.bind(id_, Shell, version)
+        window['compositor'] = registry.bind(id_, WlCompositor, version)
     elif interface == 'wl_shm':
-        window['shm'] = registry.bind(id_, Shm, version)
+        window['shm'] = registry.bind(id_, WlShm, version)
         window['shm'].dispatcher['format'] = shm_format_handler
+    elif interface == "xdg_wm_base":
+        window["xdg_wm_base"] = registry.bind(id_, XdgWmBase, version)
+        window["xdg_wm_base"].dispatcher["ping"] = wm_base_ping_handler
 
 def registry_global_remover(registry, id_):
     print("got a registry losing event for {}".format(id))
 
-def shell_surface_ping_handler(shell_surface, serial):
-    shell_surface.pong(serial)
+def xdg_surface_configure_handler(xdg_surface: XdgSurfaceProxy, serial: int):
+    xdg_surface.ack_configure(serial)
+
+def xdg_toplevel_configure_handler(toplevel: XdgToplevelProxy, width: int, height: int, states: bytes):
+    print(f"Configuring {width}x{height}")
+
+def xdg_toplevel_close_handler(toplevel: XdgToplevelProxy):
+    print("Window closed")
 
 window = {
     'compositor': None,
-    'shell': None,
+    'xdg_wm_base': None,
     'shm': None
 }
 
@@ -48,21 +62,28 @@ registry.dispatcher['global'] = registry_global_handler
 registry.dispatcher['global_remove'] = registry_global_remover
 registry.user_data = window
 
-display.dispatch()
+display.dispatch(block=True)
 display.roundtrip()
 
 assert window['compositor']
-assert window['shell']
+assert window['xdg_wm_base']
 assert window['shm']
 
-surface = window['compositor'].create_surface()
-shell_surface = window['shell'].get_shell_surface(surface)
-shell_surface.set_toplevel()
-shell_surface.dispatcher['ping'] = shell_surface_ping_handler
+wl_surface = window['compositor'].create_surface()
+
+xdg_surface = window["xdg_wm_base"].get_xdg_surface(wl_surface)
+xdg_surface.dispatcher["configure"] = xdg_surface_configure_handler
+
+toplevel = xdg_surface.get_toplevel()
+toplevel.dispatcher["configure"] = xdg_toplevel_configure_handler
+toplevel.dispatcher["close"] = xdg_toplevel_close_handler
+
+toplevel.set_app_id("python_vulkan_wayland_example")
+toplevel.set_title("Python Vulkan Wayland Example")
 
 region = window['compositor'].create_region()
 region.add(0, 0, WIDTH, HEIGHT)
-surface.set_opaque_region(region)
+wl_surface.set_opaque_region(region)
 
 
 # ----------
@@ -83,7 +104,7 @@ layers = vkEnumerateInstanceLayerProperties()
 layers = [l.layerName for l in layers]
 print("availables layers: %s\n" % layers)
 
-layers = ['VK_LAYER_LUNARG_standard_validation']
+layers = ['VK_LAYER_KHRONOS_validation']
 extensions = ['VK_KHR_surface', 'VK_EXT_debug_report', 'VK_KHR_wayland_surface']
 
 createInfo = VkInstanceCreateInfo(
@@ -127,7 +148,7 @@ def surface_wayland():
     surface_create = VkWaylandSurfaceCreateInfoKHR(
         sType=VK_STRUCTURE_TYPE_WAYLAND_SURFACE_CREATE_INFO_KHR,
         display=ffi.cast('void*', display._ptr),
-        surface=ffi.cast('void*', surface._ptr),
+        surface=ffi.cast('void*', wl_surface._ptr),
         flags=0)
     return vkCreateWaylandSurfaceKHR(instance, surface_create, None)
 
@@ -596,7 +617,7 @@ for i, command_buffer in enumerate(command_buffers):
     vkCmdBeginRenderPass(command_buffer, render_pass_begin_create, VK_SUBPASS_CONTENTS_INLINE)
 
     # Bing pipeline
-    vkCmdBindPipeline(command_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline)
+    vkCmdBindPipeline(command_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline[0])
 
     # Draw
     vkCmdDraw(command_buffer, 3, 1, 0, 0)
@@ -658,6 +679,7 @@ def draw_frame():
     present_create.pImageIndices[0] = image_index
     vkQueuePresentKHR(presentation_queue, present_create)
 
+    vkQueueWaitIdle(presentation_queue)
 
 # Main loop
 running = True
