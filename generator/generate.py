@@ -527,7 +527,7 @@ def model_alias(vk, model):
 
 
 def init():
-    with open(path.join(HERE, 'vk.xml')) as f:
+    with open(path.join(HERE, 'Vulkan-Headers/registry/vk.xml')) as f:
         xml = f.read()
 
     return xmltodict.parse(xml, force_list=('enum', 'command', 'member'))
@@ -579,8 +579,8 @@ def generate_py():
 def generate_cdef():
     """Generate the cdef output file"""
     include_libc_path = path.join(HERE, 'fake_libc_include')
-    include_vulkan_path = path.join(HERE, 'vulkan_include', 'vulkan')
-    include_vkvideo = path.join(HERE, 'vulkan_include')
+    include_vulkan_path = path.join(HERE, 'Vulkan-Headers/include', 'vulkan')
+    include_vkvideo = path.join(HERE, 'Vulkan-Headers/include')
     out_file = path.join(HERE, path.pardir, 'vulkan', 'vulkan.cdef.h')
     header = path.join(include_vulkan_path, 'vulkan.h')
 

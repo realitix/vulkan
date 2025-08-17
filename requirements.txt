@@ -1,5 +1,0 @@
-pysdl2
-pysdl2-dll
-jinja2
-inflection
-xmltodict

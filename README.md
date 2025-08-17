@@ -52,7 +52,7 @@ You can install it manually if you want the latest version:
 ```
 git clone https://github.com/realitix/vulkan
 cd vulkan
-python setup.py install
+pip install .
 ```
 
 
@@ -65,8 +65,7 @@ To try this wrapper, execute the following commands (on linux):
 ```bash
 git clone https://github.com/realitix/vulkan.git
 cd vulkan
-python setup.py install
-pip install -r requirements.txt
+pip install .[example]
 python example/example_sdl2.py
 ```
 
